@@ -1,0 +1,36 @@
+<#@ output extension=".cs" #>
+using System;
+using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
+
+namespace EightPlayerMod 
+{
+<#
+    for (int i = 1; i <= 10; i++) 
+    {
+#>
+    public class ConstructorILType<<#for (int j = 1; j <= i; j++) {#>T<#=j#><#if (j != i) {#>, <#}}#>> : AbstractILType
+    {
+        public ConstructorILType(Type type) 
+        {
+            Type = type;
+        }
+
+        public ConstructorILType(Type type, bool isPrivate) 
+        {
+            Type = type;
+            IsPrivate = isPrivate;
+        }
+
+        public override void Load(ILContext.Manipulator manipulator)
+        {
+            BaseHook = new ILHook(
+                Type.GetConstructor(new Type[] { <# for (int j = 1; j <= i; j++){#>typeof(T<#=j#>)<#if (j != i){#>, <#}#><#}#> }),
+                manipulator
+            );
+        }
+    }
+<#
+    }
+#>
+}

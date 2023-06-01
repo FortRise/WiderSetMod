@@ -1,0 +1,87 @@
+<#@ output extension=".cs" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#
+    string[] Patching = new string[] 
+    {
+        "TFGame.orig_ctor",
+        "LevelTiles.Added",
+        "Screen.Render",
+        "Level.HandleGraphicsDispose",
+        "WrapHitbox.BuildHitList |P",
+        "LevelEntity.Render",
+        "LevelEntity.EnforceScreenWrap |P",
+        "Level |C|<Session, XmlElement>",
+
+        "GifEncoder.AddFrame",
+        "GifEncoder.GetImagePixels|P",
+        "SFX.CalculatePan",
+        "SFX.CalculateX",
+        "Actor.MoveTowardsWrap",
+        "Background |C|<Level, XmlElement>",
+        "Background |C|<Level, Subtexture, float, Vector2, Vector2, bool, bool>",
+        "BottomMiasma.DrawLight",
+        "CataclysmEye.PatternLegendaryD|IE|P",
+        "CataclysmEye.DeadCoroutine|IE|P",
+        "CrackedWall |C|<Vector2>",
+        "CrumbleBlock |C|<Vector2, int, int>",
+        "CrumbleWall|C|<Vector2>",
+
+        "Enemy.GetHorizontalPlayer",
+        "FakeWall.SceneBegin",
+        "GameplayLayer.BatchedRender",
+        "GifExporter |C|<ReplayData, Action<bool>>",
+        "HotCoals |C|<Vector2, int>",
+        "HUDFade.Render"
+    };
+#>
+using System;
+using Monocle;
+using Moments.Encoder;
+using TowerFall;
+using Microsoft.Xna.Framework;
+using System.Xml;
+
+namespace EightPlayerMod 
+{
+    public static partial class EightPlayerMod 
+    {
+        public static AbstractILType[] ILTypes = {
+<#
+            foreach (var patch in Patching) 
+            {
+                bool isPrivate = false;
+                bool isConstructor = false;
+                var splitts = patch.Split('|');
+                foreach (var attr in splitts) 
+                {
+                    if (attr.Trim() == "P")
+                        isPrivate = true;
+                    if (attr.Trim() == "C")
+                        isConstructor = true;
+                }
+                if (isConstructor) {
+                    var valueName = splitts[0];
+                    var typeArguments = splitts[2];
+#>
+            new ConstructorILType<#=typeArguments#>(typeof(<#=valueName#>)),
+<#
+                }
+                else {
+                    var split = patch.Split('.');
+                    var name = split[1].Replace("|P", "").Replace("|IE", "").Trim();
+                    if (isPrivate) {
+#>  
+            new MethodILType(typeof(<#=split[0]#>), "<#=name#>", true),
+<#
+                    }
+                    else {
+#>
+            new MethodILType(typeof(<#=split[0]#>), nameof(<#=split[0]#>.<#=split[1]#>)),
+<#
+                    }
+                }
+            }
+#>
+        };
+    }
+}
