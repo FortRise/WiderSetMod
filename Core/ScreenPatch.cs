@@ -14,27 +14,12 @@ namespace EightPlayerMod
 {
     public static partial class ScreenPatch 
     {
-        // Mock-up
-        public static AbstractILType[] MethodTypes = {
-            new MethodILType(typeof(TFGame), "orig_ctor"),
-            new MethodILType(typeof(LevelTiles), "Added"),
-            new MethodILType(typeof(LevelTiles), "HandleGraphicsDispose"),
-            new MethodILType(typeof(Screen), "Render"),
-            new MethodILType(typeof(Level), "HandleGraphicsDispose"),
-            new MethodILType(typeof(WrapHitbox), "BuildHitList", true),
-            new MethodILType(typeof(LevelEntity), "Render"),
-            new MethodILType(typeof(LevelEntity), "EnforceScreenWrap", true),
-            new MethodILType(typeof(GifEncoder), "AddFrame"),
-            new MethodILType(typeof(GifEncoder), "GetImagePixels", true),
-            new ConstructorILType<Session, XmlElement>(typeof(Level)),
-        };
-
         private static IDetour hook_LevelLoaderXML;
         
 
         public static void Load() 
         {
-            foreach (var methodType in MethodTypes) 
+            foreach (var methodType in ILTypes) 
             {
                 methodType.Load(Screen_patch);
             }
@@ -62,7 +47,7 @@ namespace EightPlayerMod
 
         public static void Unload() 
         {
-            foreach (var methodType in MethodTypes) 
+            foreach (var methodType in ILTypes) 
             {
                 methodType.Unload();
             }

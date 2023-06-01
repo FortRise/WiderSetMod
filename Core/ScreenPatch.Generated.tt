@@ -4,12 +4,9 @@
     string[] Patching = new string[] 
     {
         "TFGame.orig_ctor",
-        "LevelTiles.Added",
         "Screen.Render",
         "Level.HandleGraphicsDispose",
         "WrapHitbox.BuildHitList |P",
-        "LevelEntity.Render",
-        "LevelEntity.EnforceScreenWrap |P",
         "Level |C|<Session, XmlElement>",
 
         "GifEncoder.AddFrame",
@@ -31,7 +28,53 @@
         "GameplayLayer.BatchedRender",
         "GifExporter |C|<ReplayData, Action<bool>>",
         "HotCoals |C|<Vector2, int>",
-        "HUDFade.Render"
+        "HUDFade.Render",
+        "Ice.BuildTiles |P",
+        "Lava |C|<LavaControl, Lava.LavaSide>",
+        "Level |C|<Session, XmlElement>",
+        "LevelBGTiles.Added",
+        "LevelEntity.Render",
+        "LevelEntity.EnforceScreenWrap |P",
+        "LevelLoaderXML.Render",
+        "LevelTiles.Added",
+        "LevelTiles.HandleGraphicsDispose",
+        "LevelRandomTreasure.AddRandomTreasure",
+        "LightingLayer |C|<Color>",
+        "LoopPlatform |C|<Vector2, int, LoopPlatform.MoveDirs, bool>",
+        "LoopPlatform |C|<Vector2, LoopPlatform>",
+        "LoopPlatform.Added",
+        "LoopPlatform.Update",
+        "LoopPlatform.DrawLight",
+        "MapScene.Render",
+        "MenuBackground.Render",
+        "Miasma |C|<Modes>",
+        "Miasma.Sequence |IE|P",
+        "Miasma.Update",
+        "OrbLogic.DoSpaceOrb",
+        "PauseMenu.Render",
+        "Player.SideBouncePlayer |P",
+        "ReplayFrame.Record",
+        "ReplayViewer |C|",
+        "ReplayViewer.Render",
+        "RollcallElement.GetTweenSource",
+        "SavingInfoScene.Render",
+        "ScreenFlash.Render",
+        "Spikeball.Render",
+        "SwitchBlock |C|<Vector2, int, int, SwitchBlock.SwitchColor>",
+        "SwitchBlock.DrawSolid |P",
+        "TurnToDustImage.Update",
+        "VariantItem.TweenIn",
+        "VariantPerPlayer |C|<VariantToggle, Vector2>",
+        "VersusMatchResults |C|<Session, VersusRoundResults>",
+        "VersusStart.Render",
+        "WrapMath.ApplyWrap",
+        "WrapMath.ApplyWrapX",
+        "WrapMath.ShortestOpen",
+        "WrapMath.DiffX",
+        "WrapMath.WrapHorizDistanceSquared",
+        "WrapMath.WrapHorizDistance",
+        "WrapMath.WrapHorizLineHit",
+        "WrapMath.WrapHorizAngle",
     };
 #>
 using System;
@@ -43,7 +86,7 @@ using System.Xml;
 
 namespace EightPlayerMod 
 {
-    public static partial class EightPlayerMod 
+    public static partial class ScreenPatch
     {
         public static AbstractILType[] ILTypes = {
 <#
@@ -51,6 +94,7 @@ namespace EightPlayerMod
             {
                 bool isPrivate = false;
                 bool isConstructor = false;
+                bool isIEnumerator = false;
                 var splitts = patch.Split('|');
                 foreach (var attr in splitts) 
                 {
@@ -58,9 +102,14 @@ namespace EightPlayerMod
                         isPrivate = true;
                     if (attr.Trim() == "C")
                         isConstructor = true;
+                    if (attr.Trim() == "IE")
+                        isIEnumerator = true;
                 }
-                if (isConstructor) {
-                    var valueName = splitts[0];
+                if (isIEnumerator) {
+                    // We don't have a solution for IEnumerators yet
+                }
+                else if (isConstructor) {
+                    var valueName = splitts[0].Trim();
                     var typeArguments = splitts[2];
 #>
             new ConstructorILType<#=typeArguments#>(typeof(<#=valueName#>)),

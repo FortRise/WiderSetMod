@@ -51,4 +51,26 @@ namespace EightPlayerMod
             );
         }
     }
+
+    public class ConstructorILType : AbstractILType
+    {
+        public ConstructorILType(Type type) 
+        {
+            Type = type;
+        }
+
+        public ConstructorILType(Type type, bool isPrivate) 
+        {
+            Type = type;
+            IsPrivate = isPrivate;
+        }
+
+        public override void Load(ILContext.Manipulator manipulator)
+        {
+            BaseHook = new ILHook(
+                Type.GetConstructor(new Type[] { }),
+                manipulator
+            );
+        }
+    }
 }
