@@ -14,8 +14,10 @@
         "SFX.CalculatePan",
         "SFX.CalculateX",
         "Actor.MoveTowardsWrap",
-        "Background |C|<Level, XmlElement>",
-        "Background |C|<Level, Subtexture, float, Vector2, Vector2, bool, bool>",
+        "Background/ScrollLayer |C|<Level, XmlElement>",
+        "Background/ScrollLayer |C|<Level, Subtexture, float, Vector2, Vector2, bool, bool>",
+        "Background/LightningFlashLayer.Render",
+        // "Background/VortexLayer/VortexRing.Render",
         "BottomMiasma.DrawLight",
         "CataclysmEye.PatternLegendaryD|IE|P",
         "CataclysmEye.DeadCoroutine|IE|P",
@@ -23,7 +25,7 @@
         "CrumbleBlock |C|<Vector2, int, int>",
         "CrumbleWall|C|<Vector2>",
 
-        "Enemy.GetHorizontalPlayer",
+        "Enemy.GetHorizontalPlayer|X|<Vector2, Facing>",
         "FakeWall.SceneBegin",
         "GameplayLayer.BatchedRender",
         "GifExporter |C|<ReplayData, Action<bool>>",
@@ -45,9 +47,10 @@
         "LoopPlatform.Added",
         "LoopPlatform.Update",
         "LoopPlatform.DrawLight",
-        "MapScene.Render",
+        // Something went wrong with the static constructor
+       //"MapScene.Render",
         "MenuBackground.Render",
-        "Miasma |C|<Modes>",
+        "Miasma |C|<Miasma.Modes>",
         "Miasma.Sequence |IE|P",
         "Miasma.Update",
         "OrbLogic.DoSpaceOrb",
@@ -67,7 +70,7 @@
         "VariantPerPlayer |C|<VariantToggle, Vector2>",
         "VersusMatchResults |C|<Session, VersusRoundResults>",
         "VersusStart.Render",
-        "WrapMath.ApplyWrap",
+        "WrapMath.ApplyWrap |X|<Rectangle>",
         "WrapMath.ApplyWrapX",
         "WrapMath.ShortestOpen",
         "WrapMath.DiffX",
@@ -95,6 +98,7 @@ namespace EightPlayerMod
                 bool isPrivate = false;
                 bool isConstructor = false;
                 bool isIEnumerator = false;
+                bool isAmbigious = false;
                 var splitts = patch.Split('|');
                 foreach (var attr in splitts) 
                 {
@@ -104,6 +108,8 @@ namespace EightPlayerMod
                         isConstructor = true;
                     if (attr.Trim() == "IE")
                         isIEnumerator = true;
+                    if (attr.Trim() == "X")
+                        isAmbigious = true;
                 }
                 if (isIEnumerator) {
                     // We don't have a solution for IEnumerators yet
@@ -112,21 +118,30 @@ namespace EightPlayerMod
                     var valueName = splitts[0].Trim();
                     var typeArguments = splitts[2];
 #>
-            new ConstructorILType<#=typeArguments#>(typeof(<#=valueName#>)),
+            new ConstructorILType<#=typeArguments#>(typeof(<#=valueName.Replace('/', '.')#>)),
 <#
                 }
                 else {
                     var split = patch.Split('.');
-                    var name = split[1].Replace("|P", "").Replace("|IE", "").Trim();
+                    var name = split[1].Replace("|P", "").Replace("|IE", "").Replace("|X", "").Trim();
                     if (isPrivate) {
 #>  
-            new MethodILType(typeof(<#=split[0]#>), "<#=name#>", true),
+            new MethodILType(typeof(<#=split[0].Replace('/', '.')#>), "<#=name#>", true),
+<#
+                    }
+                    else if (isAmbigious) {
+                    // Not good, but works for now
+                    var splittedName = name.Split('|')[0];
+                    var typeArguments = splitts[2];
+#>
+            new MethodILType<#=typeArguments#>(typeof(<#=split[0].Replace('/', '.')#>), nameof(<#=split[0].Replace('/', '.')#>.<#=splittedName#>)),
 <#
                     }
                     else {
 #>
-            new MethodILType(typeof(<#=split[0]#>), nameof(<#=split[0]#>.<#=split[1]#>)),
+            new MethodILType(typeof(<#=split[0].Replace('/', '.')#>), nameof(<#=split[0].Replace('/', '.')#>.<#=split[1]#>)),
 <#
+
                     }
                 }
             }

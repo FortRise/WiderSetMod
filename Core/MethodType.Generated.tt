@@ -1,5 +1,6 @@
 <#@ output extension=".cs" #>
 using System;
+using System.Reflection;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 
@@ -26,6 +27,47 @@ namespace EightPlayerMod
         {
             BaseHook = new ILHook(
                 Type.GetConstructor(new Type[] { <# for (int j = 1; j <= i; j++){#>typeof(T<#=j#>)<#if (j != i){#>, <#}#><#}#> }),
+                manipulator
+            );
+        }
+    }
+<#
+    }
+#>
+
+<#
+    for (int i = 1; i <= 10; i++) 
+    {
+#>
+    public class MethodILType<<#for (int j = 1; j <= i; j++) {#>T<#=j#><#if (j != i) {#>, <#}}#>> : AbstractILType
+    {
+        public string MethodName;
+
+        public MethodILType(Type type, string name) 
+        {
+            Type = type;
+            MethodName = name;
+        }
+
+        public MethodILType(Type type, string name, bool isPrivate) 
+        {
+            Type = type;
+            MethodName = name;
+            IsPrivate = isPrivate;
+        }
+
+        public override void Load(ILContext.Manipulator manipulator) 
+        {
+            if (IsPrivate) 
+            {
+                this.BaseHook = new ILHook(
+                    Type.GetMethod(MethodName, BindingFlags.Instance | BindingFlags.NonPublic),
+                    manipulator
+                );
+                return;
+            }
+            this.BaseHook = new ILHook(
+                Type.GetMethod(MethodName, new Type[] { <# for (int j = 1; j <= i; j++){#>typeof(T<#=j#>)<#if (j != i){#>, <#}#><#}#> }),
                 manipulator
             );
         }
