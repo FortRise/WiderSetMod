@@ -60,6 +60,9 @@ namespace EightPlayerMod
             new MethodILType(typeof(PauseMenu), nameof(PauseMenu.Render)),
   
             new MethodILType(typeof(Player), "SideBouncePlayer", true),
+            new MethodILType(typeof(QuestControl), nameof(QuestControl.Render)),
+            new MethodILType(typeof(QuestComplete), nameof(QuestComplete.Render)),
+            new MethodILType(typeof(QuestLevelSelectOverlay), nameof(QuestLevelSelectOverlay.Render)),
             new MethodILType(typeof(ReplayFrame), nameof(ReplayFrame.Record)),
             new ConstructorILType(typeof(ReplayViewer)),
             new MethodILType(typeof(ReplayViewer), nameof(ReplayViewer.Render)),
