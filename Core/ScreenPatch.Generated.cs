@@ -53,6 +53,7 @@ namespace EightPlayerMod
             new MethodILType(typeof(LoopPlatform), nameof(LoopPlatform.Added)),
             new MethodILType(typeof(LoopPlatform), nameof(LoopPlatform.Update)),
             new MethodILType(typeof(LoopPlatform), nameof(LoopPlatform.DrawLight)),
+            new MethodILType(typeof(MainMenu), nameof(MainMenu.Render)),
             new MethodILType(typeof(MenuBackground), nameof(MenuBackground.Render)),
             new ConstructorILType<Miasma.Modes>(typeof(Miasma)),
             new MethodILType(typeof(Miasma), nameof(Miasma.Update)),

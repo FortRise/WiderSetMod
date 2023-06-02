@@ -48,7 +48,8 @@
         "LoopPlatform.Update",
         "LoopPlatform.DrawLight",
         // Something went wrong with the static constructor
-       //"MapScene.Render",
+        "MapScene.Render",
+        "MainMenu.Render",
         "MenuBackground.Render",
         "Miasma |C|<Miasma.Modes>",
         "Miasma.Sequence |IE|P",

@@ -37,7 +37,7 @@ namespace TowerFall
         public override void Render()
         {
             Draw.SpriteBatch.Begin(SpriteSortMode.Texture, BlendState.Opaque, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
-            Draw.Rect(0f, 0f, 320f, 240f, Color.Black);
+            Draw.Rect(0f, 0f, 420f, 240f, Color.Black);
             Draw.SpriteBatch.End();
         }
 

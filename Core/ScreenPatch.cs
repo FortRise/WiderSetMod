@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using System.Xml;
 using FortRise;
-using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
@@ -34,11 +33,18 @@ namespace EightPlayerMod
             }
             /* It has some special cases */
             IL.TowerFall.LevelEntity.Render += MiddlePos_patch;
+            IL.TowerFall.PauseMenu.Render += MiddlePos_patch;
+            IL.TowerFall.Level.HandlePausing += MiddlePos_patch;
+            IL.TowerFall.MapScene.InitButtons += InitButtons_patch;
             IL.TowerFall.QuestPlayerHUD.ctor += QuestPlayerHUD_patch;
             IL.TowerFall.Level.CoreRender += LevelCoreRender_patch;
             IL.TowerFall.Session.EndlessContinue += SwapLevelLoader_patch;
             IL.TowerFall.Session.GotoNextRound += SwapLevelLoader_patch;
             IL.TowerFall.QuestWavesHUD.GetWaveX += MiddlePos_patch;
+
+            On.TowerFall.VersusLevelSystem.GenLevels += GenLevels_patch;
+            On.TowerFall.QuestLevelSystem.GetNextRoundLevel += GetNextRoundLevel_patch;
+
             hook_orig_StartGame = new ILHook(
                 typeof(Session).GetMethod("orig_StartGame"),
                 SwapLevelLoader_patch
@@ -60,14 +66,74 @@ namespace EightPlayerMod
                 methodType.Unload();
             }
             IL.TowerFall.LevelEntity.Render -= MiddlePos_patch;
+            IL.TowerFall.PauseMenu.Render -= MiddlePos_patch;
+            IL.TowerFall.MapScene.InitButtons -= InitButtons_patch;
+            IL.TowerFall.Level.HandlePausing -= MiddlePos_patch;
             IL.TowerFall.QuestPlayerHUD.ctor -= QuestPlayerHUD_patch;
             IL.TowerFall.Level.CoreRender -= LevelCoreRender_patch;
             IL.TowerFall.Session.EndlessContinue -= SwapLevelLoader_patch;
             IL.TowerFall.Session.GotoNextRound -= SwapLevelLoader_patch;
             IL.TowerFall.QuestWavesHUD.GetWaveX -= MiddlePos_patch;
+
+            On.TowerFall.VersusLevelSystem.GenLevels -= GenLevels_patch;
+            On.TowerFall.QuestLevelSystem.GetNextRoundLevel -= GetNextRoundLevel_patch;
+
             hook_orig_StartGame.Dispose();
             hook_QuestControlStartSequence.Dispose();
             hook_QuestCompleteSequence.Dispose();
+        }
+
+        private static void InitButtons_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallOrCallvirt("TowerFall.MapScene", "GetButtonX"))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(width => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return width + 50;
+                    return width;
+                });
+            }
+        }
+
+        private static XmlElement GetNextRoundLevel_patch(On.TowerFall.QuestLevelSystem.orig_GetNextRoundLevel orig, QuestLevelSystem self, MatchSettings matchSettings, int roundIndex, out int randomSeed)
+        {
+            if (!EightPlayerModule.IsEightPlayer)
+                return orig(self, matchSettings, roundIndex, out randomSeed);
+            
+            var id = self.QuestTowerData.ID.X;
+            randomSeed = id;
+            var path = $"{EightPlayerModule.Instance.Content.GetContentPath(QuestTowers.Towers[id])}";
+            return Calc.LoadXML(path)["level"];
+        }
+
+        private static void GenLevels_patch(On.TowerFall.VersusLevelSystem.orig_GenLevels orig, VersusLevelSystem self, MatchSettings matchSettings)
+        {
+            if (!EightPlayerModule.IsEightPlayer) 
+            {
+                orig(self, matchSettings);
+                return;
+            }
+            var levelSystem = DynamicData.For(self);
+            var lastLevel = levelSystem.Get<string>("lastlevel");
+            var fake = FakeVersusTowerData.Chapters[self.ID.X];
+            var levels = fake.GetLevels(matchSettings);
+			if (self.VersusTowerData.FixedFirst && lastLevel == null)
+			{
+				string text = levels[0];
+				levels.RemoveAt(0);
+				levels.Shuffle(new Random());
+				levels.Insert(0, text);
+                levelSystem.Set("levels", levels);
+				return;
+			}
+			levels.Shuffle(new Random());
+			if (levels[0] == lastLevel)
+			{
+				levels.RemoveAt(0);
+				levels.Add(lastLevel);
+			}
+            levelSystem.Set("levels", levels);
         }
 
         private static void LevelCoreRender_patch(ILContext ctx)
@@ -162,6 +228,18 @@ namespace EightPlayerMod
                 if (cursor.Next.MatchLdcR4(1))
                     continue;
                 cursor.EmitDelegate<Func<float, float>>(width => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 420 / 2;
+                    return width;
+                });
+            }
+
+            var intcursor = new ILCursor(ctx);
+            while (intcursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(160))) 
+            {
+                if (intcursor.Next.MatchLdcR4(1))
+                    continue;
+                intcursor.EmitDelegate<Func<int, int>>(width => {
                     if (EightPlayerModule.IsEightPlayer)
                         return 420 / 2;
                     return width;
