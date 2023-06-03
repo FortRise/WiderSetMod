@@ -1,10 +1,10 @@
 using System;
 using System.Xml;
-using EightPlayerMod;
 using Microsoft.Xna.Framework;
 using Monocle;
+using TowerFall;
 
-namespace TowerFall 
+namespace EightPlayerMod
 {
     public static class BackdropPatch 
     {

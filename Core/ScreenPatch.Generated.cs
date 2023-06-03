@@ -38,7 +38,6 @@ namespace EightPlayerMod
   
             new MethodILType(typeof(Ice), "BuildTiles", true),
             new ConstructorILType<LavaControl, Lava.LavaSide>(typeof(Lava)),
-            new ConstructorILType<Session, XmlElement>(typeof(Level)),
             new MethodILType(typeof(LevelBGTiles), nameof(LevelBGTiles.Added)),
             new MethodILType(typeof(LevelEntity), nameof(LevelEntity.Render)),
   
@@ -53,6 +52,7 @@ namespace EightPlayerMod
             new MethodILType(typeof(LoopPlatform), nameof(LoopPlatform.Added)),
             new MethodILType(typeof(LoopPlatform), nameof(LoopPlatform.Update)),
             new MethodILType(typeof(LoopPlatform), nameof(LoopPlatform.DrawLight)),
+            new MethodILType(typeof(MapScene), nameof(MapScene.Render)),
             new MethodILType(typeof(MainMenu), nameof(MainMenu.Render)),
             new MethodILType(typeof(MenuBackground), nameof(MenuBackground.Render)),
             new ConstructorILType<Miasma.Modes>(typeof(Miasma)),

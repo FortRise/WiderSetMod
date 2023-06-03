@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+
+  <!-- MIRAGE -->
+  <!-- WAVES: 7 -->
+  <!-- SPAWNS: TopMid, TopLeft, TopRight, Mid, MidLeft, MidRight, BotLeft, BotRight -->
+  <!-- TREASURES: 5 -->
+
+  <normal>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+    </wave>
+    
+    <!-- 2 -->
+    <wave>
+      <group>
+        <treasure>Shield</treasure>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>LaserSkeleton</enemies>
+      </group>
+      <group coop="true">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+    </wave>
+    
+    <!-- 3 -->
+    <wave>
+      <group>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>Bat,EvilCrystal</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>Mid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+    </wave>
+    
+    <!-- 4 -->
+    <wave>
+      <group>
+        <spawns>TopMid,MidLeft,MidRight</spawns>
+        <enemies>[3]EvilCrystal</enemies>
+      </group>
+      <group delay="180">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="120">
+        <treasure>Shield?Arrows</treasure>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="180">
+        <spawns>Mid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+    </wave>
+    
+    <!-- 5 -->
+    <wave>
+      <group>
+        <treasure>Shield?Arrows</treasure>
+        <spawns>TopLeft,TopRight,TopMid</spawns>
+        <enemies>LaserSkeleton,[2]Bat</enemies>
+      </group>
+    </wave>
+    
+    <!-- 6 -->
+    <wave>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <treasure>Shield?Arrows</treasure>
+        <spawns>TopMid</spawns>
+        <enemies>Bat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]EvilCrystal</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]EvilCrystal</enemies>
+      </group>
+    </wave>
+    
+    <!-- 7 -->
+    <wave>
+      <group>
+        <spawns>TopLeft</spawns>
+        <enemies>LaserSkeleton</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopRight</spawns>
+        <enemies>LaserSkeleton</enemies>
+      </group>
+    </wave>
+  </normal>
+
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+  <hardcore>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMid,Mid</spawns>
+        <enemies>[2]EvilCrystal</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave>
+      <group>
+        <treasure>Shield</treasure>
+        <spawns>TopLeft,TopRight,BotLeft,BotRight</spawns>
+        <enemies>LaserSkeleton,[3]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>Bat,EvilCrystal</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMid,Mid</spawns>
+        <enemies>Bat,EvilCrystal</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave>
+      <group>
+        <spawns>TopMid,MidLeft,MidRight</spawns>
+        <enemies>[3]EvilCrystal</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="120">
+        <treasure>Shield?Wings</treasure>
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group delay="120">
+        <spawns>Mid,TopMid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight,TopMid</spawns>
+        <enemies>[2]LaserSkeletonS,Bat</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <treasure>Shield,Arrows</treasure>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="120">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]EvilCrystal</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]EvilCrystal</enemies>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave>
+      <group>
+        <spawns>TopLeft</spawns>
+        <enemies>LaserSkeleton</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopRight</spawns>
+        <enemies>LaserSkeleton</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="120">
+        <spawns>MidRight,MidLeft</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>LaserSkeletonS</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>Bat,EvilCrystal</enemies>
+      </group>
+    </wave>
+  </hardcore>
+  
+  
+</data>

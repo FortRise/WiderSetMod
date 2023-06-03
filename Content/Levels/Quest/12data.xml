@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data gauntlet="true">
+
+  <!-- MONSTER GAUNTLET -->
+  <!-- TREASURES: 4, BIG TREASURES: 2 -->
+
+  <normal>
+
+    <group max="6">
+      [4]BlueSlime,[4]BombBat,[2]Bat
+    </group>
+
+    <treasure>Wings</treasure>
+
+    <group max="4">
+      [4]Cultist,[4]ScytheCultist,[2]BombBat
+    </group>
+
+    <treasure>Shield</treasure>
+
+    <group max="4">
+      [5]BlueSlime,[4]BombBat,[3]TechnoMage
+    </group>
+
+    <group max="3">
+      [4]Birdman,[2]BlueSlime,[2]BoltCrystal
+    </group>
+
+    <treasure>Arrows</treasure>
+
+    <group max="4">
+      [6]Worm,[4]GreenGhost,[3]BlueCrystal,[6]BlueSlime,[7]Crow,[4]TechnoMage
+    </group>
+    
+  </normal>
+
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+  <hardcore>
+
+    <group max="8">
+      [6]BlueSlime,[4]BombBat,[4]Bat
+    </group>
+
+    <treasure>Wings</treasure>
+
+    <group max="5">
+      [3]Cultist,[3]ScytheCultist,[2]BombBat,[2]Birdman
+    </group>
+
+    <treasure>Shield</treasure>
+
+    <group max="5">
+      [6]BlueSlime,[4]BombBat,[4]TechnoMage
+    </group>
+
+    <group max="4">
+      [4]Birdman,[6]BlueSlime
+    </group>
+
+    <treasure>Arrows</treasure>
+
+    <group max="5">
+      [4]Cultist,[14]Crow,[8]BlueSlime,[4]TechnoMage,[4]Elemental,[6]Worm,[4]GreenGhost,[6]BlueCrystal,[2]BoltCrystal
+    </group>
+    
+  </hardcore>
+
+</data>

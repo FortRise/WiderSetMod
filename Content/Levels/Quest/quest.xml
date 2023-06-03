@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<quest>
+  <level name="00">
+    <theme>SacredGround</theme>
+  </level>
+  <level name="01">
+    <theme>TwilightSpire</theme>
+  </level>
+  <level name="02">
+    <theme>Backfire</theme>
+  </level>
+  <level name="03">
+    <theme>Flight</theme>
+  </level>
+  <level name="04">
+    <theme>Mirage</theme>
+  </level>
+  <level name="05">
+    <theme>Thornwood</theme>
+  </level>
+  <level name="06">
+    <theme>FrostfangKeep</theme>
+  </level>
+  <level name="07">
+    <theme>KingsCourt</theme>
+  </level>
+  <level name="08">
+    <theme>SunkenCity</theme>
+  </level>
+  <level name="09">
+    <theme>Moonstone</theme>
+  </level>
+  <level name="10">
+    <theme>TowerForge</theme>
+  </level>
+  <level name="11">
+    <theme>Ascension</theme>
+  </level>
+  <level name="12">
+    <theme>GauntletA</theme>
+  </level>
+  <level name="13">
+    <theme>GauntletB</theme>
+  </level>
+</quest>

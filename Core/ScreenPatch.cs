@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Xml;
 using FortRise;
+using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
@@ -35,6 +36,7 @@ namespace EightPlayerMod
             IL.TowerFall.LevelEntity.Render += MiddlePos_patch;
             IL.TowerFall.PauseMenu.Render += MiddlePos_patch;
             IL.TowerFall.Level.HandlePausing += MiddlePos_patch;
+            IL.TowerFall.Level.ctor += Levelctor;
             IL.TowerFall.MapScene.InitButtons += InitButtons_patch;
             IL.TowerFall.QuestPlayerHUD.ctor += QuestPlayerHUD_patch;
             IL.TowerFall.Level.CoreRender += LevelCoreRender_patch;
@@ -42,6 +44,8 @@ namespace EightPlayerMod
             IL.TowerFall.Session.GotoNextRound += SwapLevelLoader_patch;
             IL.TowerFall.QuestWavesHUD.GetWaveX += MiddlePos_patch;
 
+            On.TowerFall.MainMenu.ctor += MainMenuctor_patch;
+            On.TowerFall.MapScene.ctor += MapScenector_patch;
             On.TowerFall.VersusLevelSystem.GenLevels += GenLevels_patch;
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel += GetNextRoundLevel_patch;
 
@@ -66,6 +70,7 @@ namespace EightPlayerMod
                 methodType.Unload();
             }
             IL.TowerFall.LevelEntity.Render -= MiddlePos_patch;
+            IL.TowerFall.Level.ctor -= Levelctor;
             IL.TowerFall.PauseMenu.Render -= MiddlePos_patch;
             IL.TowerFall.MapScene.InitButtons -= InitButtons_patch;
             IL.TowerFall.Level.HandlePausing -= MiddlePos_patch;
@@ -75,12 +80,51 @@ namespace EightPlayerMod
             IL.TowerFall.Session.GotoNextRound -= SwapLevelLoader_patch;
             IL.TowerFall.QuestWavesHUD.GetWaveX -= MiddlePos_patch;
 
+            On.TowerFall.MainMenu.ctor -= MainMenuctor_patch;
+            On.TowerFall.MapScene.ctor -= MapScenector_patch;
             On.TowerFall.VersusLevelSystem.GenLevels -= GenLevels_patch;
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel -= GetNextRoundLevel_patch;
+
+
 
             hook_orig_StartGame.Dispose();
             hook_QuestControlStartSequence.Dispose();
             hook_QuestCompleteSequence.Dispose();
+        }
+
+        private static void MainMenuctor_patch(On.TowerFall.MainMenu.orig_ctor orig, MainMenu self, MainMenu.MenuState state)
+        {
+            orig(self, state);
+            if (EightPlayerModule.IsEightPlayer) 
+            {
+                EightPlayerModule.IsEightPlayer = false;
+                Engine.Instance.Screen.Resize(320, 240, 3f);
+                WrapMath.AddWidth = new Vector2(320, 0f);
+            }
+        }
+
+        private static void MapScenector_patch(On.TowerFall.MapScene.orig_ctor orig, MapScene self, MainMenu.RollcallModes mode)
+        {
+            orig(self, mode);
+            if (EightPlayerModule.IsEightPlayer) 
+            {
+                EightPlayerModule.IsEightPlayer = false;
+                Engine.Instance.Screen.Resize(320, 240, 3f);
+                WrapMath.AddWidth = new Vector2(320, 0f);
+            }
+        }
+
+        private static void Levelctor(ILContext ctx)
+        {
+            var intCursor = new ILCursor(ctx);
+            while (intCursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(320))) 
+            {
+                intCursor.EmitDelegate<Func<int, int>>(width => {
+                    if (EightPlayerModule.LaunchedEightPlayer) 
+                        return 420;
+                    return width;
+                });
+            }
         }
 
         private static void InitButtons_patch(ILContext ctx)
@@ -98,7 +142,7 @@ namespace EightPlayerMod
 
         private static XmlElement GetNextRoundLevel_patch(On.TowerFall.QuestLevelSystem.orig_GetNextRoundLevel orig, QuestLevelSystem self, MatchSettings matchSettings, int roundIndex, out int randomSeed)
         {
-            if (!EightPlayerModule.IsEightPlayer)
+            if (!EightPlayerModule.LaunchedEightPlayer)
                 return orig(self, matchSettings, roundIndex, out randomSeed);
             
             var id = self.QuestTowerData.ID.X;
@@ -109,7 +153,7 @@ namespace EightPlayerMod
 
         private static void GenLevels_patch(On.TowerFall.VersusLevelSystem.orig_GenLevels orig, VersusLevelSystem self, MatchSettings matchSettings)
         {
-            if (!EightPlayerModule.IsEightPlayer) 
+            if (!EightPlayerModule.LaunchedEightPlayer) 
             {
                 orig(self, matchSettings);
                 return;
@@ -197,24 +241,11 @@ namespace EightPlayerMod
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchNewobj("TowerFall.LevelLoaderXML"))) 
             {
                 cursor.EmitDelegate<Func<LevelLoaderXML, Scene>>((LevelLoaderXML xml) => {
-                    if (EightPlayerModule.IsEightPlayer) 
+                    if (EightPlayerModule.LaunchedEightPlayer) 
                     {
                         return new BigLevelLoaderXML(xml.Session);
                     }
                     return xml;
-                });
-            }
-        }
-
-        private static void LevelLoaderXML_patch(ILContext ctx) 
-        {
-            var cursor = new ILCursor(ctx);
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(32))) 
-            {
-                cursor.EmitDelegate<Func<float, float>>(width => {
-                    if (EightPlayerModule.IsEightPlayer)
-                        return 42;
-                    return width;
                 });
             }
         }

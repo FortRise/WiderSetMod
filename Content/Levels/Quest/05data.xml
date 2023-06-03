@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+
+  <!-- THORNWOOD -->
+  <!-- WAVES: 7 -->
+  <!-- SPAWNS: TopMid, TopLeft, TopRight, LedgeLeft, LedgeRight, Mid, MidLeft, MidRight, BotLeft, BotRight -->
+  <!-- TREASURES: 5 -->
+
+  <normal>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <treasure>Shield</treasure>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="10">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>Worm</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Worm</enemies>
+      </group>
+    </wave>
+    
+    <!-- 2 -->
+    <wave dark="true">
+      <group>
+        <spawns>TopMid,BotLeft,BotRight</spawns>
+        <enemies>[3]GreenGhost</enemies>
+      </group>
+      <group delay="180">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Slime</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Worm</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopMid</spawns>
+        <enemies>GreenGhost</enemies>
+      </group>
+      <group delay="60">
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[2]Worm</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave dark="true">
+      <group solo="true">
+        <treasure>Arrows</treasure>
+        <spawns>LedgeLeft</spawns>
+        <enemies>MimicSkeleton</enemies>
+      </group>
+      <group solo="true" delay="180">
+        <spawns>LedgeRight</spawns>
+        <enemies>MimicSkeleton</enemies>
+      </group>
+      <group coop="true">
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[2]MimicSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <group>
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[2]GreenGhost</enemies>
+      </group>
+      <group delay="20">
+        <spawns>Mid</spawns>
+        <enemies>Worm</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group delay="120">
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[2]GreenGhost</enemies>
+      </group>
+      <group delay="20">
+        <spawns>Mid</spawns>
+        <enemies>Worm</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave>
+      <group>
+        <spawns>MidLeft,MidRight,TopMid,Mid</spawns>
+        <enemies>[3]Worm</enemies>
+      </group>
+      <group delay="30">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="150">
+        <spawns>Mid</spawns>
+        <enemies>GreenGhost</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave dark="true">
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>Mid,MidLeft,MidRight</spawns>
+        <enemies>[3]Worm</enemies>
+      </group>
+      <group solo="true" delay="30">
+        <spawns>LedgeLeft</spawns>
+        <enemies>MimicSkeleton</enemies>
+      </group>
+      <group solo="true" delay="180">
+        <spawns>LedgeRight</spawns>
+        <enemies>MimicSkeleton</enemies>
+      </group>
+      <group solo="true" delay="240">
+        <spawns>TopMid</spawns>
+        <enemies>MimicSkeleton</enemies>
+      </group>
+      <group coop="true" delay="30">
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[2]MimicSkeleton</enemies>
+      </group>
+    </wave>
+  </normal>
+
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+  <hardcore>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <treasure>Shield</treasure>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight,MidLeft,MidRight</spawns>
+        <enemies>[4]Worm</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>[2]GreenGhost</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave dark="true">
+      <group>
+        <spawns>TopMid,BotLeft,BotRight</spawns>
+        <enemies>[3]GreenGhost</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight,BotLeft,BotRight</spawns>
+        <enemies>[4]ScytheCultist</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[6]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight,Mid</spawns>
+        <enemies>[5]Worm</enemies>
+      </group>
+      <group delay="60">
+        <spawns>Mid</spawns>
+        <enemies>GreenGhost</enemies>
+      </group>
+      <group delay="60">
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave dark="true">
+      <group>
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[1*2]MimicSkeleton</enemies>
+      </group>
+      <group delay="120">
+        <treasure>Arrows</treasure>
+        <spawns>TopMid</spawns>
+        <enemies>BombSkeleton</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight,Mid</spawns>
+        <enemies>[3]Worm</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <group>
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[2]GreenGhost</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Worm</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="60">
+        <treasure>Shield</treasure>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[4]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Worm</enemies>
+      </group>
+      <group delay="120">
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[2]GreenGhost</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>GreenGhost</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave>
+      <group>
+        <spawns>MidLeft,MidRight,TopMid,Mid</spawns>
+        <enemies>[4]Worm</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>GreenGhost</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight,Mid</spawns>
+        <enemies>[3]Worm</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>TopMid</spawns>
+        <enemies>BombSkeletonS</enemies>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave dark="true">
+      <group>
+        <treasure>Shield?Arrows</treasure>
+        <spawns>Mid,MidLeft,MidRight</spawns>
+        <enemies>[3]Worm</enemies>
+      </group>
+      <group>
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[2]MimicSkeleton</enemies>
+      </group>
+      <group delay="180">
+        <spawns>LedgeLeft,LedgeRight</spawns>
+        <enemies>[2]MimicSkeleton</enemies>
+      </group>
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>Mid,MidLeft,MidRight</spawns>
+        <enemies>[3]Worm</enemies>
+      </group>
+    </wave>
+  </hardcore>
+
+</data>

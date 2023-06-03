@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+
+  <!-- FROSTFANG KEEP -->
+  <!-- WAVES: 7 -->
+  <!-- SPAWNS: TopLeft, TopRight, TopMidLeft, TopMidRight, BotLeft, BotRight, BotMidLeft, BotMidRight, Mid -->
+  <!-- TREASURES: 6 -->
+
+  <normal>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <treasure>DrillArrows</treasure>
+      </group>
+      <group delay="30">
+        <spawns>BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group>      
+        <spawns>Mid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>DrillSkeleton</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMidLeft,TopMidRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMid</spawns>
+        <enemies>DrillSkeleton</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopMid</spawns>
+        <enemies>Bat</enemies>
+      </group>
+      <group delay="180">
+        <spawns>BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+    </wave>  
+    
+    <!-- 4 -->
+    <wave>
+      <group>
+        <treasure>DrillArrows</treasure>
+        <spawns>BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopMid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>Mid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+      <group>
+        <spawns>TopMidLeft,TopMidRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+    </wave>
+    
+    <!-- 5 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMidLeft,TopMidRight</spawns>
+        <enemies>Mole</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>Mole</enemies>
+      </group>
+    </wave>
+  
+    <!-- 6 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[2*3]Mole</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopMid,Mid</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="180">
+        <spawns>TopMidLeft,TopMidRight,BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group delay="180">
+        <spawns>BotLeft,BotRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="180">
+        <spawns>TopMidLeft,TopMidRight,BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+    </wave>
+  
+    <!-- 7 -->
+    <wave dark="true">
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]DrillSkeleton</enemies>
+      </group>
+    </wave>
+  </normal>
+
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+  <hardcore>
+    <!-- 1 -->
+    <wave>
+      <floors>0</floors>
+      
+      <group>
+        <spawns>BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group>
+        <spawns>Mid,TopMid</spawns>
+        <enemies>[2]Ghost</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>BombBat</enemies>
+      </group>
+      <group>
+        <spawns>TopMidLeft,TopMidRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave>
+      <group>
+        <spawns>TopMidLeft,TopMidRight,BotLeft,BotRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>Mid,TopMid</spawns>
+        <enemies>DrillSkeleton,DrillSkeletonS</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMidLeft,TopMidRight,BotLeft,BotRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>BombBat</enemies>
+      </group>
+      <group>
+        <spawns>BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>BombBat</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight,BotLeft,BotRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <treasure>Bomb,Shield</treasure>
+        <spawns>TopMid</spawns>
+        <enemies>BombBat</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave dark="true">
+      <floors>0</floors>
+      
+      <group>
+        <spawns>BotMidLeft,BotMidRight,TopMidLeft,TopMidRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight,BotLeft,BotRight</spawns>
+        <enemies>[4]Mole</enemies>
+      </group>
+      <group>
+        <spawns>Mid,TopMid</spawns>
+        <enemies>Ghost,BombBat</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>[2]BombBat</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group>
+        <treasure>Shield?DrillArrows</treasure>
+        <spawns>TopMidLeft,TopMidRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>BombSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[4]Mole</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMidLeft,TopMidRight,BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group>
+        <treasure>Shield?DrillArrows,Bomb</treasure>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>[2]BombBat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopMidLeft,TopMidRight,BotLeft,BotRight</spawns>
+        <enemies>[2]Mole</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave dark="true">
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]DrillSkeletonS</enemies>
+      </group>
+      <group solo="true" delay="120">
+        <spawns>TopMid</spawns>
+        <enemies>DrillSkeletonS</enemies>
+      </group>
+      <group coop="true" delay="120">
+        <spawns>TopMid,Mid</spawns>
+        <enemies>[2]DrillSkeleton</enemies>
+      </group>
+    </wave>
+  </hardcore>
+  
+</data>

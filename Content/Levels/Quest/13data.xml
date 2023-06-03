@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data gauntlet="true">
+
+  <!-- SKELETON GAUNTLET -->
+  <!-- SPAWNS: LeftA, LeftB, LeftC, RightA, RightB, RightC, MidA, MidB -->
+  <!-- TREASURES: 3, BIG TREASURES: 2 -->
+
+  <normal>
+
+    <group max="2">
+      [3]Skeleton
+    </group>
+
+    <bigTreasure>Shield,Wings,Arrows</bigTreasure>
+
+    <group max="2">
+      Skeleton,[2]SkeletonS,[2]BombSkeleton
+    </group>
+
+    <group max="3">
+      [3]SkeletonS
+    </group>
+
+    <bigTreasure>Shield,Wings,Arrows</bigTreasure>
+
+    <group max="3">
+      [3]DrillSkeleton
+    </group>
+
+    <group max="3">
+      [5]MimicSkeleton
+    </group>
+
+    <group max="2">
+      [4]WingSkeleton,[2]WingSkeletonS
+    </group>
+    
+  </normal>
+
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+  <hardcore>
+
+    <group max="3">
+      [3]Skeleton
+    </group>
+
+    <bigTreasure>Shield,Wings,Arrows</bigTreasure>
+    
+    <group max="2">
+      [2]BombSkeleton,[2]BombSkeletonS
+    </group>
+
+    <group max="2">
+      [3]DrillSkeleton
+    </group>
+
+    <treasure>Shield</treasure>
+
+    <group max="4">
+      [4]WingSkeleton
+    </group>
+
+    <group max="2">
+      [2]LaserSkeleton,[2]LaserSkeletonS
+    </group>
+
+    <treasure>BoltArrows</treasure>
+
+    <group max="2">
+      [3]BoltSkeleton
+    </group>
+
+    <group max="3">
+      [3]DrillSkeleton
+    </group>
+
+    <group max="4">
+      [5]MimicSkeleton
+    </group>
+
+    <bigTreasure>Shield,Wings,Arrows</bigTreasure>
+
+    <group max="4">
+      [2]WingSkeleton,[4]WingSkeletonS
+    </group>
+    
+  </hardcore>
+
+</data>

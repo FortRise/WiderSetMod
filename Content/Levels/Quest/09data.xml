@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+
+  <!-- MOONSTONE -->
+  <!-- WAVES: 8 -->
+  <!-- SPAWNS: TopLeft, TopRight, BotLeft, BotRight, MidLeft, MidRight, TopMid, Mid, BotMid -->
+  <!-- TREASURES: 6 -->
+
+  <normal>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>BlueCrystal</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight,BotMid</spawns>
+        <enemies>[3]BlueSlime</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]BlueCrystal</enemies>
+      </group>
+    </wave>
+    
+    <!-- 2 -->
+    <wave>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Ghost</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>BlueCrystal</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Ghost</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotMid</spawns>
+        <enemies>BlueCrystal</enemies>
+      </group>
+      <group delay="60">
+        <treasure>Wings</treasure>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]BombBat</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave dark="true">
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>TopLeft,TopRight,MidLeft,MidRight,BotLeft,BotRight</spawns>
+        <enemies>[6]BlueSlime</enemies>
+      </group>
+      <group delay="180">
+        <spawns>MidRight</spawns>
+        <enemies>BombSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]BlueCrystal</enemies>
+      </group>
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>TopMid,Mid,BotMid</spawns>
+        <enemies>[3]Ghost</enemies>
+      </group>
+      <group delay="60">        
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]BlueSlime</enemies>
+      </group>
+      <group>
+        <treasure>Shield</treasure>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]BombBat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMid</spawns>
+        <enemies>LaserSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group delay="180">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]BlueSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]BombBat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave dark="true">
+      <group>
+        <treasure>Wings?BombArrows</treasure>
+        <spawns>Mid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight,BotLeft,BotRight</spawns>
+        <enemies>[4]BlueSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopMid,BotMid</spawns>
+        <enemies>[2]TechnoMage</enemies>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave>
+      <group>
+        <treasure>Shield?Arrows</treasure>
+        <spawns>TopLeft,TopRight,MidLeft</spawns>
+        <enemies>[2]BlueCrystal</enemies>
+      </group>
+      <group delay="120">
+        <spawns>MidRight,BotLeft,BotRight</spawns>
+        <enemies>[2]BlueCrystal</enemies>
+      </group>
+    </wave>
+
+    <!-- 8 -->
+    <wave>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]TechnoMage</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]BlueSlime</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]BlueCrystal</enemies>
+      </group>
+      <group delay="120">
+        <spawns>MidLeft</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidRight</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group delay="180">
+        <spawns>BotLeft,BotRight,BotMid</spawns>
+        <enemies>LaserSkeleton</enemies>
+      </group>
+    </wave>
+  </normal>
+
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+  <hardcore>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>Mid,TopLeft,TopRight</spawns>
+        <enemies>[3]BlueCrystal</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]BlueSlime</enemies>
+      </group>
+      <group>
+        <spawns>BotMid</spawns>
+        <enemies>Skeleton</enemies>
+      </group>
+      <group delay="90">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]BlueCrystal</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave>
+      <group>
+        <spawns>MidLeft,MidRight,TopLeft,TopRight</spawns>
+        <enemies>Ghost,[2]BlueSlime</enemies>
+      </group>
+      <group>
+        <spawns>Mid,TopMid</spawns>
+        <enemies>BlueCrystal,BlueSlime</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+      <group>
+        <spawns>BotMid</spawns>
+        <enemies>BlueCrystal</enemies>
+      </group>
+      <group>
+        <treasure>Wings</treasure>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]BombBat</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>BombSkeletonS</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave dark="true">
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>TopLeft,TopRight,MidLeft,MidRight,BotLeft,BotRight</spawns>
+        <enemies>[2]BlueSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>BombSkeletonS</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight,MidLeft,MidRight,BotLeft,BotRight</spawns>
+        <enemies>[2]BlueSlime</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave>
+      <group>
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>[4]BlueCrystal</enemies>
+      </group>
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>TopMid,Mid,BotMid</spawns>
+        <enemies>[2]Ghost</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>[4]BlueSlime</enemies>
+      </group>
+      <group>
+        <treasure>Shield</treasure>
+        <spawns>MidLeft,MidRight,TopLeft,TopRight</spawns>
+        <enemies>[4]BombBat</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopMid,BotMid</spawns>
+        <enemies>LaserSkeletonS</enemies>
+      </group>
+      <group coop="true" delay="120">
+        <spawns>TopMid,BotMid</spawns>
+        <enemies>LaserSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <group>
+        <spawns>Mid,TopMid,BotMid</spawns>
+        <enemies>[2]TechnoMage</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight,MidLeft,MidRight</spawns>
+        <enemies>[4]BlueSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]BombBat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidLeft</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidRight</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave dark="true">
+      <floors>0</floors>
+      
+      <group>
+        <treasure>Wings?BombArrows</treasure>
+        <spawns>Mid,TopMid,BotMid</spawns>
+        <enemies>[3]Ghost</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight,BotLeft,BotRight</spawns>
+        <enemies>[4]BlueSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopMid,BotMid</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidLeft</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidRight</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave>
+      <group>
+        <treasure>Shield?Arrows</treasure>
+        <spawns>TopLeft,TopRight,MidLeft,MidRight,BotLeft,BotRight</spawns>
+        <enemies>[5]BlueCrystal</enemies>
+      </group>
+      <group delay="240">
+        <spawns>TopMid,Mid,BotMid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+      <group delay="300">
+        <spawns>TopLeft,TopRight,MidLeft,MidRight,BotLeft,BotRight</spawns>
+        <enemies>[5]BlueCrystal</enemies>
+      </group>
+    </wave>
+
+    <!-- 8 -->
+    <wave>
+      <group>
+        <spawns>MidLeft,MidRight,TopLeft,TopRight</spawns>
+        <enemies>[2]TechnoMage,[2]BlueSlime</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopMid</spawns>
+        <enemies>BombSkeleton</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]BlueSlime</enemies>
+      </group>
+      <group delay="180">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]BlueCrystal</enemies>
+      </group>
+      <group delay="120">
+        <spawns>MidRight</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidLeft</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group solo="true" delay="180">
+        <spawns>BotMid</spawns>
+        <enemies>LaserSkeleton</enemies>
+      </group>
+      <group coop="true" delay="180">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]LaserSkeleton</enemies>
+      </group>
+    </wave>
+  </hardcore>
+  
+  
+</data>

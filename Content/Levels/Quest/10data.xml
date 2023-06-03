@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+
+  <!-- TOWERFORGE -->
+  <!-- WAVES: 8 -->
+  <!-- SPAWNS: TopLeft, TopRight, TopMid, Mid, BotLeft, BotRight, BotMidLeft, BotMidRight, OpenMid, TopOpenLeft, TopOpenRight, BotOpenLeft, BotOpenRight -->
+  <!-- TREASURES: 6 -->
+
+  <normal>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>TopMid,BotLeft,BotRight</spawns>
+        <enemies>[2]Elemental</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]SuperBombBat</enemies>
+      </group>
+      <group delay="60">
+        <treasure>Wings</treasure>
+        <spawns>OpenMid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave>
+      <group>
+        <spawns>TopOpenLeft,TopOpenRight</spawns>
+        <enemies>[2]Birdman</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>[2]SuperBombBat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopOpenLeft,TopOpenRight</spawns>
+        <enemies>[1*2]Birdman</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>SuperBombBat</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>BotLeft,BotRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[4]Elemental</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopMid</spawns>
+        <enemies>BombSkeleton</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave dark="true">
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]SuperBombBat</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>RedSlime</enemies>
+      </group>
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>OpenMid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMid</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Elemental</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>BotOpenLeft,BotOpenRight</spawns>
+        <enemies>Birdman</enemies>
+      </group>     
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <floors>1</floors>
+      
+      <group>
+        <treasure>Shield,SuperBombArrows</treasure>
+        <spawns>BotLeft,TopLeft,BotRight,TopRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>Mid,BotLeft,BotRight</spawns>
+        <enemies>[3]Elemental</enemies>
+      </group>
+      <group solo="true" delay="120">
+        <spawns>TopMid</spawns>
+        <enemies>BombSkeleton</enemies>
+      </group>
+      <group coop="true" delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]BombSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave slow="true">
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]SuperBombBat</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>Elemental</enemies>
+      </group>
+      <group>
+        <spawns>BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]BombSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave>
+      <group>
+        <treasure>Shield</treasure>
+        <spawns>TopLeft,TopMid,TopRight</spawns>
+        <enemies>[3]Elemental</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>OpenMid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group solo="true" delay="60">
+        <spawns>TopMid</spawns>
+        <enemies>MimicSkeleton</enemies>
+      </group>
+      <group coop="true" delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]MimicSkeleton</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotOpenLeft,BotOpenRight</spawns>
+        <enemies>[2]Birdman</enemies>
+      </group>
+    </wave>
+
+    <!-- 8 -->
+    <wave>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotMidRight,BotMidLeft,BotRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Elemental</enemies>
+      </group>
+      <group delay="180">
+        <spawns>OpenMid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Elemental</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>BombSkeleton</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotOpenLeft,BotOpenRight</spawns>
+        <enemies>[2]Birdman</enemies>
+      </group>
+    </wave>
+  </normal>
+
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+  <hardcore>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>TopMid,BotLeft,BotRight</spawns>
+        <enemies>[3]Elemental</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]SuperBombBat</enemies>
+      </group>
+      <group>
+        <treasure>Wings</treasure>
+        <spawns>OpenMid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave>
+      <group>
+        <spawns>TopOpenLeft,TopOpenRight</spawns>
+        <enemies>[2]Birdman</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>SuperBombBat</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopOpenLeft,TopOpenRight</spawns>
+        <enemies>[2]Birdman</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>SuperBombBat</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>BotLeft,BotRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[4]Elemental</enemies>
+      </group>
+      <group solo="true">
+        <spawns>TopLeft,TopRight,TopMid</spawns>
+        <enemies>[2]BombSkeleton</enemies>
+      </group>
+      <group coop="true">
+        <spawns>TopLeft,TopRight,TopMid</spawns>
+        <enemies>BombSkeleton,BombSkeletonS</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave dark="true">
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]SuperBombBat</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <treasure>SuperBombArrows</treasure>
+        <spawns>OpenMid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotMidLeft,BotMidRight,BotRight</spawns>
+        <enemies>[3]Elemental</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>BotOpenLeft,BotOpenRight</spawns>
+        <enemies>[2]Birdman</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <floors>0,1,2</floors>
+
+      <group>
+        <spawns>BotLeft,TopLeft,BotRight,TopRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>Mid,BotLeft,BotRight</spawns>
+        <enemies>[3]Elemental</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight,TopMid</spawns>
+        <enemies>BombSkeletonS</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave slow="true">
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]SuperBombBat</enemies>
+      </group>
+      <group>
+        <spawns>TopMid,BotMidLeft,BotMidRight</spawns>
+        <enemies>Elemental,[2]RedSlime</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight,BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]Elemental,[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>Mid,TopMid</spawns>
+        <enemies>[2]SuperBombBat</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]BombSkeleton</enemies>
+      </group>
+      <group>
+        <spawns>BotMidLeft,BotMidRight</spawns>
+        <enemies>[2]SuperBombBat</enemies>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopMid,TopRight</spawns>
+        <enemies>[3]Elemental</enemies>
+      </group>
+      <group>
+        <treasure>Wings?Arrows</treasure>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>OpenMid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight,TopMid</spawns>
+        <enemies>[2]MimicSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 8 -->
+    <wave>
+      <group>
+        <spawns>TopMid,BotLeft,BotRight</spawns>
+        <enemies>[3]EvilCrystal</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotMidRight,BotMidLeft,BotRight</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Elemental</enemies>
+      </group>
+      <group delay="60">
+        <spawns>OpenMid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopMid,BotLeft,BotRight</spawns>
+        <enemies>[3]EvilCrystal</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Elemental</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>BombSkeletonS</enemies>
+      </group>
+    </wave>
+  </hardcore>
+
+
+</data>

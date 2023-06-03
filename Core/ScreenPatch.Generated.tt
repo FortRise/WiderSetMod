@@ -33,7 +33,6 @@
         "HUDFade.Render",
         "Ice.BuildTiles |P",
         "Lava |C|<LavaControl, Lava.LavaSide>",
-        "Level |C|<Session, XmlElement>",
         "LevelBGTiles.Added",
         "LevelEntity.Render",
         "LevelEntity.EnforceScreenWrap |P",

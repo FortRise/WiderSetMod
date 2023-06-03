@@ -3,6 +3,7 @@ using FortRise;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.ModInterop;
 using TowerFall;
 
 namespace EightPlayerMod 
@@ -12,6 +13,10 @@ namespace EightPlayerMod
     {
         public static EightPlayerModule Instance;
         public static bool IsEightPlayer;
+        public static bool LaunchedEightPlayer;
+        public static bool CanVersusLevelSet;
+        public static bool CanCoopLevelSet;
+        public Atlas EightPlayerAtlas;
 
         public EightPlayerModule() 
         {
@@ -20,6 +25,7 @@ namespace EightPlayerMod
 
         public override void LoadContent()
         {
+            EightPlayerAtlas = Content.LoadAtlas("Atlas/atlas.xml", "Atlas/atlas.png");
             FakeVersusTowerData.Load(0, Content.GetContentPath("Levels/Versus/00 - Sacred Ground"));
             FakeVersusTowerData.Load(1, Content.GetContentPath("Levels/Versus/01 - Twilight Spire"));
             FakeVersusTowerData.Load(2, Content.GetContentPath("Levels/Versus/02 - Backfire"));
@@ -39,6 +45,12 @@ namespace EightPlayerMod
             ScreenPatch.Load();
             BackdropPatch.Load();
             RollcallPatch.Load();
+            MainMenuPatch.Load();
+            MiasmaPatch.Load();
+            MapButtonPatch.Load();
+            KingReaperPatch.Load();
+
+            typeof(ModExports).ModInterop();
         }
 
         public override void Initialize()
@@ -50,6 +62,17 @@ namespace EightPlayerMod
             ScreenPatch.Unload();
             BackdropPatch.Unload();
             RollcallPatch.Unload();
+            MainMenuPatch.Unload();
+            MiasmaPatch.Unload();
+            MapButtonPatch.Unload();
+            KingReaperPatch.Unload();
         }
+    }
+
+    [ModExportName("com.fortrise.EightPlayerMod")]
+    public static class ModExports 
+    {
+        public static bool IsEightPlayer() => EightPlayerModule.IsEightPlayer;
+        public static bool LaunchedEightPlayer() => EightPlayerModule.LaunchedEightPlayer;
     }
 }

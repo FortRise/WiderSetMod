@@ -5,8 +5,9 @@ using System.Xml;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monocle;
+using TowerFall;
 
-namespace TowerFall 
+namespace EightPlayerMod
 {
     public class BigLevelLoaderXML : Scene
     {
@@ -75,7 +76,7 @@ namespace TowerFall
                 foreach (object obj in elementsByTagName)
                 {
                     XmlElement xmlElement = (XmlElement)obj;
-                    Vector2 vector = xmlElement.Position();
+                    Vector2 vector = Calc.Position(xmlElement);
                     Rectangle rectangle = new Rectangle((int)(vector.X / 10f), (int)(vector.Y / 10f), xmlElement.AttrInt("width") / 10, xmlElement.AttrInt("height") / 10);
                     list.Add(rectangle);
                 }

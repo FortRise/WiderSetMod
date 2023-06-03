@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+
+  <!-- TWILIGHT SPIRE -->
+  <!-- WAVES: 6 -->
+  <!-- SPAWNS: TopLeft, TopRight, TopMidLeft, TopMidRight, Mid, BotMid, BotLeft, BotRight -->
+  <!-- TREASURES: 2 -->
+
+  <normal>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotMid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotMid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+      <group delay="180">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMidLeft,TopMidRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[1*2]Cultist</enemies>
+      </group>
+      <group delay="90">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave>
+      <group>
+        <treasure>Mirror</treasure>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Ghost</enemies>
+      </group>
+      <group delay="150">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>Skeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <floors>0</floors>
+
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[1*2]Cultist</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[1*2]Cultist</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave>
+      <floors>1</floors>
+
+      <group delay="60">
+        <treasure>Arrows</treasure>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group delay="180">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[1*2]Ghost</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group>
+        <spawns>Mid,BotMid</spawns>
+        <enemies>[2]Ghost</enemies>
+      </group>
+    </wave>
+  </normal>
+
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+  <hardcore>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group>
+        <spawns>BotMid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>Bat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group>
+        <spawns>BotMid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+      <group delay="30">
+        <spawns>Mid</spawns>
+        <enemies>Bat</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group delay="60">
+        <treasure>Mirror</treasure>
+        <spawns>BotMid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[1*2]Cultist</enemies>
+      </group>
+      <group delay="30">
+        <spawns>Mid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <floors>1</floors>
+      
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="30">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="30">
+        <spawns>TopMidLeft,TopMidRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group delay="60">
+        <spawns>Mid,BotLeft,BotRight</spawns>
+        <enemies>[3]Ghost</enemies>
+      </group>
+      <group>
+        <spawns>TopMidLeft,TopMidRight</spawns>
+        <enemies>Cultist</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave>
+      <floors>0</floors>
+      
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Skeleton</enemies>
+      </group>
+      <group delay="60">
+        <treasure>Shield</treasure>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Ghost</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <floors>2</floors>
+
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group>
+        <spawns>Mid,BotMid</spawns>
+        <enemies>[2]Ghost</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group delay="120">
+        <spawns>Mid,BotMid</spawns>
+        <enemies>[2]Ghost</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight,TopMidLeft,TopMidRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave>
+      <floors>1,3</floors>
+
+      <group>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Cultist</enemies>
+      </group>     
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight,TopMidLeft,TopMidRight</spawns>
+        <enemies>[4]Cultist</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Bat</enemies>
+      </group>
+      <group>
+        <spawns>Mid,BotMid</spawns>
+        <enemies>[2]Ghost</enemies>
+      </group>
+    </wave>  
+  </hardcore>
+  
+</data>

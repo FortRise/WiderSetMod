@@ -1,0 +1,17 @@
+{
+  "sheet_path": "../atlas/png",
+  "frames": {
+    "levelset/biglevelset": {
+      "x": 0,
+      "y": 0,
+      "width": 120,
+      "height": 80
+    },
+    "levelset/levelset": {
+      "x": 120,
+      "y": 0,
+      "width": 80,
+      "height": 80
+    }
+  }
+}

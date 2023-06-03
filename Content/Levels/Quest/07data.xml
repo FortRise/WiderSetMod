@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+
+  <!-- KING'S COURT -->
+  <!-- WAVES: 8 -->
+  <!-- SPAWNS: BotLeft, BotRight, Mid, MidLeft, MidRight, LeftPlat, RightPlat TopMid -->
+  <!-- TREASURES: 3 -->
+
+  <normal>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="120">
+        <spawns>Mid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group delay="120">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group delay="120">
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+    </wave> 
+    
+    <!-- 2 -->
+    <wave>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+      <group>
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group delay="120">
+        <treasure>Arrows</treasure>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+    </wave>
+    
+    <!-- 3 -->
+    <wave>
+      <group solo="true">
+        <spawns>MidLeft</spawns>
+        <enemies>BombSkeleton</enemies>
+      </group>
+      <group solo="true" delay="180">
+        <spawns>MidRight</spawns>
+        <enemies>BombSkeleton</enemies>
+      </group>
+      <group coop="true">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]BombSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave>
+      <group>
+        <reaper>0</reaper>
+      </group>
+    </wave>
+    
+    <!-- 5 -->
+    <wave>
+      <group>
+        <treasure>Wings</treasure>
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Worm</enemies>
+      </group>
+      <group delay="60">
+        <spawns>Mid</spawns>
+        <enemies>GreenGhost</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave>
+      <group>
+        <reaper>1</reaper>
+      </group>
+    </wave>
+    
+    <!-- 7 -->
+    <wave>
+      <group>
+        <treasure>Wings?Shield,Arrows</treasure>
+        <spawns>BotLeft,BotRight,MidLeft,MidRight</spawns>
+        <enemies>[2]Worm</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+      <group deay="60">
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2*4]RedSlime</enemies>
+      </group>     
+      <group delay="120">
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group coop="true" delay="120">
+        <spawns>Mid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+    </wave>
+    
+    <!-- 8 -->
+    <wave>
+      <group>
+        <reaper>2</reaper>
+      </group>
+    </wave>
+  </normal>
+
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+  <hardcore>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group>
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+      <group>
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]RedSlime</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>
+      <group>
+        <treasure>Arrows</treasure>
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[1*2]EvilCrystal</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group solo="true">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]BombSkeletonS</enemies>
+      </group>
+      <group solo="true" delay="300">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>Skeleton</enemies>
+      </group>
+      <group coop="true">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]BombSkeletonS</enemies>
+      </group>
+      <group coop="true" delay="180">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>SkeletonS</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave>
+      <group>
+        <reaper>1</reaper>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave>
+      <group>
+        <treasure>Wings,Arrows</treasure>
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>Birdman</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Worm</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>GreenGhost</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Worm</enemies>
+      </group>
+      <group>
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave>
+      <group>
+        <reaper>2</reaper>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave>
+      <group>
+        <treasure>Wings,Shield</treasure>
+        <spawns>BotLeft,BotRight,MidLeft,MidRight</spawns>
+        <enemies>[4]Worm</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>Skeleton</enemies>
+      </group>
+      <group delay="60">
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[4]RedSlime</enemies>
+      </group>
+      <group delay="120">
+        <spawns>Mid,TopMid</spawns>
+        <enemies>EvilCrystal</enemies>
+      </group>    
+      <group delay="120">
+        <spawns>LeftPlat,RightPlat</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group delay="180">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[1*2]EvilCrystal</enemies>
+      </group>
+    </wave>
+
+    <!-- 8 -->
+    <wave dark="true">
+      <floors>0</floors>
+      <group>
+        <reaper>3</reaper>
+      </group>
+    </wave>
+  </hardcore>
+  
+  
+</data>

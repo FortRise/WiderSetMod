@@ -1,0 +1,6 @@
+<TextureAtlas imagePath="../atlas/png">
+  <SubTexture name="levelset/biglevelset" x="0" y="0" width="120" height="80"
+    />
+  <SubTexture name="levelset/levelset" x="120" y="0" width="80" height="80"
+    />
+</TextureAtlas>

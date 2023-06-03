@@ -1,13 +1,13 @@
 using System;
 using System.Reflection;
-using EightPlayerMod;
 using FortRise;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
+using TowerFall;
 
-namespace TowerFall 
+namespace EightPlayerMod
 {
     public static class RollcallPatch 
     {
@@ -31,7 +31,7 @@ namespace TowerFall
             On.TowerFall.MainMenu.DestroyRollcall -= DestroyRollcall_patch;
             hook_RollcallElementMaxPlayers.Dispose();
 
-            IL.TowerFall.QuestRoundLogic.OnLevelLoadFinish += OnLevelLoadFinish_patch;
+            IL.TowerFall.QuestRoundLogic.OnLevelLoadFinish -= OnLevelLoadFinish_patch;
         }
 
         private static void OnLevelLoadFinish_patch(ILContext ctx)
@@ -54,7 +54,7 @@ namespace TowerFall
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(2))) 
             {
                 cursor.EmitDelegate<Func<int, int>>(maxPlayer => {
-                    if (EightPlayerModule.IsEightPlayer)
+                    if (EightPlayerModule.LaunchedEightPlayer)
                         return 4;
                     return maxPlayer;
                 });

@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+  
+  <!-- ASCENSION -->
+  <!-- WAVES: 10 -->
+  <!-- SPAWNS: TopLeft, TopRight, TopMid, MidLeft, MidRight, Mid, BotLeft, BotRight, BotMidLeft, BotMidRight -->
+  <!-- TREASURES: 6 -->
+
+  <normal>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>WingSkeleton</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Crow</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Crow</enemies>
+      </group>
+    </wave>   
+    
+    <!-- 2 -->
+    <wave>
+      <group>
+        <treasure>Wings,FeatherArrows</treasure>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Birdman</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>BlueCrystal</enemies>
+      </group>
+      <group delay="180">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]EvilCrystal</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group>
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>BoltCrystal,Elemental</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>BoltCrystal,Elemental</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave>
+      <group>
+        <treasure>Wings?FeatherArrows,Shield</treasure>
+        <spawns>TopMid</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Crow</enemies>
+      </group>
+      <group delay="120">
+        <spawns>Mid</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Crow</enemies>
+      </group>
+      <group coop="true" delay="240">
+        <spawns>TopMid</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave dark="true">
+      <floors>0,1</floors>
+      
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>WingSkeleton</enemies>
+      </group>
+      <group delay="120">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Crow</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Crow</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopMid</spawns>
+        <enemies>WingSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave>
+      <group>
+        <reaper>1</reaper>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave>
+      <group>
+        <treasure>Shield?FeatherArrows</treasure>
+        <spawns>TopLeft,TopRight,MidLeft,MidRight</spawns>
+        <enemies>[4]Crow</enemies>
+      </group>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+    </wave>
+
+    <!-- 8 -->
+    <wave>
+      <group>
+        <reaper>2</reaper>
+      </group>
+    </wave>
+
+    <!-- 9 -->
+    <wave>
+      <group>
+        <treasure>Wings?FeatherArrows</treasure>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>WingSkeletonS</enemies>
+      </group>
+    </wave>
+
+    <!-- 10 -->
+    <wave>
+      <group>
+        <reaper>3</reaper>
+      </group>
+    </wave>
+  </normal>
+
+  <!-- /////////////////////////////////////////////////////////////////////////// -->
+
+  <hardcore>
+    <!-- 1 -->
+    <wave>
+      <group>
+        <spawns>Mid</spawns>
+        <enemies>WingSkeleton</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight,MidLeft,MidRight</spawns>
+        <enemies>[4]Crow</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Crow</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>WingSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 2 -->
+    <wave>
+      <group>
+        <treasure>Wings,FeatherArrows</treasure>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Birdman</enemies>
+      </group>
+      <group>
+        <spawns>TopMid</spawns>
+        <enemies>BlueCrystal</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]BlueCrystal</enemies>
+      </group>
+    </wave>
+
+    <!-- 3 -->
+    <wave>
+      <group>
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>BoltCrystal,[2]Elemental</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+      <group delay="120">
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>BoltCrystal,[2]Elemental</enemies>
+      </group>
+    </wave>
+
+    <!-- 4 -->
+    <wave>
+      <group>
+        <treasure>Wings?FeatherArrows,Shield</treasure>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group>
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>[2]Crow</enemies>
+      </group>
+      <group delay="120">
+        <spawns>MidLeft,MidRight</spawns>
+        <enemies>TechnoMage</enemies>
+      </group>
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]Crow</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopMid,Mid</spawns>
+        <enemies>[2]TechnoMage</enemies>
+      </group>
+    </wave>
+
+    <!-- 5 -->
+    <wave dark="true">
+      <floors>0,1</floors>
+
+      <group>
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>WingSkeleton</enemies>
+      </group>
+      <group delay="60">
+        <spawns>MidLeft,MidRight,TopLeft,TopRight</spawns>
+        <enemies>[4]Crow</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMid</spawns>
+        <enemies>WingSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 6 -->
+    <wave>
+      <group>
+        <reaper>2</reaper>
+      </group>
+    </wave>
+
+    <!-- 7 -->
+    <wave>
+      <group>
+        <treasure>Shield?FeatherArrows</treasure>
+        <spawns>TopLeft,TopRight,MidLeft,MidRight</spawns>
+        <enemies>[4]Crow</enemies>
+      </group>
+      <group delay="60">
+        <spawns>TopMid,Mid</spawns>
+        <enemies>[2]TechnoMage</enemies>
+      </group>
+      <group delay="60">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]ScytheCultist</enemies>
+      </group>
+    </wave>
+
+    <!-- 8 -->
+    <wave>
+      <group>
+        <reaper>3</reaper>
+      </group>
+    </wave>
+
+    <!-- 9 -->
+    <wave>
+      <group>
+        <treasure>Wings?FeatherArrows</treasure>
+        <spawns>TopMid,Mid</spawns>
+        <enemies>WingSkeleton</enemies>
+      </group>
+      <group delay="120">
+        <spawns>TopLeft,TopRight</spawns>
+        <enemies>[2]MimicSkeleton</enemies>
+      </group>
+      <group coop="true" delay="120">
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>MimicSkeleton</enemies>
+      </group>
+    </wave>
+
+    <!-- 10 -->
+    <wave dark="true">
+      <floors>0,1</floors>
+      
+      <group>
+        <reaper>4</reaper>
+      </group>
+    </wave>
+  </hardcore>
+  
+  
+</data>
