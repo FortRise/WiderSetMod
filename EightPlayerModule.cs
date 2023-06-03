@@ -17,6 +17,7 @@ namespace EightPlayerMod
         public static bool CanVersusLevelSet;
         public static bool CanCoopLevelSet;
         public Atlas EightPlayerAtlas;
+        public SpriteData EightPlayerSpriteData;
 
         public EightPlayerModule() 
         {
@@ -26,6 +27,7 @@ namespace EightPlayerMod
         public override void LoadContent()
         {
             EightPlayerAtlas = Content.LoadAtlas("Atlas/atlas.xml", "Atlas/atlas.png");
+            EightPlayerSpriteData = Content.LoadSpriteData("Atlas/spriteData.xml", EightPlayerAtlas);
             FakeVersusTowerData.Load(0, Content.GetContentPath("Levels/Versus/00 - Sacred Ground"));
             FakeVersusTowerData.Load(1, Content.GetContentPath("Levels/Versus/01 - Twilight Spire"));
             FakeVersusTowerData.Load(2, Content.GetContentPath("Levels/Versus/02 - Backfire"));

@@ -106,9 +106,9 @@ namespace EightPlayerMod
                         }
                         var menuDynamic = DynamicData.For(menu);
                         var list = new List<MenuItem>();
-                        var standardLevelSet = new StandardSetButton(new Vector2(160f - 80, 240/2f), new Vector2(-160f, 240/2f), setType);
+                        var standardLevelSet = new StandardSetButton(new Vector2(160f - 60, 90f), new Vector2(-160f, 120f), setType);
                         list.Add(standardLevelSet);
-                        var eightPlayerSet = new EightPlayerSet(new Vector2(160 + 80, 240/2f), new Vector2(560f, 240/2f), setType);
+                        var eightPlayerSet = new EightPlayerSetButton(new Vector2(160f + 60, 90f), new Vector2(560f, 120f), setType);
                         list.Add(eightPlayerSet);
 
                         menu.Add(list);
@@ -117,6 +117,7 @@ namespace EightPlayerMod
                         menu.BackState = MainMenu.MenuState.Main;
                         menuDynamic.Set("ToStartSelected", standardLevelSet);
                         tweenBGToUICamera(menu, 1);
+                        menu.Add(new LevelSetDisplay(standardLevelSet, eightPlayerSet));
                     }
                 });
             }
@@ -136,23 +137,36 @@ namespace EightPlayerMod
 
     public class StandardSetButton : MainModeButton
     {
-        private Image image;
+        private Sprite<int> tower;
         private LevelSetType levelSetType;
         public override bool Rotate => false;
 
         public StandardSetButton(Vector2 position, Vector2 tweenFrom, LevelSetType levelSetType) : base(position, tweenFrom, "STANDARD", "2-4 ARCHERS")
         {
             this.levelSetType = levelSetType;
-            image = new Image(EightPlayerModule.Instance.EightPlayerAtlas["levelset/levelset"]);
-            image.CenterOrigin();
-            Add(image);
+            tower = EightPlayerModule.Instance.EightPlayerSpriteData.GetSpriteInt("StandardGameMode");
+            tower.Play(0);
+            tower.CenterOrigin();
+            Add(tower);
         }
 
         public override float BaseScale => 1f;
 
-        public override float ImageScale { get => image.Scale.X; set => image.Scale = Vector2.One * value; }
-        public override float ImageRotation { get => image.Rotation; set => image.Rotation = value; }
-        public override float ImageY { get => image.Y; set => image.Y = value; }
+        public override float ImageScale { get => tower.Scale.X; set => tower.Scale = Vector2.One * value; }
+        public override float ImageRotation { get => tower.Rotation; set => tower.Rotation = value; }
+        public override float ImageY { get => tower.Y; set => tower.Y = value; }
+
+        protected override void OnSelect()
+        {
+            tower.Play(1);
+            base.OnSelect();
+        }
+
+        protected override void OnDeselect()
+        {
+            tower.Play(0);
+            base.OnDeselect();
+        }
 
         protected override void MenuAction()
         {
@@ -170,25 +184,38 @@ namespace EightPlayerMod
         }
     }
 
-    public class EightPlayerSet : MainModeButton
+    public class EightPlayerSetButton : MainModeButton
     {
-        private Image image;
+        private Sprite<int> tower;
         private LevelSetType levelSetType;
         public override bool Rotate => false;
 
-        public EightPlayerSet(Vector2 position, Vector2 tweenFrom, LevelSetType levelSetType) : base(position, tweenFrom, "WIDER", "2-8 ARCHERS")
+        public EightPlayerSetButton(Vector2 position, Vector2 tweenFrom, LevelSetType levelSetType) : base(position, tweenFrom, "WIDER", "2-8 ARCHERS")
         {
             this.levelSetType = levelSetType;
-            image = new Image(EightPlayerModule.Instance.EightPlayerAtlas["levelset/biglevelset"]);
-            image.CenterOrigin();
-            Add(image);
+            tower = EightPlayerModule.Instance.EightPlayerSpriteData.GetSpriteInt("WideGameMode");
+            tower.Play(0);
+            tower.CenterOrigin();
+            Add(tower);
         }
 
         public override float BaseScale => 1f;
 
-        public override float ImageScale { get => image.Scale.X; set => image.Scale = Vector2.One * value; }
-        public override float ImageRotation { get => image.Rotation; set => image.Rotation = value; }
-        public override float ImageY { get => image.Y; set => image.Y = value; }
+        public override float ImageScale { get => tower.Scale.X; set => tower.Scale = Vector2.One * value; }
+        public override float ImageRotation { get => tower.Rotation; set => tower.Rotation = value; }
+        public override float ImageY { get => tower.Y; set => tower.Y = value; }
+
+        protected override void OnSelect()
+        {
+            tower.Play(1);
+            base.OnSelect();
+        }
+
+        protected override void OnDeselect()
+        {
+            tower.Play(0);
+            base.OnDeselect();
+        }
 
         protected override void MenuAction()
         {

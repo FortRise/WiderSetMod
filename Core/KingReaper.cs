@@ -1,5 +1,7 @@
 using System;
 using System.Reflection;
+using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
@@ -15,7 +17,7 @@ namespace EightPlayerMod
             IL.TowerFall.KingReaper.AttackUpdate += PatchMiddle;
             IL.TowerFall.KingReaper.DeadUpdate += PatchMiddle;
             IL.TowerFall.KingReaper.ThrowBombB += PatchMiddle;
-            IL.TowerFall.QuestControl.SpawnGroup += PatchMiddle;
+            On.TowerFall.KingReaper.ctor += ctor_patch;
             hook_AppearCoroutine = new ILHook(
                 typeof(KingReaper).GetMethod("AppearCoroutine", BindingFlags.Instance | BindingFlags.NonPublic).GetStateMachineTarget(),
                 PatchMiddle
@@ -27,8 +29,14 @@ namespace EightPlayerMod
             IL.TowerFall.KingReaper.AttackUpdate -= PatchMiddle;
             IL.TowerFall.KingReaper.DeadUpdate -= PatchMiddle;
             IL.TowerFall.KingReaper.ThrowBombB -= PatchMiddle;
-            IL.TowerFall.QuestControl.SpawnGroup -= PatchMiddle;
+            On.TowerFall.KingReaper.ctor -= ctor_patch;
             hook_AppearCoroutine.Dispose();
+        }
+
+        private static void ctor_patch(On.TowerFall.KingReaper.orig_ctor orig, KingReaper self, QuestControl control, Vector2 position, bool fromIntro, bool finalWave, int difficulty)
+        {
+            var pos = new Vector2(420/2f, position.X);
+            orig(self, control, pos, fromIntro, finalWave, difficulty);
         }
 
         private static void PatchMiddle(ILContext ctx)

@@ -17,6 +17,7 @@ namespace EightPlayerMod
         private static IDetour hook_orig_StartGame;
         private static IDetour hook_QuestControlStartSequence;
         private static IDetour hook_QuestCompleteSequence;
+        private static IDetour hook_QuestGameOverSequence;
         public static void Load() 
         {
             foreach (var methodType in ILTypes) 
@@ -43,11 +44,18 @@ namespace EightPlayerMod
             IL.TowerFall.Session.EndlessContinue += SwapLevelLoader_patch;
             IL.TowerFall.Session.GotoNextRound += SwapLevelLoader_patch;
             IL.TowerFall.QuestWavesHUD.GetWaveX += MiddlePos_patch;
+            IL.TowerFall.QuestGauntletCounter.ctor += MiddlePos_patch;
+            IL.TowerFall.QuestGameOver.Render += MiddlePosAndScreen_patch;
 
             On.TowerFall.MainMenu.ctor += MainMenuctor_patch;
             On.TowerFall.MapScene.ctor += MapScenector_patch;
             On.TowerFall.VersusLevelSystem.GenLevels += GenLevels_patch;
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel += GetNextRoundLevel_patch;
+
+            hook_QuestGameOverSequence = new ILHook(
+                typeof(QuestGameOver).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic).GetStateMachineTarget(),
+                MiddlePos_patch
+            );
 
             hook_orig_StartGame = new ILHook(
                 typeof(Session).GetMethod("orig_StartGame"),
@@ -79,6 +87,8 @@ namespace EightPlayerMod
             IL.TowerFall.Session.EndlessContinue -= SwapLevelLoader_patch;
             IL.TowerFall.Session.GotoNextRound -= SwapLevelLoader_patch;
             IL.TowerFall.QuestWavesHUD.GetWaveX -= MiddlePos_patch;
+            IL.TowerFall.QuestGauntletCounter.ctor -= MiddlePos_patch;
+            IL.TowerFall.QuestGameOver.Render -= MiddlePosAndScreen_patch;
 
             On.TowerFall.MainMenu.ctor -= MainMenuctor_patch;
             On.TowerFall.MapScene.ctor -= MapScenector_patch;
@@ -86,10 +96,37 @@ namespace EightPlayerMod
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel -= GetNextRoundLevel_patch;
 
 
-
+            hook_QuestGameOverSequence.Dispose();
             hook_orig_StartGame.Dispose();
             hook_QuestControlStartSequence.Dispose();
             hook_QuestCompleteSequence.Dispose();
+        }
+
+        private static void MiddlePosAndScreen_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(160f))) 
+            {
+                if (cursor.Next.MatchLdcR4(1))
+                    continue;
+                cursor.EmitDelegate<Func<float, float>>(width => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 420 / 2;
+                    return width;
+                });
+            }
+
+            var screencursor = new ILCursor(ctx);
+            while (screencursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(320))) 
+            {
+                if (screencursor.Next.MatchLdcR4(1))
+                    continue;
+                screencursor.EmitDelegate<Func<float, float>>(width => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 420;
+                    return width;
+                });
+            }
         }
 
         private static void MainMenuctor_patch(On.TowerFall.MainMenu.orig_ctor orig, MainMenu self, MainMenu.MenuState state)
@@ -268,11 +305,19 @@ namespace EightPlayerMod
             var intcursor = new ILCursor(ctx);
             while (intcursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(160))) 
             {
-                if (intcursor.Next.MatchLdcR4(1))
-                    continue;
                 intcursor.EmitDelegate<Func<int, int>>(width => {
                     if (EightPlayerModule.IsEightPlayer)
                         return 420 / 2;
+                    return width;
+                });
+            }
+
+            var offCursor = new ILCursor(ctx);
+            while (offCursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(480))) 
+            {
+                offCursor.EmitDelegate<Func<float, float>>(width => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 540f;
                     return width;
                 });
             }

@@ -1,0 +1,24 @@
+<SpriteData>
+  <sprite_int id="WideGameMode">
+    <Texture>levelset/wideMode</Texture>
+    <FrameWidth>96</FrameWidth>
+    <FrameHeight>96</FrameHeight>
+    <OriginX>48</OriginX>
+    <OriginY>48</OriginY>
+    <Animations>
+      <Anim id="0" delay=".06" loop="True" frames="12"/>
+      <Anim id="1" delay=".06" loop="True" frames="0,1,2,3,4,5,6,7,8,9,10,11"/>
+    </Animations>
+  </sprite_int>
+  <sprite_int id="StandardGameMode">
+    <Texture>levelset/standardMode</Texture>
+    <FrameWidth>96</FrameWidth>
+    <FrameHeight>96</FrameHeight>
+    <OriginX>48</OriginX>
+    <OriginY>48</OriginY>
+    <Animations>
+      <Anim id="0" delay=".06" loop="True" frames="12"/>
+      <Anim id="1" delay=".06" loop="True" frames="0,1,2,3,4,5,6,7,8,9,10,11"/>
+    </Animations>
+  </sprite_int>
+</SpriteData>
