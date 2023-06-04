@@ -59,6 +59,16 @@ namespace EightPlayerMod
                     return maxPlayer;
                 });
             }
+
+            cursor = new ILCursor(ctx);
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(4))) 
+            {
+                cursor.EmitDelegate<Func<int, int>>(maxPlayer => {
+                    if (EightPlayerModule.LaunchedEightPlayer)
+                        return 8;
+                    return maxPlayer;
+                });
+            }
         }
 
         private static void DestroyRollcall_patch(On.TowerFall.MainMenu.orig_DestroyRollcall orig, MainMenu self)
@@ -69,25 +79,6 @@ namespace EightPlayerMod
         private static void CreateRollcall_patch(On.TowerFall.MainMenu.orig_CreateRollcall orig, MainMenu self)
         {
             orig(self);
-        }
-    }
-
-    public static class Commands 
-    {
-        [Command("widescreen")]
-        public static void TurnOnWidescreen(string[] args) 
-        {
-            EightPlayerModule.IsEightPlayer = !EightPlayerModule.IsEightPlayer;
-            if (EightPlayerModule.IsEightPlayer) 
-            {
-                Engine.Instance.Screen.Resize(420, 240, 3f);
-                WrapMath.AddWidth = new Vector2(420, 0f);
-            }
-            else 
-            {
-                Engine.Instance.Screen.Resize(320, 240, 3f);
-                WrapMath.AddWidth = new Vector2(320, 0f);
-            }
         }
     }
 }

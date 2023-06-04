@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using FortRise;
 using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
@@ -14,6 +15,9 @@ namespace EightPlayerMod
     public static class MainMenuPatch 
     {
         private static IDetour hook_orig_Update;
+        private static IDetour hook_RollcallElement_get_CharacterIndex;
+        private static IDetour hook_RollcallElement_set_CharacterIndex;
+        private static IDetour hook_RollcallElementNotJoinedUpdate;
         private static FastReflectionDelegate tweenBGToUICamera;
 
         public static void Load() 
@@ -23,12 +27,23 @@ namespace EightPlayerMod
             On.TowerFall.FightButton.MenuAction += FightButtonMenuAction_patch;
             On.TowerFall.CoOpButton.MenuAction += CoopButtonMenuAction_patch;
             On.TowerFall.MainMenu.CreateMain += CreateMain_patch;
+            On.TowerFall.MainMenu.CreateRollcall += CreateRollcall_patch;
+            On.TowerFall.RollcallElement.GetPosition += RollcallElementGetPosition_patch;
+            On.TowerFall.RollcallElement.GetTweenSource += RollcallElementGetTweenSource_patch;
             IL.TowerFall.MainMenu.CreateCoOp += CreateCoop_patch;
-            IL.TowerFall.MainMenu.CreateRollcall += CreateRollcall_patch;
+            // IL.TowerFall.RollcallElement.ctor += RollcallElementctor_patch;
             hook_orig_Update = new ILHook(
                 typeof(MainMenu).GetMethod("orig_Update"),
                 MainMenuUpdate_patch
             );
+            // hook_RollcallElement_get_CharacterIndex = new ILHook(
+            //     typeof(RollcallElement).GetProperty("CharacterIndex").GetGetMethod(),
+            //     RollcallElement_CharacterIndex
+            // );
+            // hook_RollcallElement_set_CharacterIndex = new ILHook(
+            //     typeof(RollcallElement).GetProperty("CharacterIndex").GetSetMethod(),
+            //     RollcallElement_CharacterIndex
+            // );
         }
 
         public static void Unload() 
@@ -36,9 +51,140 @@ namespace EightPlayerMod
             On.TowerFall.FightButton.MenuAction -= FightButtonMenuAction_patch;
             On.TowerFall.CoOpButton.MenuAction -= CoopButtonMenuAction_patch;
             On.TowerFall.MainMenu.CreateMain -= CreateMain_patch;
+            On.TowerFall.MainMenu.CreateRollcall -= CreateRollcall_patch;
             IL.TowerFall.MainMenu.CreateCoOp -= CreateCoop_patch;
-            IL.TowerFall.MainMenu.CreateRollcall -= CreateRollcall_patch;
+            On.TowerFall.RollcallElement.GetPosition -= RollcallElementGetPosition_patch;
+            On.TowerFall.RollcallElement.GetTweenSource -= RollcallElementGetTweenSource_patch;
+            // IL.TowerFall.RollcallElement.ctor -= RollcallElementctor_patch;
             hook_orig_Update.Dispose();
+            // hook_RollcallElement_get_CharacterIndex.Dispose();
+            // hook_RollcallElement_set_CharacterIndex.Dispose();
+        }
+
+        private static Vector2 RollcallElementGetTweenSource_patch(On.TowerFall.RollcallElement.orig_GetTweenSource orig, int playerIndex)
+        {
+            if (EightPlayerModule.LaunchedEightPlayer) 
+            {
+                Vector2 position = RollcallElement.GetPosition(playerIndex);
+                if (playerIndex < 4)
+                {
+                    return position + Vector2.UnitX * -420f;
+                }
+                return position + Vector2.UnitX * 420f;
+            }
+            return orig(playerIndex);
+        }
+
+        private static Vector2 RollcallElementGetPosition_patch(On.TowerFall.RollcallElement.orig_GetPosition orig, int playerIndex)
+        {
+            if (EightPlayerModule.LaunchedEightPlayer)
+            {
+                float num = 10 + playerIndex % 4 * 70;
+                float numY = 75;
+                if (playerIndex >= 4)
+                {
+                    numY = 165f;
+                }
+                return new Vector2(45 + num, numY);
+            }
+            return orig(playerIndex);
+        }
+
+        private static void RollcallElement_CharacterIndex (ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld("TowerFall.TFGame", "Characters"))) 
+            {
+                cursor.EmitDelegate<Func<int[], int[]>>(x => {
+                    if (EightPlayerModule.LaunchedEightPlayer) 
+                    {
+                        return EightPlayerModule.Characters;
+                    }
+                    return x;
+                });
+            }
+        }
+
+        private static void RollcallElementctor_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld("TowerFall.TFGame", "Players"))) 
+            {
+                cursor.EmitDelegate<Func<bool[], bool[]>>(x => {
+                    if (EightPlayerModule.LaunchedEightPlayer) 
+                    {
+                        return EightPlayerModule.Players;
+                    }
+                    return x;
+                });
+            }
+
+            cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld("TowerFall.TFGame", "Characters"))) 
+            {
+                cursor.EmitDelegate<Func<int[], int[]>>(x => {
+                    if (EightPlayerModule.LaunchedEightPlayer) 
+                    {
+                        return EightPlayerModule.Characters;
+                    }
+                    return x;
+                });
+            }
+
+            cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld("TowerFall.TFGame", "AltSelect"))) 
+            {
+                cursor.EmitDelegate<Func<ArcherData.ArcherTypes[], ArcherData.ArcherTypes[]>>(x => {
+                    if (EightPlayerModule.LaunchedEightPlayer) 
+                    {
+                        return EightPlayerModule.AltSelect;
+                    }
+                    return x;
+                });
+            }
+        }
+
+        private static void CreateRollcall_patch(On.TowerFall.MainMenu.orig_CreateRollcall orig, MainMenu self)
+        {
+            if (EightPlayerModule.LaunchedEightPlayer) 
+            {
+                if (MainMenu.RollcallMode is MainMenu.RollcallModes.Trials or MainMenu.RollcallModes.Quest)
+                {
+                    for (int i = 0; i < 8; i++)
+                    {
+                        EightPlayerModule.Players[i] = false;
+                    }
+                }
+                if (MainMenu.RollcallMode != MainMenu.RollcallModes.Trials)
+                {
+                    ReadyBanner readyBanner = new ReadyBanner();
+                    self.Add<ReadyBanner>(readyBanner);
+                }
+                for (int j = 0; j < 8; j++)
+                {
+                    RollcallElement rollcallElement = new RollcallElement(j);
+                    self.Add<RollcallElement>(rollcallElement);
+                }
+                self.BackState = MainMenu.MenuState.Rollcall;
+                DynamicData.For(self).Set("ToStartSelected", null);
+                if (MainMenu.RollcallMode == MainMenu.RollcallModes.Versus || MainMenu.RollcallMode == MainMenu.RollcallModes.Trials)
+                {
+                    tweenBGToUICamera(self, 1);
+                }
+                else
+                {
+                    tweenBGToUICamera(self, 2);
+                }
+                for (int k = 0; k < 8; k++)
+                {
+                    EightPlayerModule.CoOpCrowns[k] = false;
+                }
+                return;
+            }
+            orig(self);
         }
 
         private static void CreateCoop_patch(ILContext ctx)
@@ -48,17 +194,6 @@ namespace EightPlayerMod
             {
                 cursor.EmitDelegate<Func<MainMenu.MenuState, MainMenu.MenuState>>(state => 
                 {
-                    return MainMenu.MenuState.None;
-                });
-            }
-        }
-
-        private static void CreateRollcall_patch(ILContext ctx)
-        {
-            var cursor = new ILCursor(ctx);
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(5))) 
-            {
-                cursor.EmitDelegate<Func<MainMenu.MenuState, MainMenu.MenuState>>(state => {
                     return MainMenu.MenuState.None;
                 });
             }
@@ -104,7 +239,6 @@ namespace EightPlayerMod
                         {
                             setType = LevelSetType.Coop;
                         }
-                        var menuDynamic = DynamicData.For(menu);
                         var list = new List<MenuItem>();
                         var standardLevelSet = new StandardSetButton(new Vector2(160f - 60, 90f), new Vector2(-160f, 120f), setType);
                         list.Add(standardLevelSet);
@@ -115,7 +249,7 @@ namespace EightPlayerMod
                         standardLevelSet.RightItem = eightPlayerSet;
                         eightPlayerSet.LeftItem = standardLevelSet;
                         menu.BackState = MainMenu.MenuState.Main;
-                        menuDynamic.Set("ToStartSelected", standardLevelSet);
+                        DynamicData.For(menu).Set("ToStartSelected", standardLevelSet);
                         tweenBGToUICamera(menu, 1);
                         menu.Add(new LevelSetDisplay(standardLevelSet, eightPlayerSet));
                     }
@@ -168,19 +302,25 @@ namespace EightPlayerMod
             base.OnDeselect();
         }
 
+        protected override void OnConfirm()
+        {
+            base.OnConfirm();
+            tower.Play(1);
+            EightPlayerModule.LaunchedEightPlayer = false;
+        }
+
         protected override void MenuAction()
         {
+            tower.Play(1);
             if (levelSetType == LevelSetType.Coop) 
             {
                 MainMenu.State = MainMenu.MenuState.CoOp;
                 MainMenu.BackState = MainMenu.MenuState.Main;
-                EightPlayerModule.LaunchedEightPlayer = false;
                 return;
             }
             MainMenu.RollcallMode = MainMenu.RollcallModes.Versus;
             MainMenu.State = MainMenu.MenuState.Rollcall;
             MainMenu.BackState = MainMenu.MenuState.Main;
-            EightPlayerModule.LaunchedEightPlayer = false;
         }
     }
 
@@ -217,19 +357,24 @@ namespace EightPlayerMod
             base.OnDeselect();
         }
 
+        protected override void OnConfirm()
+        {
+            base.OnConfirm();
+            tower.Play(1);
+            EightPlayerModule.LaunchedEightPlayer = true;
+        }
+
         protected override void MenuAction()
         {
             if (levelSetType == LevelSetType.Coop) 
             {
                 MainMenu.State = MainMenu.MenuState.CoOp;
                 MainMenu.BackState = MainMenu.MenuState.Main;
-                EightPlayerModule.LaunchedEightPlayer = true;
                 return;
             }
             MainMenu.RollcallMode = MainMenu.RollcallModes.Versus;
             MainMenu.State = MainMenu.MenuState.Rollcall;
             MainMenu.BackState = MainMenu.MenuState.Main;
-            EightPlayerModule.LaunchedEightPlayer = true;
         }
     }
 }

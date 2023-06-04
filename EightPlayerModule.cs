@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using FortRise;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
@@ -18,6 +19,11 @@ namespace EightPlayerMod
         public static bool CanCoopLevelSet;
         public Atlas EightPlayerAtlas;
         public SpriteData EightPlayerSpriteData;
+
+        public static bool[] Players = new bool[8];
+        public static int[] Characters = new int[8];
+        public static bool[] CoOpCrowns = new bool[8];
+        public static ArcherData.ArcherTypes[] AltSelect = new ArcherData.ArcherTypes[8];
 
         public EightPlayerModule() 
         {
@@ -44,6 +50,12 @@ namespace EightPlayerMod
 
         public override void Load()
         {
+            TFGame.Players = new bool[8];
+            TFGame.Characters = new int[8];
+            TFGame.AltSelect = new ArcherData.ArcherTypes[8];
+            TFGame.CoOpCrowns = new bool[8];
+            typeof(Player).GetField("wasColliders", BindingFlags.NonPublic | BindingFlags.Static)
+                .SetValue(null, new Collider[8]);
             ScreenPatch.Load();
             BackdropPatch.Load();
             RollcallPatch.Load();
@@ -51,6 +63,10 @@ namespace EightPlayerMod
             MiasmaPatch.Load();
             MapButtonPatch.Load();
             KingReaperPatch.Load();
+            PlayerInputPatch.Load();
+            TFGamePatch.Load();
+            TreasureSpawnerPatch.Load();
+            RoundLogicPatch.Load();
 
             typeof(ModExports).ModInterop();
         }
@@ -68,6 +84,10 @@ namespace EightPlayerMod
             MiasmaPatch.Unload();
             MapButtonPatch.Unload();
             KingReaperPatch.Unload();
+            PlayerInputPatch.Unload();
+            TFGamePatch.Unload();
+            TreasureSpawnerPatch.Unload();
+            RoundLogicPatch.Unload();
         }
     }
 
@@ -76,5 +96,31 @@ namespace EightPlayerMod
     {
         public static bool IsEightPlayer() => EightPlayerModule.IsEightPlayer;
         public static bool LaunchedEightPlayer() => EightPlayerModule.LaunchedEightPlayer;
+    }
+
+    public static class Commands 
+    {
+        [Command("totalInputs")]
+        public static void ShowTotalInput(string[] args) 
+        {
+            Logger.Log(TFGame.PlayerInputs.Length);
+            Logger.Log(ArcherData.Archers.Length);
+        }
+
+        [Command("widescreen")]
+        public static void TurnOnWidescreen(string[] args) 
+        {
+            EightPlayerModule.IsEightPlayer = !EightPlayerModule.IsEightPlayer;
+            if (EightPlayerModule.IsEightPlayer) 
+            {
+                Engine.Instance.Screen.Resize(420, 240, 3f);
+                WrapMath.AddWidth = new Vector2(420, 0f);
+            }
+            else 
+            {
+                Engine.Instance.Screen.Resize(320, 240, 3f);
+                WrapMath.AddWidth = new Vector2(320, 0f);
+            }
+        }
     }
 }

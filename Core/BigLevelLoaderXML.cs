@@ -26,8 +26,48 @@ namespace EightPlayerMod
             StartLevelOnFinish = true;
             Session = session;
             XML = session.MatchSettings.LevelSystem.GetNextRoundLevel(session.MatchSettings, session.RoundIndex, out this.randomSeed);
+            if (XML.GetAttribute("width") == "320") 
+            {
+                XML.SetAttr("width", 420);
+                InsertColumns(XML["BG"], "00000");
+                InsertColumns(XML["BGTiles"], "-1,-1,-1,-1,-1,");
+                InsertColumns(XML["Solids"], "00000");
+                InsertColumns(XML["SolidTiles"], "-1,-1,-1,-1,-1,");
+                foreach (XmlElement item2 in XML["Entities"])
+                {
+                    int num6 = item2.AttrInt("x");
+                    num6 += 50;
+                    item2.SetAttr("x", num6);
+                }
+            }
             Session.MatchSettings.LevelSystem.Theme.OnLoad();
             loader = new Coroutine(Coroutine.DoNoFrameSkip(Load()));
+        }
+
+        private static void InsertColumns(XmlElement xml, string insert)
+        {
+            if (xml == null || !(xml.InnerText != ""))
+            {
+                return;
+            }
+            string text = xml.InnerText;
+            int num = 0;
+            while (num < text.Length)
+            {
+                if (text[num] == '\n')
+                {
+                    num++;
+                    continue;
+                }
+                text = text.Insert(num, insert);
+                num = text.IndexOf('\n', num);
+                if (num == -1)
+                {
+                    break;
+                }
+                num++;
+            }
+            xml.InnerText = text;
         }
 
         public override void Update()

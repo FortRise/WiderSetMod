@@ -2,7 +2,7 @@
   <BG exportMode="Bitstring">000000011111111111111111111111111110000000
 000000011111111111111111111111111110000000
 000000011111111111111111111111111110000000
-000000001111111111111011111111111100000000
+000000001111111111111111111111111100000000
 000000001111111111111111111111111100000000
 000000111111111111111111111111111111000000
 011111111111111111111111111111111111111110
@@ -125,16 +125,16 @@
       <node x="365" y="120" />
     </Spawner>
     <Spawner id="13" x="210" y="30" name="TopMid">
-      <node x="175" y="30" />
-      <node x="175" y="70" />
-      <node x="245" y="70" />
-      <node x="245" y="30" />
+      <node x="155" y="30" />
+      <node x="155" y="75" />
+      <node x="260" y="75" />
+      <node x="260" y="30" />
     </Spawner>
     <Spawner id="14" x="210" y="75" name="Mid">
       <node x="160" y="100" />
       <node x="260" y="100" />
     </Spawner>
-    <CrackedPlatform id="0" x="170" y="45" width="40" />
+    <CrackedPlatform id="0" x="170" y="45" width="80" />
     <BGLantern id="1" x="210" y="20" Lit="True" />
     <BGLantern id="2" x="380" y="90" Lit="True" />
     <BGLantern id="3" x="40" y="90" Lit="True" />
@@ -155,8 +155,7 @@
     <FloorMiasma id="24" x="300" y="215" width="50" Group="0" />
     <TreasureChest id="25" x="105" y="205" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
     <TreasureChest id="26" x="315" y="205" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
-    <CrackedPlatform id="17" x="210" y="45" width="40" />
-    <RedSwitchBlock id="18" x="400" y="140" width="30" height="30" />
+    <RedSwitchBlock id="18" x="405" y="140" width="30" height="30" />
     <BlueSwitchBlock id="27" x="120" y="-10" width="20" height="20" />
     <BlueSwitchBlock id="28" x="280" y="-10" width="20" height="20" />
     <PlayerSpawn id="29" x="140" y="110" />

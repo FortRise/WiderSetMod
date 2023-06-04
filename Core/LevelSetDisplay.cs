@@ -65,17 +65,35 @@ namespace EightPlayerMod
                     TFGame.MenuAtlas["questResults/tipBanner"], vector + new Vector2(0f, 185f), 
                     new Vector2(100f, 37f), Vector2.One, 0f, Color.White * drawStandard, 
                     SpriteEffects.None, base.Scene.FrameCounter * 0.03f, 4f, 5, 0.3926991f);
-				Draw.OutlineTextCentered(TFGame.Font, "2-4 ARCHERS ONLY", vector + new Vector2(0f, 160f), QuestDifficultySelect.LegendaryColor, Color.Black);
-				Draw.OutlineTextCentered(TFGame.Font, "THE ORIGINAL TOWERFALL STAGES!", vector + new Vector2(0f, 168f), Color.White, Color.Black);
-				Draw.OutlineTextCentered(TFGame.Font, "CLASSIC, FRANTIC FUN.", vector + new Vector2(0f, 176f), Color.White, Color.Black);
+                if (EightPlayerModule.CanCoopLevelSet) 
+                {
+                    Draw.OutlineTextCentered(TFGame.Font, "2-4 ARCHERS ONLY", vector + new Vector2(0f, 160f), QuestDifficultySelect.LegendaryColor, Color.Black);
+                    Draw.OutlineTextCentered(TFGame.Font, "ORIGINAL AND BALANCED LEVELS!", vector + new Vector2(0f, 168f), Color.White, Color.Black);
+                    Draw.OutlineTextCentered(TFGame.Font, "PERFECT SUITE FOR SOLO PLAYERS", vector + new Vector2(0f, 176f), Color.White, Color.Black);
+                }
+                else 
+                {
+                    Draw.OutlineTextCentered(TFGame.Font, "2-4 ARCHERS ONLY", vector + new Vector2(0f, 160f), QuestDifficultySelect.LegendaryColor, Color.Black);
+                    Draw.OutlineTextCentered(TFGame.Font, "THE ORIGINAL TOWERFALL STAGES!", vector + new Vector2(0f, 168f), Color.White, Color.Black);
+                    Draw.OutlineTextCentered(TFGame.Font, "CLASSIC, FRANTIC FUN.", vector + new Vector2(0f, 176f), Color.White, Color.Black);
+                }
             }
             if (drawWide > 0) 
             {
 				Vector2 vector2 = Vector2.Lerp(Vector2.UnitX * 480f, Vector2.UnitX * 160f, Ease.CubeInOut(drawWide));
 				Draw.TextureBannerV(TFGame.MenuAtlas["questResults/darkWorldBanner"], vector2 + new Vector2(0f, 185f), new Vector2(100f, 37f), Vector2.One, 0f, Color.White * drawWide, SpriteEffects.None, base.Scene.FrameCounter * 0.03f, 4f, 5, 0.3926991f);
-				Draw.OutlineTextCentered(TFGame.Font, "SUPPORTS UP TO 8 ARCHERS", vector2 + new Vector2(0f, 160f), WideTextColor, Color.Black);
-				Draw.OutlineTextCentered(TFGame.Font, "EXPANDED STAGES FOR MORE FIGHTERS", vector2 + new Vector2(0f, 168f), Color.White, Color.Black);
-				Draw.OutlineTextCentered(TFGame.Font, "AND EPIC TEAM BATTLES!", vector2 + new Vector2(0f, 176f), Color.White, Color.Black);
+                if (EightPlayerModule.CanCoopLevelSet) 
+                {
+                    Draw.OutlineTextCentered(TFGame.Font, "SUPPORTS UP TO 4-8 ARCHERS", vector2 + new Vector2(0f, 160f), QuestDifficultySelect.LegendaryColor, Color.Black);
+                    Draw.OutlineTextCentered(TFGame.Font, "CHAOTIC AND FUN LEVELS", vector2 + new Vector2(0f, 168f), Color.White, Color.Black);
+                    Draw.OutlineTextCentered(TFGame.Font, "WIDER EXPERIENCE!", vector2 + new Vector2(0f, 176f), Color.White, Color.Black);
+                }
+                else 
+                {
+                    Draw.OutlineTextCentered(TFGame.Font, "SUPPORTS UP TO 8 ARCHERS", vector2 + new Vector2(0f, 160f), WideTextColor, Color.Black);
+                    Draw.OutlineTextCentered(TFGame.Font, "EXPANDED STAGES FOR MORE FIGHTERS", vector2 + new Vector2(0f, 168f), Color.White, Color.Black);
+                    Draw.OutlineTextCentered(TFGame.Font, "AND EPIC TEAM BATTLES!", vector2 + new Vector2(0f, 176f), Color.White, Color.Black);
+                }
             }
         }
 
