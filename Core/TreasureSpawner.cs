@@ -74,8 +74,10 @@ namespace EightPlayerMod
 
     public static class TreasureSpawnerPatch 
     {
+        private static ConstructorInfo base_VersusMatchResult;
         public static void Load() 
         {
+            base_VersusMatchResult = typeof(HUD).GetConstructor(Array.Empty<Type>());
             typeof(TreasureSpawner).GetField("ChestChances").SetValue(null, new float[7][] 
             { 
                 new float[4] { 0.9f, 0.9f, 0.2f, 0.1f },
@@ -114,6 +116,7 @@ namespace EightPlayerMod
         {
             if (EightPlayerModule.IsEightPlayer) 
             {
+                base_VersusMatchResult.Invoke(self, Array.Empty<object>());
                 DynamicData.For(self).Set("session", session);
                 DynamicData.For(self).Set("roundResults", roundResults);
                 self.Position = new Vector2(0f, 240f);

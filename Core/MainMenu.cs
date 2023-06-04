@@ -15,9 +15,6 @@ namespace EightPlayerMod
     public static class MainMenuPatch 
     {
         private static IDetour hook_orig_Update;
-        private static IDetour hook_RollcallElement_get_CharacterIndex;
-        private static IDetour hook_RollcallElement_set_CharacterIndex;
-        private static IDetour hook_RollcallElementNotJoinedUpdate;
         private static FastReflectionDelegate tweenBGToUICamera;
 
         public static void Load() 
@@ -31,19 +28,10 @@ namespace EightPlayerMod
             On.TowerFall.RollcallElement.GetPosition += RollcallElementGetPosition_patch;
             On.TowerFall.RollcallElement.GetTweenSource += RollcallElementGetTweenSource_patch;
             IL.TowerFall.MainMenu.CreateCoOp += CreateCoop_patch;
-            // IL.TowerFall.RollcallElement.ctor += RollcallElementctor_patch;
             hook_orig_Update = new ILHook(
                 typeof(MainMenu).GetMethod("orig_Update"),
                 MainMenuUpdate_patch
             );
-            // hook_RollcallElement_get_CharacterIndex = new ILHook(
-            //     typeof(RollcallElement).GetProperty("CharacterIndex").GetGetMethod(),
-            //     RollcallElement_CharacterIndex
-            // );
-            // hook_RollcallElement_set_CharacterIndex = new ILHook(
-            //     typeof(RollcallElement).GetProperty("CharacterIndex").GetSetMethod(),
-            //     RollcallElement_CharacterIndex
-            // );
         }
 
         public static void Unload() 
@@ -55,10 +43,7 @@ namespace EightPlayerMod
             IL.TowerFall.MainMenu.CreateCoOp -= CreateCoop_patch;
             On.TowerFall.RollcallElement.GetPosition -= RollcallElementGetPosition_patch;
             On.TowerFall.RollcallElement.GetTweenSource -= RollcallElementGetTweenSource_patch;
-            // IL.TowerFall.RollcallElement.ctor -= RollcallElementctor_patch;
             hook_orig_Update.Dispose();
-            // hook_RollcallElement_get_CharacterIndex.Dispose();
-            // hook_RollcallElement_set_CharacterIndex.Dispose();
         }
 
         private static Vector2 RollcallElementGetTweenSource_patch(On.TowerFall.RollcallElement.orig_GetTweenSource orig, int playerIndex)

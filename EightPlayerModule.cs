@@ -54,6 +54,10 @@ namespace EightPlayerMod
             TFGame.Characters = new int[8];
             TFGame.AltSelect = new ArcherData.ArcherTypes[8];
             TFGame.CoOpCrowns = new bool[8];
+            for (int i = 4; i < 8; i++) 
+            {
+                TFGame.Characters[i] = i;
+            }
             typeof(Player).GetField("wasColliders", BindingFlags.NonPublic | BindingFlags.Static)
                 .SetValue(null, new Collider[8]);
             ScreenPatch.Load();
@@ -67,6 +71,7 @@ namespace EightPlayerMod
             TFGamePatch.Load();
             TreasureSpawnerPatch.Load();
             RoundLogicPatch.Load();
+            ArcherPortraitPatch.Load();
 
             typeof(ModExports).ModInterop();
         }
@@ -88,6 +93,7 @@ namespace EightPlayerMod
             TFGamePatch.Unload();
             TreasureSpawnerPatch.Unload();
             RoundLogicPatch.Unload();
+            ArcherPortraitPatch.Unload();
         }
     }
 
