@@ -63,7 +63,7 @@ namespace EightPlayerMod
                     Draw.OutlineTextCentered(
                         TFGame.Font, 
                         $"P{playerIndex + 1}",
-                        self.Position + new Vector2(15, -40), ArcherData.GetColorA(playerIndex), 1.2f);
+                        self.Position + new Vector2(15, -40), ArcherData.GetColorA(playerIndex), 2f);
                 }
             });
         }
@@ -173,7 +173,7 @@ namespace EightPlayerMod
                 {
                     selfDynamic.Set("archerType", ArcherData.ArcherTypes.Normal);
                 }
-                portrait.SetCharacter(self.CharacterIndex, archerType, 1);
+                portrait.SetCharacter(self.CharacterIndex, selfDynamic.Get<ArcherData.ArcherTypes>("archerType"), 1);
             }
             else if (input.MenuConfirmOrStart && !TFGame.CharacterTaken(self.CharacterIndex) && TFGame.PlayerAmount < MaxPlayers)
             {
@@ -196,11 +196,11 @@ namespace EightPlayerMod
                     ArcherData.SecretArchers[self.CharacterIndex] != null)
                 {
                     selfDynamic.Set("archerType", ArcherData.ArcherTypes.Secret);
-                    portrait.SetCharacter(self.CharacterIndex, archerType, 1);
+                    portrait.SetCharacter(self.CharacterIndex, selfDynamic.Get<ArcherData.ArcherTypes>("archerType"), 1);
                 }
                 portrait.Join(false);
                 TFGame.Players[playerIndex] = true;
-                TFGame.AltSelect[playerIndex] = archerType;
+                TFGame.AltSelect[playerIndex] = selfDynamic.Get<ArcherData.ArcherTypes>("archerType");
                 if (TFGame.PlayerInputs[playerIndex] != null)
                 {
                     TFGame.PlayerInputs[playerIndex].Rumble(1f, 20);
