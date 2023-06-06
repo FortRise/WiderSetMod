@@ -20,11 +20,6 @@ namespace EightPlayerMod
         public Atlas EightPlayerAtlas;
         public SpriteData EightPlayerSpriteData;
 
-        public static bool[] Players = new bool[8];
-        public static int[] Characters = new int[8];
-        public static bool[] CoOpCrowns = new bool[8];
-        public static ArcherData.ArcherTypes[] AltSelect = new ArcherData.ArcherTypes[8];
-
         public EightPlayerModule() 
         {
             Instance = this;
@@ -72,6 +67,8 @@ namespace EightPlayerMod
             TreasureSpawnerPatch.Load();
             RoundLogicPatch.Load();
             ArcherPortraitPatch.Load();
+            GifExporterPatch.Load();
+            VersusStartPatch.Load();
 
             typeof(ModExports).ModInterop();
         }
@@ -94,6 +91,8 @@ namespace EightPlayerMod
             TreasureSpawnerPatch.Unload();
             RoundLogicPatch.Unload();
             ArcherPortraitPatch.Unload();
+            GifExporterPatch.Unload();
+            VersusStartPatch.Unload();
         }
     }
 

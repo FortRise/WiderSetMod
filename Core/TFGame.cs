@@ -43,7 +43,6 @@ namespace EightPlayerMod
 
         public static void Load() 
         {
-            On.TowerFall.TFGame.CharacterTaken += CharacterTaken_patch;
             IL.TowerFall.PlayerInput.AssignInputs += AssignInputs_patch;
 
             hook_orig_Initialize = new ILHook(
@@ -55,7 +54,6 @@ namespace EightPlayerMod
 
         public static void Unload() 
         {
-            On.TowerFall.TFGame.CharacterTaken -= CharacterTaken_patch;
             IL.TowerFall.PlayerInput.AssignInputs -= AssignInputs_patch;
 
             hook_orig_Initialize.Dispose();
@@ -88,22 +86,6 @@ namespace EightPlayerMod
                     return 8;
                 });
             }
-        }
-
-        private static bool CharacterTaken_patch(On.TowerFall.TFGame.orig_CharacterTaken orig, int characterIndex)
-        {
-            if (EightPlayerModule.LaunchedEightPlayer) 
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    if (EightPlayerModule.Players[i] && EightPlayerModule.Characters[i] == characterIndex)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            return orig(characterIndex);
         }
     }
 }

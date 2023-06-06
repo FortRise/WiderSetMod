@@ -75,63 +75,6 @@ namespace EightPlayerMod
             return orig(playerIndex);
         }
 
-        private static void RollcallElement_CharacterIndex (ILContext ctx)
-        {
-            var cursor = new ILCursor(ctx);
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld("TowerFall.TFGame", "Characters"))) 
-            {
-                cursor.EmitDelegate<Func<int[], int[]>>(x => {
-                    if (EightPlayerModule.LaunchedEightPlayer) 
-                    {
-                        return EightPlayerModule.Characters;
-                    }
-                    return x;
-                });
-            }
-        }
-
-        private static void RollcallElementctor_patch(ILContext ctx)
-        {
-            var cursor = new ILCursor(ctx);
-
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld("TowerFall.TFGame", "Players"))) 
-            {
-                cursor.EmitDelegate<Func<bool[], bool[]>>(x => {
-                    if (EightPlayerModule.LaunchedEightPlayer) 
-                    {
-                        return EightPlayerModule.Players;
-                    }
-                    return x;
-                });
-            }
-
-            cursor = new ILCursor(ctx);
-
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld("TowerFall.TFGame", "Characters"))) 
-            {
-                cursor.EmitDelegate<Func<int[], int[]>>(x => {
-                    if (EightPlayerModule.LaunchedEightPlayer) 
-                    {
-                        return EightPlayerModule.Characters;
-                    }
-                    return x;
-                });
-            }
-
-            cursor = new ILCursor(ctx);
-
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld("TowerFall.TFGame", "AltSelect"))) 
-            {
-                cursor.EmitDelegate<Func<ArcherData.ArcherTypes[], ArcherData.ArcherTypes[]>>(x => {
-                    if (EightPlayerModule.LaunchedEightPlayer) 
-                    {
-                        return EightPlayerModule.AltSelect;
-                    }
-                    return x;
-                });
-            }
-        }
-
         private static void CreateRollcall_patch(On.TowerFall.MainMenu.orig_CreateRollcall orig, MainMenu self)
         {
             if (EightPlayerModule.LaunchedEightPlayer) 
@@ -140,7 +83,7 @@ namespace EightPlayerMod
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        EightPlayerModule.Players[i] = false;
+                        TFGame.Players[i] = false;
                     }
                 }
                 if (MainMenu.RollcallMode != MainMenu.RollcallModes.Trials)
@@ -165,7 +108,7 @@ namespace EightPlayerMod
                 }
                 for (int k = 0; k < 8; k++)
                 {
-                    EightPlayerModule.CoOpCrowns[k] = false;
+                    TFGame.CoOpCrowns[k] = false;
                 }
                 return;
             }
@@ -189,6 +132,7 @@ namespace EightPlayerMod
             orig(self);
             EightPlayerModule.CanCoopLevelSet = false;
             EightPlayerModule.CanVersusLevelSet = false;
+            EightPlayerModule.LaunchedEightPlayer = false;
         }
 
         private static void CoopButtonMenuAction_patch(On.TowerFall.CoOpButton.orig_MenuAction orig, CoOpButton self)
@@ -260,7 +204,8 @@ namespace EightPlayerMod
         private LevelSetType levelSetType;
         public override bool Rotate => false;
 
-        public StandardSetButton(Vector2 position, Vector2 tweenFrom, LevelSetType levelSetType) : base(position, tweenFrom, "STANDARD", "2-4 ARCHERS")
+        public StandardSetButton(Vector2 position, Vector2 tweenFrom, LevelSetType levelSetType) : base(
+            position, tweenFrom, "STANDARD", EightPlayerModule.CanCoopLevelSet ? "1-4 ARCHERS" : "2-4 ARCHERS")
         {
             this.levelSetType = levelSetType;
             tower = EightPlayerModule.Instance.EightPlayerSpriteData.GetSpriteInt("StandardGameMode");
@@ -315,7 +260,8 @@ namespace EightPlayerMod
         private LevelSetType levelSetType;
         public override bool Rotate => false;
 
-        public EightPlayerSetButton(Vector2 position, Vector2 tweenFrom, LevelSetType levelSetType) : base(position, tweenFrom, "WIDER", "2-8 ARCHERS")
+        public EightPlayerSetButton(Vector2 position, Vector2 tweenFrom, LevelSetType levelSetType) : base(
+            position, tweenFrom, "WIDER", EightPlayerModule.CanCoopLevelSet ? "1-8 ARCHERS" : "2-8 ARCHERS")
         {
             this.levelSetType = levelSetType;
             tower = EightPlayerModule.Instance.EightPlayerSpriteData.GetSpriteInt("WideGameMode");
