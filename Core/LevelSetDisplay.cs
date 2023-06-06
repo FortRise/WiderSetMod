@@ -67,7 +67,7 @@ namespace EightPlayerMod
                     SpriteEffects.None, base.Scene.FrameCounter * 0.03f, 4f, 5, 0.3926991f);
                 if (EightPlayerModule.CanCoopLevelSet) 
                 {
-                    Draw.OutlineTextCentered(TFGame.Font, "2-4 ARCHERS ONLY", vector + new Vector2(0f, 160f), QuestDifficultySelect.LegendaryColor, Color.Black);
+                    Draw.OutlineTextCentered(TFGame.Font, "1-4 ARCHERS ONLY", vector + new Vector2(0f, 160f), QuestDifficultySelect.LegendaryColor, Color.Black);
                     Draw.OutlineTextCentered(TFGame.Font, "ORIGINAL AND BALANCED LEVELS!", vector + new Vector2(0f, 168f), Color.White, Color.Black);
                     Draw.OutlineTextCentered(TFGame.Font, "PERFECT SUITE FOR SOLO PLAYERS", vector + new Vector2(0f, 176f), Color.White, Color.Black);
                 }
