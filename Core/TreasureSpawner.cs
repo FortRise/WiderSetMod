@@ -44,8 +44,8 @@ namespace EightPlayerMod
         {
             orig(self, settings);
             self.MatchStats = new MatchStats[8];
-            self.Scores = new int[self.MatchSettings.TeamMode ? 4 : 8];
-            self.OldScores = new int[self.MatchSettings.TeamMode ? 4 : 8];
+            self.Scores = new int[self.MatchSettings.TeamMode ? 2 : 8];
+            self.OldScores = new int[self.MatchSettings.TeamMode ? 2 : 8];
         }
 
         private static void Variantctor_patch(On.TowerFall.Variant.orig_ctor orig, Variant self, Subtexture icon, string title, string description, Pickups[] itemExclusions, bool perPlayer, string header, UnlockData.Unlocks? unlocker, bool scrollEffect, bool hidden, bool canRandom, bool tournamentRule1v1, bool tournamentRule2v2, bool unlisted, bool darkWorldDLC, int coOpValue)
