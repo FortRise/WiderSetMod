@@ -25,9 +25,10 @@ namespace EightPlayerMod
             On.TowerFall.CoOpButton.MenuAction += CoopButtonMenuAction_patch;
             On.TowerFall.MainMenu.CreateMain += CreateMain_patch;
             On.TowerFall.MainMenu.CreateRollcall += CreateRollcall_patch;
+            IL.TowerFall.MainMenu.CreateCoOp += CreateCoop_patch;
             On.TowerFall.RollcallElement.GetPosition += RollcallElementGetPosition_patch;
             On.TowerFall.RollcallElement.GetTweenSource += RollcallElementGetTweenSource_patch;
-            IL.TowerFall.MainMenu.CreateCoOp += CreateCoop_patch;
+            On.TowerFall.MainMenu.CreateTeamSelect += CreateTeamSelect_patch;
             hook_orig_Update = new ILHook(
                 typeof(MainMenu).GetMethod("orig_Update"),
                 MainMenuUpdate_patch
@@ -43,7 +44,44 @@ namespace EightPlayerMod
             IL.TowerFall.MainMenu.CreateCoOp -= CreateCoop_patch;
             On.TowerFall.RollcallElement.GetPosition -= RollcallElementGetPosition_patch;
             On.TowerFall.RollcallElement.GetTweenSource -= RollcallElementGetTweenSource_patch;
+            On.TowerFall.MainMenu.CreateTeamSelect -= CreateTeamSelect_patch;
             hook_orig_Update.Dispose();
+        }
+
+        private static void CreateTeamSelect_patch(On.TowerFall.MainMenu.orig_CreateTeamSelect orig, MainMenu self)
+        {
+            if (EightPlayerModule.LaunchedEightPlayer) 
+            {
+                var selfDynamic = DynamicData.For(self);
+                var teamBanner = new TeamBanner(new Vector2(64f, 80f), new Vector2(-40f, 50f), "teamA2x");
+                var teamBanner2 = new TeamBanner(new Vector2(256f, 80f), new Vector2(360f, 50f), "teamB2x");
+                self.Add<TeamBanner>(new TeamBanner[] { teamBanner, teamBanner2 });
+                var readyBanner = new ReadyBanner();
+                self.Add<ReadyBanner>(readyBanner);
+                for (int i = 0; i < 8; i++)
+                {
+                    if (TFGame.Players[i])
+                    {
+                        Vector2 vector = new Vector2(160f, (float)(125 + 20 * i));
+                        Vector2 vector2 = new Vector2(160f, (float)(115 + 20 * i));
+                        if (i % 2 == 0)
+                        {
+                            vector2.X = -40f;
+                        }
+                        else
+                        {
+                            vector2.X = 360f;
+                        }
+                        TeamSelector teamSelector = new TeamSelector(vector, vector2, i);
+                        self.Add<TeamSelector>(teamSelector);
+                    }
+                }
+                selfDynamic.Set("ToStartSelected", null);
+                self.BackState = MainMenu.MenuState.VersusOptions;
+                selfDynamic.Invoke("TweenBGCameraToY", 3);
+                return;
+            }
+            orig(self);
         }
 
         private static Vector2 RollcallElementGetTweenSource_patch(On.TowerFall.RollcallElement.orig_GetTweenSource orig, int playerIndex)
@@ -133,6 +171,9 @@ namespace EightPlayerMod
             EightPlayerModule.CanCoopLevelSet = false;
             EightPlayerModule.CanVersusLevelSet = false;
             EightPlayerModule.LaunchedEightPlayer = false;
+            if (EightPlayerModule.StandardTeams == null)
+                EightPlayerModule.StandardTeams = MainMenu.VersusMatchSettings.Teams;
+            MainMenu.VersusMatchSettings.Teams = EightPlayerModule.StandardTeams;
         }
 
         private static void CoopButtonMenuAction_patch(On.TowerFall.CoOpButton.orig_MenuAction orig, CoOpButton self)
@@ -237,6 +278,7 @@ namespace EightPlayerMod
             base.OnConfirm();
             tower.Play(1);
             EightPlayerModule.LaunchedEightPlayer = false;
+            MainMenu.VersusMatchSettings.Teams = EightPlayerModule.StandardTeams;
         }
 
         protected override void MenuAction()
@@ -293,6 +335,7 @@ namespace EightPlayerMod
             base.OnConfirm();
             tower.Play(1);
             EightPlayerModule.LaunchedEightPlayer = true;
+            MainMenu.VersusMatchSettings.Teams = EightPlayerModule.EightPlayerTeams;
         }
 
         protected override void MenuAction()

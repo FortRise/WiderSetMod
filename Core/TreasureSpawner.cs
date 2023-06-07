@@ -14,7 +14,8 @@ namespace EightPlayerMod
     {
         public static void Load() 
         {
-            IL.TowerFall.RoundLogic.SpawnPlayersFFA += SpawnPlayersFFA_patch;
+            IL.TowerFall.RoundLogic.SpawnPlayersFFA += SpawnPlayers_patch;
+            IL.TowerFall.RoundLogic.SpawnPlayersTeams += SpawnPlayers_patch;
             On.TowerFall.Session.ctor += Sessionctor_patch;
             On.TowerFall.Variant.ctor += Variantctor_patch;
             IL.TowerFall.Player.cctor += Playercctor_patch;
@@ -22,7 +23,8 @@ namespace EightPlayerMod
 
         public static void Unload() 
         {
-            IL.TowerFall.RoundLogic.SpawnPlayersFFA -= SpawnPlayersFFA_patch;
+            IL.TowerFall.RoundLogic.SpawnPlayersFFA -= SpawnPlayers_patch;
+            IL.TowerFall.RoundLogic.SpawnPlayersTeams -= SpawnPlayers_patch;
             On.TowerFall.Session.ctor -= Sessionctor_patch;
             On.TowerFall.Variant.ctor -= Variantctor_patch;
             IL.TowerFall.Player.cctor -= Playercctor_patch;
@@ -55,7 +57,7 @@ namespace EightPlayerMod
                 DynamicData.For(self).Set("playerValues", new bool[8]);
         }
 
-        private static void SpawnPlayersFFA_patch(ILContext ctx)
+        private static void SpawnPlayers_patch(ILContext ctx)
         {
             var cursor = new ILCursor(ctx);
 
@@ -72,45 +74,44 @@ namespace EightPlayerMod
         }
     }
 
-    public static class TreasureSpawnerPatch 
+    public static class VersusMatchResultsPatch 
     {
+        public static IDetour hook_Sequence;
         private static ConstructorInfo base_VersusMatchResult;
+
         public static void Load() 
         {
             base_VersusMatchResult = typeof(HUD).GetConstructor(Array.Empty<Type>());
-            typeof(TreasureSpawner).GetField("ChestChances").SetValue(null, new float[7][] 
-            { 
-                new float[4] { 0.9f, 0.9f, 0.2f, 0.1f },
-                new float[5] { 0.9f, 0.9f, 0.8f, 0.2f, 0.1f },
-                new float[6] { 0.9f, 0.9f, 0.6f, 0.8f, 0.2f, 0.1f },
-                new float[6] { 0.9f, 0.9f, 0.8f, 0.8f, 0.2f, 0.1f },
-                new float[6] { 0.9f, 0.9f, 0.9f, 0.8f, 0.4f, 0.1f },
-                new float[6] { 0.9f, 0.9f, 0.9f, 0.8f, 0.4f, 0.2f },
-                new float[7] { 0.9f, 0.9f, 0.9f, 0.9f, 0.4f, 0.2f, 0.1f }
-            });
             On.TowerFall.VersusMatchResults.ctor += VersusMatchResultsctor_patch;
-            IL.TowerFall.VersusAwards.GetAwards += GetAwards_patch;
+            hook_Sequence = new ILHook(
+                typeof(VersusMatchResults).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetStateMachineTarget(),
+                Sequence_patch
+            );
         }
 
         public static void Unload() 
         {
             On.TowerFall.VersusMatchResults.ctor -= VersusMatchResultsctor_patch;
-            IL.TowerFall.VersusAwards.GetAwards -= GetAwards_patch;
+            hook_Sequence.Dispose();
         }
 
-        private static void GetAwards_patch(ILContext ctx)
+        private static void Sequence_patch(ILContext ctx)
         {
             var cursor = new ILCursor(ctx);
 
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(4))) 
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(160))) 
             {
-                cursor.EmitDelegate<Func<int, int>>(x => {
-                    if (EightPlayerModule.IsEightPlayer) 
-                        return 8;
-                    return x;
+                if (cursor.Next.MatchLdcR4(1f))
+                    continue;
+                cursor.EmitDelegate<Func<float, float>>(width => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 210;
+                    return width;
                 });
             }
         }
+
 
         private static void VersusMatchResultsctor_patch(On.TowerFall.VersusMatchResults.orig_ctor orig, VersusMatchResults self, Session session, VersusRoundResults roundResults)
         {
@@ -291,5 +292,43 @@ namespace EightPlayerMod
             }
             orig(self, session, roundResults);
         }
+    }
+
+    public static class TreasureSpawnerPatch 
+    {
+        public static void Load() 
+        {
+            typeof(TreasureSpawner).GetField("ChestChances").SetValue(null, new float[7][] 
+            { 
+                new float[4] { 0.9f, 0.9f, 0.2f, 0.1f },
+                new float[5] { 0.9f, 0.9f, 0.8f, 0.2f, 0.1f },
+                new float[6] { 0.9f, 0.9f, 0.6f, 0.8f, 0.2f, 0.1f },
+                new float[6] { 0.9f, 0.9f, 0.8f, 0.8f, 0.2f, 0.1f },
+                new float[6] { 0.9f, 0.9f, 0.9f, 0.8f, 0.4f, 0.1f },
+                new float[6] { 0.9f, 0.9f, 0.9f, 0.8f, 0.4f, 0.2f },
+                new float[7] { 0.9f, 0.9f, 0.9f, 0.9f, 0.4f, 0.2f, 0.1f }
+            });
+            IL.TowerFall.VersusAwards.GetAwards += GetAwards_patch;
+        }
+
+        public static void Unload() 
+        {
+            IL.TowerFall.VersusAwards.GetAwards -= GetAwards_patch;
+        }
+
+        private static void GetAwards_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(4))) 
+            {
+                cursor.EmitDelegate<Func<int, int>>(x => {
+                    if (EightPlayerModule.IsEightPlayer) 
+                        return 8;
+                    return x;
+                });
+            }
+        }
+
     }
 }

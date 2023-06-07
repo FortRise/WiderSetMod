@@ -20,6 +20,9 @@ namespace EightPlayerMod
         public Atlas EightPlayerAtlas;
         public SpriteData EightPlayerSpriteData;
 
+        public static MatchTeams StandardTeams;
+        public static EightPlayerMatchTeams EightPlayerTeams = new EightPlayerMatchTeams(Allegiance.Neutral);
+
         public EightPlayerModule() 
         {
             Instance = this;
@@ -69,6 +72,10 @@ namespace EightPlayerMod
             ArcherPortraitPatch.Load();
             GifExporterPatch.Load();
             VersusStartPatch.Load();
+            MatchSettingsPatch.Load();
+            EightPlayerMatchTeams.Load();
+            VersusMatchResultsPatch.Load();
+            VersusRoundResultsPatch.Load();
 
             typeof(ModExports).ModInterop();
         }
@@ -93,6 +100,10 @@ namespace EightPlayerMod
             ArcherPortraitPatch.Unload();
             GifExporterPatch.Unload();
             VersusStartPatch.Unload();
+            MatchSettingsPatch.Unload();
+            EightPlayerMatchTeams.Unload();
+            VersusMatchResultsPatch.Unload();
+            VersusRoundResultsPatch.Unload();
         }
     }
 

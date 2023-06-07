@@ -1,15 +1,15 @@
 {
   "sheet_path": "../atlas/png",
   "frames": {
-    "levelset/standardMode": {
-      "x": 0,
-      "y": 288,
-      "width": 576,
-      "height": 288
-    },
     "levelset/wideMode": {
       "x": 0,
       "y": 0,
+      "width": 576,
+      "height": 288
+    },
+    "levelset/standardMode": {
+      "x": 0,
+      "y": 288,
       "width": 576,
       "height": 288
     }
