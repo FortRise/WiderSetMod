@@ -1,12 +1,11 @@
 using System;
 using System.Reflection;
-using FortRise;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using TowerFall;
 
-namespace EightPlayerMod 
+namespace EightPlayerMod
 {
     public static class VersusStartPatch 
     {
