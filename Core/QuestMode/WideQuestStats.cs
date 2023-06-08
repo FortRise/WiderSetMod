@@ -13,7 +13,6 @@ namespace EightPlayerMod
     public static class QuestSavePatch 
     {
         private static IDetour hook_MainMenuCreateCredits;
-        private static IDetour hook_MapSceneQuestIntroScene;
         private static IDetour hook_QuestControlLevelSequence;
         private static IDetour hook_QuestCompleteSequence;
 
@@ -29,10 +28,8 @@ namespace EightPlayerMod
             IL.TowerFall.QuestRoundLogic.OnLevelLoadFinish += InlineTowers_patch;
             IL.TowerFall.QuestRoundLogic.OnPlayerDeath += InlineTowers_patch;
             IL.TowerFall.CoOpDataDisplay.ctor += CoOpDataDisplayctor_patch;
-            hook_MapSceneQuestIntroScene = new Hook(
-                typeof(MapScene).GetMethod("QuestIntroSequence", BindingFlags.Instance | BindingFlags.NonPublic),
-                typeof(QuestSavePatch).GetMethod(nameof(QuestIntroSequence_patch), BindingFlags.NonPublic)
-            );
+            On.TowerFall.MapScene.QuestIntroSequence += QuestIntroSequence_patch;
+
 
             hook_MainMenuCreateCredits = new ILHook(
                 typeof(MainMenu).GetMethod("<CreateCredits>b__111_7", BindingFlags.Instance | BindingFlags.NonPublic),
@@ -62,7 +59,7 @@ namespace EightPlayerMod
             IL.TowerFall.QuestRoundLogic.OnLevelLoadFinish -= InlineTowers_patch;
             IL.TowerFall.QuestRoundLogic.OnPlayerDeath -= InlineTowers_patch;
             IL.TowerFall.CoOpDataDisplay.ctor -= CoOpDataDisplayctor_patch;
-            hook_MapSceneQuestIntroScene.Dispose();
+            On.TowerFall.MapScene.QuestIntroSequence -= QuestIntroSequence_patch;
             hook_MainMenuCreateCredits.Dispose();
             hook_QuestControlLevelSequence.Dispose();
             hook_QuestCompleteSequence.Dispose();
@@ -187,9 +184,7 @@ namespace EightPlayerMod
             }
         }
 
-        private delegate IEnumerator orig_QuestIntroSequence(MapScene self);
-
-        private static IEnumerator QuestIntroSequence_patch(orig_QuestIntroSequence orig, MapScene self) 
+        private static IEnumerator QuestIntroSequence_patch(On.TowerFall.MapScene.orig_QuestIntroSequence orig, MapScene self)
         {
             if (EightPlayerModule.LaunchedEightPlayer) 
             {
