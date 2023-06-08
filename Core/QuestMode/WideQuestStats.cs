@@ -15,6 +15,7 @@ namespace EightPlayerMod
         private static IDetour hook_MainMenuCreateCredits;
         private static IDetour hook_QuestControlLevelSequence;
         private static IDetour hook_QuestCompleteSequence;
+        private static IDetour hook_MapButtonUnlockSequence;
 
         public static void Load() 
         {
@@ -45,6 +46,10 @@ namespace EightPlayerMod
                     .GetStateMachineTarget(),
                 InlineTowers_patch
             );
+            hook_MapButtonUnlockSequence = new ILHook(
+                typeof(MapButton).GetMethod("UnlockSequence").GetStateMachineTarget(),
+                InlineTowers_patch
+            );
         }
 
         public static void Unload() 
@@ -63,6 +68,7 @@ namespace EightPlayerMod
             hook_MainMenuCreateCredits.Dispose();
             hook_QuestControlLevelSequence.Dispose();
             hook_QuestCompleteSequence.Dispose();
+            hook_MapButtonUnlockSequence.Dispose();
         }
 
         private static void CoOpDataDisplayctor_patch(ILContext ctx)
