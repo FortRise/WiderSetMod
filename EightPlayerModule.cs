@@ -23,6 +23,9 @@ namespace EightPlayerMod
         public static MatchTeams StandardTeams;
         public static EightPlayerMatchTeams EightPlayerTeams = new EightPlayerMatchTeams(Allegiance.Neutral);
 
+        public override Type SaveDataType => typeof(EightPlayerSaveData);
+        public static EightPlayerSaveData SaveData => (EightPlayerSaveData)Instance.InternalSaveData;
+
         public EightPlayerModule() 
         {
             Instance = this;
@@ -76,6 +79,11 @@ namespace EightPlayerMod
             EightPlayerMatchTeams.Load();
             VersusMatchResultsPatch.Load();
             VersusRoundResultsPatch.Load();
+            ReplayViewerPatch.Load();
+            LavaPatch.Load();
+            OrbLogicPatch.Load();
+            WideQuestTowerStats.Load();
+            QuestSavePatch.Load();
 
             typeof(ModExports).ModInterop();
         }
@@ -104,6 +112,11 @@ namespace EightPlayerMod
             EightPlayerMatchTeams.Unload();
             VersusMatchResultsPatch.Unload();
             VersusRoundResultsPatch.Unload();
+            ReplayViewerPatch.Unload();
+            LavaPatch.Unload();
+            OrbLogicPatch.Unload();
+            WideQuestTowerStats.Unload();
+            QuestSavePatch.Unload();
         }
     }
 
