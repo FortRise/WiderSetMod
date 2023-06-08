@@ -1,13 +1,11 @@
 using System;
 using System.Collections;
 using System.Reflection;
-using FortRise;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using TeuJson;
-using TeuJson.Attributes;
 using TowerFall;
 
 namespace EightPlayerMod
@@ -33,7 +31,7 @@ namespace EightPlayerMod
             IL.TowerFall.CoOpDataDisplay.ctor += CoOpDataDisplayctor_patch;
             hook_MapSceneQuestIntroScene = new Hook(
                 typeof(MapScene).GetMethod("QuestIntroSequence", BindingFlags.Instance | BindingFlags.NonPublic),
-                QuestIntroSequence_patch
+                typeof(QuestSavePatch).GetMethod(nameof(QuestIntroSequence_patch), BindingFlags.NonPublic)
             );
 
             hook_MainMenuCreateCredits = new ILHook(
