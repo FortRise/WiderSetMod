@@ -32,6 +32,10 @@
         <spawns>TopLeft,TopRight</spawns>
         <enemies>[2]Ghost</enemies>
       </group>
+      <group delay="120" players="2">
+        <spawns>TopLeft,TopRight,MidLeft,MidRight</spawns>
+        <enemies>[2*4]Slime</enemies>
+      </group>
     </wave>
   
     <!-- 3 -->
@@ -72,6 +76,10 @@
         <spawns>BotLeft,BotLeftMid,BotRightMid,BotRight</spawns>
         <enemies>[1*2]Ghost</enemies>
       </group>
+      <group delay="60" players="2">
+        <spawns>BotLeft,BotLeftMid,BotRightMid,BotRight</spawns>
+        <enemies>[1*2]Ghost</enemies>
+      </group>
     </wave>
 
     <!-- 5 -->
@@ -79,10 +87,14 @@
       <group>
         <treasure>Arrows</treasure>
       </group>
-      <group delay="60">
-        <spawns>TopLeft,TopRight</spawns>
+      <group players="=1">
+        <spawns>TopLeft,TopRight,BotRight,BotLeft</spawns>
         <enemies>Skeleton</enemies>
       </group>  
+      <group players="2">
+        <spawns>TopLeft,TopRight,BotRight,BotLeft</spawns>
+        <enemies>[2]Skeleton</enemies>
+      </group>
     </wave>
   </normal>
 
@@ -92,16 +104,16 @@
     <!-- 1 -->
     <wave>
       <group>
-        <spawns>BotLeft,BotRight</spawns>
-        <enemies>[2]Ghost</enemies>
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>[4]Ghost</enemies>
       </group>
       <group>
         <spawns>TopLeft,TopRight</spawns>
         <enemies>[2]Bat</enemies>
       </group>
       <group>
-        <spawns>TopLeft,TopRight</spawns>
-        <enemies>[2]Ghost</enemies>
+        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>[4]Ghost</enemies>
       </group>
       <group>
         <spawns>TopLeft,TopRight</spawns>
@@ -123,9 +135,13 @@
         <spawns>TopLeft,TopRight</spawns>
         <enemies>[2]Ghost</enemies>
       </group>
-      <group delay="60">
+      <group delay="60" players="=1">
         <spawns>TopLeft,TopRight,MidLeft,MidRight</spawns>
         <enemies>[2]Slime</enemies>
+      </group>
+      <group delay="60" players="4">
+        <spawns>TopLeft,TopRight,MidLeft,MidRight</spawns>
+        <enemies>[4]Slime</enemies>
       </group>
       <group>
         <spawns>BotLeft,BotRight</spawns>
@@ -143,6 +159,11 @@
         <treasure>Arrows</treasure>
         <spawns>TopMid,TopLeft,TopRight</spawns>
         <enemies>[3]Ghost</enemies>
+      </group>
+      <group players="2">
+        <treasure>Arrows</treasure>
+        <spawns>TopMid,TopLeft,TopRight</spawns>
+        <enemies>[3]Slime</enemies>
       </group>
       <group>
         <spawns>BotLeft,BotRight</spawns>
@@ -176,6 +197,8 @@
       
       <group>
         <treasure>Shield</treasure>
+        <spawns>BotLeft,BotRight</spawns>
+        <enemies>[2]Slime</enemies>
       </group>
       <group delay="120">
         <spawns>TopLeft,TopRight,TopMid</spawns>
@@ -185,12 +208,24 @@
         <spawns>BotLeft,BotLeftMid,BotRightMid,BotRight</spawns>
         <enemies>[4]Ghost</enemies>
       </group>
+      <group delay="120" players="4">
+        <spawns>BotLeftMid,BotRightMid</spawns>
+        <enemies>Ghost</enemies>
+      </group>
     </wave>
 
     <!-- 5 -->
     <wave>
       <group>
-        <spawns>TopLeft,TopRight</spawns>
+        <spawns>TopLeft,TopRight,BotRight,BotLeft</spawns>
+        <enemies>[2]Skeleton</enemies>
+      </group>
+      <group players="=3">
+        <spawns>TopLeft,TopRight,BotRight,BotLeft</spawns>
+        <enemies>[2]Skeleton</enemies>
+      </group>
+      <group players="=4">
+        <spawns>TopLeft,TopRight,BotRight,BotLeft</spawns>
         <enemies>[2]Skeleton</enemies>
       </group>
       <group>
@@ -204,6 +239,14 @@
       <group delay="20">
         <spawns>BotRight</spawns>
         <enemies>Ghost</enemies>
+      </group>
+      <group delay="360" players="=3">
+        <spawns>BotRight,BotLeft,TopLeft,TopRight,TopMid</spawns>
+        <enemies>[3]Ghost</enemies>
+      </group>
+      <group delay="360" players="=4">
+        <spawns>BotRight,BotLeft,TopLeft,TopRight,TopMid</spawns>
+        <enemies>[5]Ghost</enemies>
       </group>
     </wave>
   </hardcore>
