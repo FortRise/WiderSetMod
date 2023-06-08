@@ -40,10 +40,16 @@ namespace EightPlayerMod
     public static class TFGamePatch 
     {
         private static IDetour hook_orig_Initialize;
+        private static IDetour hook_FirstPlayer;
 
         public static void Load() 
         {
             IL.TowerFall.PlayerInput.AssignInputs += AssignInputs_patch;
+            IL.TowerFall.TFGame.CharacterTaken += FourToEight_patch;
+            hook_FirstPlayer = new ILHook(
+                typeof(TFGame).GetProperty("FirstPlayer").GetGetMethod(),
+                FourToEight_patch
+            );
 
             hook_orig_Initialize = new ILHook(
                 typeof(TFGame).GetMethod("orig_Initialize", BindingFlags.NonPublic | BindingFlags.Instance),
@@ -55,8 +61,22 @@ namespace EightPlayerMod
         public static void Unload() 
         {
             IL.TowerFall.PlayerInput.AssignInputs -= AssignInputs_patch;
-
+            IL.TowerFall.TFGame.CharacterTaken -= FourToEight_patch;
+            hook_FirstPlayer.Dispose();
             hook_orig_Initialize.Dispose();
+        }
+
+        private static void FourToEight_patch(ILContext ctx)
+        {
+            var playerCursor = new ILCursor(ctx);
+            while (playerCursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(4))) 
+            {
+                playerCursor.EmitDelegate<Func<int, int>>(x => {
+                    if (EightPlayerModule.LaunchedEightPlayer || EightPlayerModule.IsEightPlayer)
+                        return 8;
+                    return x;
+                });
+            }
         }
 
         private static void AssignInputs_patch(ILContext ctx)
