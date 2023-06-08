@@ -16,6 +16,7 @@ namespace EightPlayerMod
         {
             IL.TowerFall.RoundLogic.SpawnPlayersFFA += SpawnPlayers_patch;
             IL.TowerFall.RoundLogic.SpawnPlayersTeams += SpawnPlayers_patch;
+            IL.TowerFall.RoundLogic.ctor += RoundLogicctor_patch;
             On.TowerFall.Session.ctor += Sessionctor_patch;
             On.TowerFall.Variant.ctor += Variantctor_patch;
             IL.TowerFall.Player.cctor += Playercctor_patch;
@@ -25,9 +26,22 @@ namespace EightPlayerMod
         {
             IL.TowerFall.RoundLogic.SpawnPlayersFFA -= SpawnPlayers_patch;
             IL.TowerFall.RoundLogic.SpawnPlayersTeams -= SpawnPlayers_patch;
+            IL.TowerFall.RoundLogic.ctor -= RoundLogicctor_patch;
             On.TowerFall.Session.ctor -= Sessionctor_patch;
             On.TowerFall.Variant.ctor -= Variantctor_patch;
             IL.TowerFall.Player.cctor -= Playercctor_patch;
+        }
+
+        private static void RoundLogicctor_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            cursor.GotoNext(MoveType.After, instr => instr.MatchLdcI4(4));
+            {
+                cursor.EmitDelegate<Func<int, int>>(amount => {
+                    return 8;
+                });
+            }
         }
 
         private static void Playercctor_patch(ILContext ctx)
@@ -77,6 +91,8 @@ namespace EightPlayerMod
     public static class VersusMatchResultsPatch 
     {
         public static IDetour hook_Sequence;
+        public static IDetour hook_VersusPlayerMatchResultsSequence;
+        public static IDetour hook_VersusPlayerMatchResultsSequenceb__5;
         private static ConstructorInfo base_VersusMatchResult;
 
         public static void Load() 
@@ -88,12 +104,68 @@ namespace EightPlayerMod
                     .GetStateMachineTarget(),
                 Sequence_patch
             );
+            hook_VersusPlayerMatchResultsSequence = new ILHook(
+                typeof(VersusPlayerMatchResults).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetStateMachineTarget(),
+                VersusPlayerMatchResultsSequence_patch
+            );
+            hook_VersusPlayerMatchResultsSequenceb__5 = new ILHook(
+                typeof(VersusPlayerMatchResults).GetNestedType("<>c__DisplayClass21_4", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetMethod("<Sequence>b__6", BindingFlags.Instance | BindingFlags.NonPublic),
+                VersusPlayerMatchResultsSequenceb__6_patch
+            );
         }
 
         public static void Unload() 
         {
             On.TowerFall.VersusMatchResults.ctor -= VersusMatchResultsctor_patch;
             hook_Sequence.Dispose();
+            hook_VersusPlayerMatchResultsSequence.Dispose();
+            hook_VersusPlayerMatchResultsSequenceb__5.Dispose();
+        }
+
+        private static void VersusPlayerMatchResultsSequenceb__6_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(1f))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(scale => {
+                    if (EightPlayerModule.IsEightPlayer && TFGame.PlayerAmount > 5) 
+                    {
+                        return 0.7f;
+                    }
+                    return scale;
+                });
+            }
+
+            cursor = new ILCursor(ctx);
+
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(1.5f))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(scale => {
+                    if (EightPlayerModule.IsEightPlayer && TFGame.PlayerAmount > 5) 
+                    {
+                        return 1f;
+                    }
+                    return scale;
+                });
+            }
+        }
+        private static void VersusPlayerMatchResultsSequence_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(1.5f))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(scale => {
+                    if (EightPlayerModule.IsEightPlayer && TFGame.PlayerAmount > 5) 
+                    {
+                        return 1f;
+                    }
+                    return scale;
+                });
+            }
         }
 
         private static void Sequence_patch(ILContext ctx)
