@@ -36,6 +36,17 @@ namespace EightPlayerMod
                     return width;
                 });
             }
+
+            cursor = new ILCursor(ctx);
+
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(3))) 
+            {
+                cursor.EmitDelegate<Func<int, int>>(players => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 7;
+                    return players;
+                });
+            }
         }
     }
 }
