@@ -58,22 +58,22 @@ namespace EightPlayerMod
                     return width;
                 });
             }
-            var scursor = new ILCursor(ctx);
-            if (scursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(332f))) 
+
+            cursor = new ILCursor(ctx);
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(160f))) 
             {
-                scursor.EmitDelegate<Func<float, float>>(width => {
+                cursor.EmitDelegate<Func<float, float>>(width => {
                     if (EightPlayerModule.IsEightPlayer)
-                        return 432f;
+                        return 210;
                     return width;
                 });
             }
-
-            var halfcursor = new ILCursor(ctx);
-            if (halfcursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(160f))) 
+            cursor = new ILCursor(ctx);
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(332f))) 
             {
-                halfcursor.EmitDelegate<Func<float, float>>(width => {
+                cursor.EmitDelegate<Func<float, float>>(width => {
                     if (EightPlayerModule.IsEightPlayer)
-                        return 420f/2;
+                        return 432f;
                     return width;
                 });
             }
@@ -91,10 +91,10 @@ namespace EightPlayerMod
                 });
             }
 
-            var scursor = new ILCursor(ctx);
-            if (scursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(330f))) 
+            cursor = new ILCursor(ctx);
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(330f))) 
             {
-                scursor.EmitDelegate<Func<float, float>>(width => {
+                cursor.EmitDelegate<Func<float, float>>(width => {
                     if (EightPlayerModule.IsEightPlayer)
                         return 430f;
                     return width;
