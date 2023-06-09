@@ -17,7 +17,10 @@ namespace EightPlayerMod
     {
         private static IDetour hook_orig_StartGame;
         private static IDetour hook_QuestControlStartSequence;
+        private static IDetour hook_QuestControlStartSequenceb__2;
         private static IDetour hook_QuestCompleteSequence;
+        private static IDetour hook_QuestCompleteSequenceb__1;
+        private static IDetour hook_QuestCompleteSequenceb__5;
         private static IDetour hook_QuestGameOverSequence;
         public static void Load() 
         {
@@ -66,6 +69,24 @@ namespace EightPlayerMod
                 typeof(QuestControl).GetMethod("StartSequence", BindingFlags.Instance | BindingFlags.NonPublic).GetStateMachineTarget(),
                 MiddlePos_patch
             );
+            hook_QuestControlStartSequenceb__2 = new ILHook(
+                typeof(QuestControl).GetNestedType(
+                    "<>c__DisplayClass17_0", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetMethod("<StartSequence>b__2", BindingFlags.Instance | BindingFlags.NonPublic),
+                MiddlePos_patch
+            );
+            hook_QuestCompleteSequenceb__1 = new ILHook(
+                typeof(QuestComplete).GetNestedType(
+                    "<>c__DisplayClass8_0", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetMethod("<Sequence>b__1", BindingFlags.Instance | BindingFlags.NonPublic),
+                MiddlePos_patch
+            );
+            hook_QuestCompleteSequenceb__5 = new ILHook(
+                typeof(QuestComplete).GetNestedType(
+                    "<>c__DisplayClass8_2", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetMethod("<Sequence>b__5", BindingFlags.Instance | BindingFlags.NonPublic),
+                MiddlePos_patch
+            );
             hook_QuestCompleteSequence = new ILHook(
                 typeof(QuestComplete).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic).GetStateMachineTarget(),
                 MiddlePos_patch
@@ -100,6 +121,9 @@ namespace EightPlayerMod
             hook_QuestGameOverSequence.Dispose();
             hook_orig_StartGame.Dispose();
             hook_QuestControlStartSequence.Dispose();
+            hook_QuestControlStartSequenceb__2.Dispose();
+            hook_QuestCompleteSequenceb__1.Dispose();
+            hook_QuestCompleteSequenceb__5.Dispose();
             hook_QuestCompleteSequence.Dispose();
         }
 
