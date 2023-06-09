@@ -263,12 +263,12 @@ namespace EightPlayerMod
                 {
                     array2 = new Vector2[6]
                     {
-                        new Vector2(100f, 70f),
-                        new Vector2(180f, 70f),
-                        new Vector2(260f, 70f),
-                        new Vector2(160f, 180f),
-                        new Vector2(240f, 180f),
-                        new Vector2(320f, 180f)
+                        new Vector2(100f, 105f),
+                        new Vector2(180f, 105f),
+                        new Vector2(260f, 105f),
+                        new Vector2(160f, 210f),
+                        new Vector2(240f, 210f),
+                        new Vector2(320f, 210f)
                     };
                     array = new Vector2[6];
                     for (int i = 0; i < 3; i++)
@@ -284,13 +284,13 @@ namespace EightPlayerMod
                 {
                     array2 = new Vector2[7]
                     {
-                        new Vector2(90f, 70f),
-                        new Vector2(170f, 70f),
-                        new Vector2(250f, 70f),
-                        new Vector2(330f, 70f),
-                        new Vector2(130f, 180f),
-                        new Vector2(210f, 180f),
-                        new Vector2(290f, 180f)
+                        new Vector2(90f, 105f),
+                        new Vector2(170f, 105f),
+                        new Vector2(250f, 105f),
+                        new Vector2(330f, 105f),
+                        new Vector2(130f, 210f),
+                        new Vector2(210f, 210f),
+                        new Vector2(290f, 210f)
                     };
                     array = new Vector2[7];
                     for (int k = 0; k < 4; k++)
@@ -310,14 +310,14 @@ namespace EightPlayerMod
                     }
                     array2 = new Vector2[8]
                     {
-                        new Vector2(70f, 70f),
-                        new Vector2(150f, 70f),
-                        new Vector2(230f, 70f),
-                        new Vector2(310f, 70f),
-                        new Vector2(110f, 180f),
-                        new Vector2(190f, 180f),
-                        new Vector2(270f, 180f),
-                        new Vector2(350f, 180f)
+                        new Vector2(70f, 105f),
+                        new Vector2(150f, 105f),
+                        new Vector2(230f, 105f),
+                        new Vector2(310f, 105f),
+                        new Vector2(110f, 210f),
+                        new Vector2(190f, 210f),
+                        new Vector2(270f, 210f),
+                        new Vector2(350f, 210f)
                     };
                     array = new Vector2[8];
                     for (int m = 0; m < 4; m++)
@@ -350,9 +350,21 @@ namespace EightPlayerMod
                 {
                     if (TFGame.Players[num2])
                     {
-                        VersusPlayerMatchResults versusPlayerMatchResults = new VersusPlayerMatchResults(session, self, num2, array[playerResults.Count], array2[playerResults.Count], awards[num2]);
-                        session.CurrentLevel.Add(versusPlayerMatchResults);
-                        playerResults.Add(versusPlayerMatchResults);
+                        if (TFGame.PlayerAmount >= 6) 
+                        {
+                            var versusPlayerMatchResults = new SmallVersusPlayerMatchResults(session, self, num2, array[playerResults.Count], array2[playerResults.Count], awards[num2]);
+                            var won = session.MatchStats[num2].Won;
+                            session.CurrentLevel.Add(versusPlayerMatchResults);
+                            versusPlayerMatchResults.AsSmall(won);
+                            playerResults.Add(versusPlayerMatchResults);
+                        }
+                        else 
+                        {
+                            VersusPlayerMatchResults versusPlayerMatchResults = new VersusPlayerMatchResults(session, self, num2, array[playerResults.Count], array2[playerResults.Count], awards[num2]);
+                            session.CurrentLevel.Add(versusPlayerMatchResults);
+                            playerResults.Add(versusPlayerMatchResults);
+                        }
+
                     }
                 }
                 DynamicData.For(self).Set("playerResults", playerResults);

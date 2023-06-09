@@ -3,7 +3,8 @@ output_path = "../"
 output_type = "Json"
 template_path = ["template.xml"]
 folders = [
-    "levelset"
+    "levelset",
+    "portrait"
 ]
 
 [image_options]

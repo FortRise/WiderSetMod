@@ -84,6 +84,8 @@ namespace EightPlayerMod
             OrbLogicPatch.Load();
             WideQuestTowerStats.Load();
             QuestSavePatch.Load();
+            SmallVersusPlayerMatchResults.Load();
+            VersusAwardsPatch.Load();
 
             typeof(ModExports).ModInterop();
         }
@@ -117,6 +119,8 @@ namespace EightPlayerMod
             OrbLogicPatch.Unload();
             WideQuestTowerStats.Unload();
             QuestSavePatch.Unload();
+            SmallVersusPlayerMatchResults.Unload();
+            VersusAwardsPatch.Unload();
         }
     }
 

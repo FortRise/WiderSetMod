@@ -1,17 +1,29 @@
 {
   "sheet_path": "../atlas/png",
   "frames": {
-    "levelset/wideMode": {
+    "portrait/silver": {
       "x": 0,
-      "y": 0,
-      "width": 576,
-      "height": 288
+      "y": 576,
+      "width": 74,
+      "height": 125
     },
     "levelset/standardMode": {
       "x": 0,
       "y": 288,
       "width": 576,
       "height": 288
+    },
+    "levelset/wideMode": {
+      "x": 0,
+      "y": 0,
+      "width": 576,
+      "height": 288
+    },
+    "portrait/gold": {
+      "x": 0,
+      "y": 701,
+      "width": 74,
+      "height": 125
     }
   }
 }
