@@ -47,6 +47,10 @@ namespace EightPlayerMod
             FakeVersusTowerData.Load(9, Content.GetContentPath("Levels/Versus/09 - Moonstone"));
             FakeVersusTowerData.Load(10, Content.GetContentPath("Levels/Versus/10 - TowerForge"));
             FakeVersusTowerData.Load(11, Content.GetContentPath("Levels/Versus/11 - Ascension"));
+            FakeVersusTowerData.Load(12, Content.GetContentPath("Levels/Versus/12 - The Amaranth"));
+            FakeVersusTowerData.Load(13, Content.GetContentPath("Levels/Versus/13 - Dreadwood"));
+            FakeVersusTowerData.Load(14, Content.GetContentPath("Levels/Versus/14 - Darkfang"));
+            FakeVersusTowerData.Load(15, Content.GetContentPath("Levels/Versus/15 - Cataclysm"));
         }
 
         public override void Load()
@@ -86,6 +90,7 @@ namespace EightPlayerMod
             QuestSavePatch.Load();
             SmallVersusPlayerMatchResults.Load();
             VersusAwardsPatch.Load();
+            LevelRandomPatch.Load();
 
             typeof(ModExports).ModInterop();
         }
@@ -121,6 +126,7 @@ namespace EightPlayerMod
             QuestSavePatch.Unload();
             SmallVersusPlayerMatchResults.Unload();
             VersusAwardsPatch.Unload();
+            LevelRandomPatch.Unload();
         }
     }
 

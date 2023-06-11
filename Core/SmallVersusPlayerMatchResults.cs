@@ -48,8 +48,26 @@ namespace EightPlayerMod
 			Vector2 start2 = end2 + Vector2.UnitX * -20f;
 			ulong kills = session.MatchStats[playerIndex].Kills.Kills;
 			ulong deaths = session.MatchStats[playerIndex].Deaths.Total - session.MatchStats[playerIndex].Deaths.Environment;
+            ulong consequence;
+			string textConsequence;
 
-            var killDeathSelf = new OutlineText(TFGame.Font, $"{kills}/{deaths}");
+			if (this.Level.Session.MatchSettings.TeamMode && this.Level.Session.MatchSettings.Variants.TeamRevive)
+			{
+				consequence = session.MatchStats[playerIndex].Revives;
+				textConsequence = "R";
+			}
+			else if (this.Level.Session.MatchSettings.TeamMode)
+			{
+				consequence = session.MatchStats[playerIndex].Kills.SelfKills + session.MatchStats[playerIndex].Kills.TeamKills + session.MatchStats[playerIndex].Deaths.Environment;
+				textConsequence = "T";
+			}
+			else
+			{
+				consequence = session.MatchStats[playerIndex].Deaths.SelfKills + session.MatchStats[playerIndex].Deaths.Environment;
+				textConsequence = "S";
+			}
+
+            var killDeathSelf = new OutlineText(TFGame.Font, $"K: {kills}/D: {deaths}/{textConsequence}: {consequence}");
 			killDeathSelf.Color = Color.Transparent;
 			killDeathSelf.OutlineColor = Color.Transparent;
 			Add(killDeathSelf);

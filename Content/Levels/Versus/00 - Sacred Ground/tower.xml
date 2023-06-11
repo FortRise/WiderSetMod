@@ -1,0 +1,5 @@
+﻿<tower>
+  <theme>SacredGround</theme>
+  <treasure arrows=".4">Arrows,Shield,Wings,TimeOrb,DarkOrb,LavaOrb</treasure>
+  <fixedFirst/>
+</tower>
