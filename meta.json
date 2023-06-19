@@ -1,8 +1,8 @@
 {
-	"name": "BartizanMod",
-	"version": "1.0.0",
-	"required": "2.4.0",
-	"author": "Kha",
-	"description": "A BartizanMod rewritten in FortRise as a module",
-	"dll": "BartizanMod.dll"
+    "name": "WiderSetMod",
+	"version": "0.2.0",
+	"required": "4.0.0",
+	"author": "FortRise",
+	"description": "Allows eight player in TowerFall",
+	"dll": "EightPlayerMod.dll"
 }
