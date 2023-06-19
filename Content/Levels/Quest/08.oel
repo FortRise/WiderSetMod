@@ -191,5 +191,9 @@
     <Event id="51" x="245" y="145" />
     <Event id="52" x="265" y="90" />
     <Event id="53" x="155" y="90" />
+    <PlayerSpawn id="54" x="50" y="200" />
+    <PlayerSpawn id="55" x="370" y="200" />
+    <FloorMiasma id="56" x="130" y="135" width="30" Group="2" />
+    <FloorMiasma id="57" x="260" y="135" width="30" Group="2" />
   </Entities>
 </level>
