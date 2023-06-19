@@ -42,6 +42,8 @@ namespace EightPlayerMod
             IL.TowerFall.PauseMenu.Render += MiddlePos_patch;
             IL.TowerFall.Level.HandlePausing += MiddlePos_patch;
             IL.TowerFall.Level.ctor += Levelctor;
+            IL.TowerFall.TreasureSpawner.GetChestSpawnsForLevel -= MiddlePos_patch;
+            IL.TowerFall.WrapMath.Opposite += MiddlePos_patch;
             IL.TowerFall.MapScene.InitButtons += InitButtons_patch;
             IL.TowerFall.QuestPlayerHUD.ctor += QuestPlayerHUD_patch;
             IL.TowerFall.QuestSpawnPortal.FinishSpawn += MiddlePos_patch;
@@ -107,6 +109,8 @@ namespace EightPlayerMod
             IL.TowerFall.PauseMenu.Render -= MiddlePos_patch;
             IL.TowerFall.MapScene.InitButtons -= InitButtons_patch;
             IL.TowerFall.Level.HandlePausing -= MiddlePos_patch;
+            IL.TowerFall.TreasureSpawner.GetChestSpawnsForLevel -= MiddlePos_patch;
+            IL.TowerFall.WrapMath.Opposite -= MiddlePos_patch;
             IL.TowerFall.QuestPlayerHUD.ctor -= QuestPlayerHUD_patch;
             IL.TowerFall.QuestSpawnPortal.FinishSpawn -= MiddlePos_patch;
             IL.TowerFall.Level.CoreRender -= LevelCoreRender_patch;
