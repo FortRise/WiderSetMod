@@ -197,5 +197,7 @@
     <Icicle id="61" x="335" y="20" />
     <Icicle id="62" x="30" y="100" />
     <Icicle id="63" x="390" y="100" />
+    <PlayerSpawn id="64" x="395" y="60" />
+    <PlayerSpawn id="65" x="25" y="60" />
   </Entities>
 </level>
