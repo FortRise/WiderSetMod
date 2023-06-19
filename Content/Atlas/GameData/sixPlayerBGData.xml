@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<backgrounds>
+
+  <BG id="SacredGround">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">distantSky</Backdrop>
+      <ScrollLayer x="130" y="-10" speedX="0" speedY="0" opacity="1">darkSky</ScrollLayer>
+      <SacredGroundMoonLayer x="311" y="34"/>
+      <ScrollLayer x="130" y="-10" speedX="0.1" speedY="0" opacity="1">slowClouds</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="0.4" speedY="0" opacity="0.02">thickMist</ScrollLayer>
+      <LightningFlash color="A4E4FC"/>
+      <ScrollLayer x="0" y="0" speedX="0.8" speedY="0.1" opacity="0.03">fastClouds</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="1.5" speedY="3" opacity="0.04">cloudRain</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="3.5" speedY="5" opacity="0.05">fastRain</ScrollLayer>
+    </Background>
+    <Foreground>
+      <WavyLayer x="-52" y="0" waveFrames="190" amplitude="3" sliceSize="10" opacity="0.13" sliceAdd=".05">borderCloud</WavyLayer>
+      <WavyLayer x="278" y="0" waveFrames="190" amplitude="3" sliceSize="10" opacity="0.13" sliceAdd=".05">borderCloud</WavyLayer>
+    </Foreground>
+  </BG>
+
+  <BG id="TwilightSpire">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">distantSky</Backdrop>
+      <FadeLayer x="210" y="50" xRange="80" yRange="40" fadeSpeed=".002" opacity=".4" opacityRange=".3">DarkHallBGShine1</FadeLayer>
+      <FadeLayer x="110" y="120" xRange="80" yRange="40" fadeSpeed=".001" opacity=".4" opacityRange=".3">DarkHallBGShine1</FadeLayer>
+      <FadeLayer x="200" y="180" xRange="80" yRange="40" fadeSpeed=".003" opacity=".4" opacityRange=".3">DarkHallBGShine1</FadeLayer>
+      <FadeLayer x="160" y="90" xRange="80" yRange="40" fadeSpeed=".004" opacity=".4" opacityRange=".3">DarkHallBGShine2</FadeLayer>
+      <FadeLayer x="90" y="40" xRange="80" yRange="40" fadeSpeed=".005" opacity=".4" opacityRange=".3">DarkHallBGShine3</FadeLayer>
+      <ScrollLayer x="0" y="0" speedX="0.2" speedY="0" opacity="1">magicSymbols</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="0.4" speedY="0" opacity="0.02">thickMist</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="1.0" speedY="0" opacity="0.01">fastClouds</ScrollLayer>
+    </Background>
+  </BG>
+
+  <BG id="Backfire">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">CavesBack</Backdrop>
+      <AnimatedLayer x="306" y="4" opacity="1">cavesFlickerA</AnimatedLayer>
+      <AnimatedLayer x="273" y="86" opacity="1">cavesFlickerB</AnimatedLayer>
+      <AnimatedLayer x="288" y="115" opacity="1">cavesFlickerC</AnimatedLayer>
+      <AnimatedLayer x="168" y="87" opacity="1">cavesFlickerD</AnimatedLayer>
+
+      <FadeLayer x="210" y="120" xRange="80" yRange="60" fadeSpeed=".005" opacity=".3" opacityRange=".3">IgnisFatuus</FadeLayer>
+      <FadeLayer x="210" y="120" xRange="80" yRange="60" fadeSpeed=".003" opacity=".4" opacityRange=".3">IgnisFatuus2</FadeLayer>
+
+      <NodeLayer sprite="BGBat" endWarp="True">
+        <Node x="-30" y="15" xRange="0" yRange="10" animID="0" speed="1" speedRange="0.5" delay="800" delayRange="5"/>
+        <Node x="160" y="30" xRange="80" yRange="30" speed="1.2"/>
+        <Node x="440" y="50" yRange="50"/>
+      </NodeLayer>
+
+      <NodeLayer sprite="BGBat" endWarp="True">
+        <Node x="-30" y="205" xRange="0" yRange="10" animID="0" speed="2" speedRange="0.5" delay="900" delayRange="5"/>
+        <Node x="160" y="120" xRange="80" yRange="30" speed="1.2"/>
+        <Node x="440" y="80" yRange="50"/>
+      </NodeLayer>
+
+      <NodeLayer sprite="BGBat" endWarp="True">
+        <Node x="-30" y="110" xRange="0" yRange="10" animID="0" speed="1" speedRange="1" delay="850" delayRange="5"/>
+        <Node x="160" y="110" xRange="80" yRange="30" speed="1.2"/>
+        <Node x="440" y="110" yRange="30"/>
+      </NodeLayer>
+
+      <NodeLayer sprite="BGBat" endWarp="True">
+        <Node x="-30" y="110" xRange="0" yRange="10" animID="0" speed="1" speedRange="1" delay="100" delayRange="500"/>
+        <Node x="160" y="50" xRange="80" yRange="30" speed="1.2"/>
+        <Node x="440" y="50" yRange="30"/>
+      </NodeLayer>
+
+      <Overtime>
+        <NodeLayer sprite="BGBat" endWarp="True">
+          <Node x="-30" y="15" xRange="0" yRange="10" animID="0" speed="1" speedRange="0.5" delay="100" delayRange="50"/>
+          <Node x="160" y="30" xRange="80" yRange="30" speed="1.2"/>
+          <Node x="440" y="50" yRange="50"/>
+        </NodeLayer>
+
+        <NodeLayer sprite="BGBat" endWarp="True">
+          <Node x="-30" y="205" xRange="0" yRange="10" animID="0" speed="2" speedRange="0.5" delay="100" delayRange="5"/>
+          <Node x="160" y="120" xRange="80" yRange="30" speed="1.2"/>
+          <Node x="440" y="80" yRange="50"/>
+        </NodeLayer>
+
+        <NodeLayer sprite="BGBat" endWarp="True">
+          <Node x="-30" y="50" xRange="0" yRange="10" animID="0" speed="1" speedRange="1" delay="30" delayRange="50"/>
+          <Node x="160" y="70" xRange="80" yRange="80" speed="1.2"/>
+          <Node x="440" y="80" yRange="30"/>
+        </NodeLayer>
+
+        <NodeLayer sprite="BGBat" endWarp="True">
+          <Node x="-30" y="110" xRange="0" yRange="10" animID="0" speed="1" speedRange="1" delay="30" delayRange="500"/>
+          <Node x="160" y="10" xRange="10" yRange="30" speed="1.2"/>
+          <Node x="440" y="10" yRange="30"/>
+        </NodeLayer>
+      </Overtime>
+
+      <ScrollLayer x="130" y="-10" speedX="1" speedY="0" opacity="0.05">thickMist</ScrollLayer>
+    </Background>
+  </BG>
+
+  <BG id="Flight">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">daySky</Backdrop>
+      <FlightMoonLayer x="45" y="30"/>
+      <ScrollLayer x="130" y="-10" speedX="4" speedY="0" opacity="0.18">thickMist</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="0.4" speedY="0" opacity="0.2">deepMist</ScrollLayer>
+    </Background>
+  </BG>
+
+  <BG id="Mirage">
+    <Background>
+      <WavyLayer x="-5" y="0" waveFrames="90" amplitude="1" sliceSize="20" sliceAdd=".1">desertDusk</WavyLayer>
+      <ScrollLayer x="0" y="0" speedX="0.4" speedY="0" opacity="0.1">deepMist</ScrollLayer>
+    </Background>
+  </BG>
+
+  <BG id="Thornwood">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">forestSky</Backdrop>
+      <WavyLayer x="-5" y="0" waveFrames="400" amplitude="5" sliceSize="30" sliceAdd="0.1" opacity="1">forestLeaves</WavyLayer>
+      <Backdrop x="0" y="0" opacity="1">frontTrees</Backdrop>
+      <AnimatedLayer x="75" y="30" opacity="1">farSilhouette</AnimatedLayer>
+      <AnimatedLayer x="246" y="58" opacity="1">farSilhouette2</AnimatedLayer>
+    </Background>
+    <Foreground>
+      <WavyLayer x="-5" y="0" waveFrames="400" amplitude="5" sliceSize="10" sliceAdd="0.4" opacity="0.08">sparseMist</WavyLayer>
+    </Foreground>
+  </BG>
+
+  <BG id="FrostfangKeep">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">distantSky</Backdrop>
+      <ScrollLayer x="0" y="0" speedX="0.03" speedY="-.05" opacity="0.06">snow</ScrollLayer>
+    </Background>
+    <Foreground>
+      <ScrollLayer x="0" y="0" speedX="0.01" speedY="-.1" opacity="0.05">snow</ScrollLayer>
+      <WavyLayer x="-5" y="0" waveFrames="400" amplitude="3" sliceSize="10" sliceAdd="0.05" opacity="0.15">smokeClouds</WavyLayer>
+    </Foreground>
+  </BG>
+
+  <BG id="KingsCourt">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">capitolBack</Backdrop>
+      <Backdrop x="0" y="0" opacity="0.85">capitolTowers</Backdrop>
+      <ScrollLayer x="0" y="0" speedX="0.2" speedY="0" opacity="0.2">deepMist</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="0.3" speedY="0.6" opacity="0.5">snow</ScrollLayer>
+    </Background>
+    <Foreground>
+      <WavyLayer x="-5" y="0" waveFrames="400" amplitude="3" sliceSize="10" sliceAdd="0.05" opacity="0.1">smokeClouds</WavyLayer>
+    </Foreground>
+  </BG>
+
+  <BG id="Moonstone">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">distantSky</Backdrop>
+      <WavyLayer x="10" y="100" waveFrames="200" amplitude="5" sliceSize="50" horizontal="True" sliceAdd=".2">floatingRocks</WavyLayer>
+      <ScrollLayer x="0" y="0" speedX="0.4" speedY="0" opacity="0.02">thickMist</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="0" speedY="-2.0" opacity="0.03">snow</ScrollLayer>
+      <WavyLayer x="-5" y="180" waveFrames="300" amplitude="5" sliceSize="5" horizontal="False"  sliceAdd=".04">sea</WavyLayer>
+      <WavyLayer x="-5" y="185" waveFrames="180" amplitude="5" sliceSize="5" horizontal="True" opacity="0.35" sliceAdd=".01">sea</WavyLayer>
+      <OceanLayer x="50" y="240" opacity="1" timeMin="120" timeAdd="720">WaterSplash</OceanLayer>
+    </Background>
+  </BG>
+
+  <BG id="SunkenCity">
+    <Background bgColor="FFFFFF">
+      <ScrollLayer x="0" y="0" speedX="0.15" speedY="0" opacity="1">oceanBack</ScrollLayer>
+      <FadeMoveLayer x="160" y="50" xRange="90" yRange="8" maxAlpha=".5" time="2">Lights</FadeMoveLayer>
+
+      <WavyLayer x="-5" y="0" waveFrames="300" amplitude="3" sliceSize="5" horizontal="False"  sliceAdd=".04">sunkenBack</WavyLayer>
+      <WavyLayer x="138" y="144" waveFrames="200" amplitude="2" sliceSize="6" horizontal="False"  sliceAdd=".05">sunkenBack2</WavyLayer>
+      <FadeLayer x="160" y="50" xRange="80" yRange="40" fadeSpeed=".002" opacity=".4" opacityRange=".3">Bubble</FadeLayer>
+      <FadeLayer x="160" y="200" xRange="80" yRange="40" fadeSpeed=".001" opacity=".4" opacityRange=".3">Bubble</FadeLayer>
+
+      <FadeMoveLayer x="160" y="50" xRange="90" yRange="8" maxAlpha=".5" time="2">Lights</FadeMoveLayer>
+
+      <WavyLayer x="0" y="-00" waveFrames="200" amplitude="1" sliceSize="6" horizontal="True" opacity="0.2" sliceAdd=".05">oceanFilter</WavyLayer>
+
+      <Random chance="0.5">
+        <AnimatedLayer x="160" y="110"  opacity="0.8">Leak2</AnimatedLayer>
+      </Random>
+
+      <Random chance="0.5">
+        <AnimatedLayer x="40" y="90"  opacity="0.8">Leak3</AnimatedLayer>
+      </Random>
+
+      <Random chance="0.55">
+        <AnimatedLayer x="120" y="199" opacity="0.8">Leak1</AnimatedLayer>
+      </Random>
+      <Random chance="0.55">
+        <AnimatedLayer x="180" y="110" opacity="0.8">Leak1</AnimatedLayer>
+      </Random>
+
+      <Random chance="0.5">
+        <AnimatedLayer x="30" y="59" opacity="0.8">Leak4</AnimatedLayer>
+      </Random>
+      <Random chance="0.5">
+        <AnimatedLayer x="200" y="140" opacity="0.8">Leak5</AnimatedLayer>
+      </Random>
+    </Background>
+    <Foreground>
+      <WavyLayer x="-5" y="-5" waveFrames="100" amplitude="5" sliceSize="8" horizontal="True" opacity="0.15" sliceAdd=".1">oceanFilter</WavyLayer>
+    </Foreground>
+  </BG>
+  
+  <BG id="TowerForge">
+    <Background bgColor="FFFFFF">
+      <WavyLayer x="-5" y="0" waveFrames="100" amplitude="2" sliceSize="20" opacity="1" sliceAdd=".05" horizontal="False">coreBg2</WavyLayer>
+      <WavyLayer x="80" y="75" waveFrames="200" amplitude="2" sliceSize="20" opacity="1" sliceAdd=".05" horizontal="False">godHead</WavyLayer>
+
+      <NodeLayer sprite="BGBat" endWarp="True">
+        <Node x="-30" y="15" xRange="0" yRange="10" animID="0" speed="1" speedRange="0.5" delay="800" delayRange="5"/>
+        <Node x="160" y="30" xRange="80" yRange="30" speed="1.2"/>
+        <Node x="340" y="50" yRange="50"/>
+      </NodeLayer>
+
+      <Random chance="0.5">
+        <ScrollLayer x="70" y="0" speedX="0" speedY="1" opacity="0.9">lavaFall1</ScrollLayer>
+        <AnimatedLayer x="72" y="181" opacity="1">BGLavaSplash</AnimatedLayer>
+      </Random>
+
+      <Random chance="0.5">
+        <ScrollLayer x="210" y="0" speedX="0" speedY="1" opacity="0.9">lavaFall2</ScrollLayer>
+        <AnimatedLayer x="212" y="181" opacity="1">BGLavaSplash</AnimatedLayer>
+      </Random>
+
+      <Random chance="0.5">
+        <ScrollLayer x="230" y="0" speedX="0" speedY="1" opacity="0.9">lavaFall1</ScrollLayer>
+        <AnimatedLayer x="232" y="181" opacity="1">BGLavaSplash</AnimatedLayer>
+      </Random>
+
+      <Random chance="0.5">
+        <ScrollLayer x="30" y="0" speedX="0" speedY="1" opacity="0.9">lavaFall2</ScrollLayer>
+        <AnimatedLayer x="32" y="181" opacity="1">BGLavaSplash</AnimatedLayer>
+      </Random>
+
+
+      <WavyLayer x="0" y="195" waveFrames="190" amplitude="1" sliceSize="10" opacity="1" sliceAdd=".05"  horizontal="True">bgLava</WavyLayer>
+      <WavyLayer x="0" y="196" waveFrames="80" amplitude="5" sliceSize="5" opacity="0.1" sliceAdd=".05"  horizontal="False">bgLava3</WavyLayer>
+      <WavyLayer x="0" y="195" waveFrames="80" amplitude="5" sliceSize="5" opacity="0.5" sliceAdd=".05"  horizontal="False">bgLava2</WavyLayer>
+
+      <ScrollLayer x="0" y="30" speedX="0.8" speedY="0" opacity="0.04">fastClouds</ScrollLayer>
+      <WavyLayer x="0" y="150" waveFrames="200" amplitude="3" sliceSize="20" opacity="0.3" sliceAdd=".05" horizontal="False">redSmokeClouds</WavyLayer>
+
+    </Background>
+    <Foreground>
+      <WavyLayer x="0" y="0" waveFrames="190" amplitude="1" sliceSize="10" opacity="0.18" sliceAdd=".05"  horizontal="True">lavaFilter</WavyLayer>
+    </Foreground>
+  </BG>
+
+  <BG id="Ascension">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">distantSky</Backdrop>
+      <ScrollLayer x="0" y="0" speedX="3" speedY="0" opacity="1">SkyClouds1</ScrollLayer>
+      <ScrollLayer x="0" y="32" speedX="2" speedY="0" opacity="1">SkyClouds2</ScrollLayer>
+      <ScrollLayer x="0" y="64" speedX="1" speedY="0" opacity="1">SkyClouds3</ScrollLayer>
+      <ScrollLayer x="0" y="96" speedX="0.5" speedY="0" opacity="1">SkyClouds4</ScrollLayer>
+      <ScrollLayer x="0" y="128" speedX="0.25" speedY="0" opacity="1">SkyClouds5</ScrollLayer>
+
+      <FadeLayer x="80" y="40" xRange="80" yRange="20" maxAlpha=".5" time="2">Dust</FadeLayer>
+      <FadeMoveLayer x="240" y="40" xRange="80" yRange="20" maxAlpha=".5" time="2">Dust</FadeMoveLayer>
+      <FadeMoveLayer x="80" y="60" xRange="80" yRange="20" maxAlpha=".3" time="1">Dust</FadeMoveLayer>
+      <FadeMoveLayer x="240" y="60" xRange="80" yRange="20" maxAlpha=".3" time="1">Dust</FadeMoveLayer>
+      <FadeMoveLayer x="80" y="80" xRange="80" yRange="20" maxAlpha=".25" time="0.8">SmallDust</FadeMoveLayer>
+      <FadeMoveLayer x="240" y="80" xRange="80" yRange="20" maxAlpha=".25" time="0.8">SmallDust</FadeMoveLayer>
+      
+      <LightningFlash color="A4E4FC"/>
+      <WavyLayer x="-110" y="120" waveFrames="500" amplitude="0" sliceSize="320" sliceAdd="1" horizontal="False" opacity="0.95">farMap</WavyLayer>
+      <WavyLayer x="0" y="120" waveFrames="200" amplitude="3" sliceSize="20" sliceAdd="0.01" horizontal="False" opacity="0.4">farMapClouds</WavyLayer>
+      <WavyLayer x="-5" y="150" waveFrames="400" amplitude="3" sliceSize="5" sliceAdd="0.05" opacity="0.35">lowClouds</WavyLayer>
+      <AscensionLightningLayer x="50"/>
+
+      <ScrollLayer x="0" y="0" speedX="1.5" speedY="3" opacity="0.05">cloudRain</ScrollLayer>
+      <ScrollLayer x="130" y="-10" speedX="4" speedY="0" opacity="0.05">thickMist</ScrollLayer>
+    </Background>
+    <Foreground>
+      <WavyLayer x="-5" y="0" waveFrames="400" amplitude="3" sliceSize="10" sliceAdd="0.05" opacity="0.05">smokeClouds</WavyLayer>
+      <ScrollLayer x="0" y="0" speedX="3.5" speedY="5" opacity="0.15">fastRain</ScrollLayer>
+      <FadeMoveLayer x="80" y="0" xRange="40" yRange="0" maxAlpha=".1" time="2">LightRay</FadeMoveLayer>
+      <FadeMoveLayer x="160" y="0" xRange="40" yRange="0" maxAlpha=".15" time="2">LightRay</FadeMoveLayer>
+      <FadeMoveLayer x="240" y="0" xRange="40" yRange="0" maxAlpha=".1" time="2">LightRay</FadeMoveLayer>
+    </Foreground>
+  </BG>
+
+  <BG id="Gauntlet">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">antarticSky</Backdrop>
+      <ScrollLayer x="0" y="0" speedX="3" speedY="0" opacity="1">SkyClouds1</ScrollLayer>
+      <ScrollLayer x="0" y="32" speedX="2" speedY="0" opacity="1">SkyClouds2</ScrollLayer>
+      <ScrollLayer x="0" y="64" speedX="1" speedY="0" opacity="1">SkyClouds3</ScrollLayer>
+      <ScrollLayer x="0" y="96" speedX="0.5" speedY="0" opacity="1">SkyClouds4</ScrollLayer>
+      <ScrollLayer x="0" y="128" speedX="0.25" speedY="0" opacity="1">SkyClouds5b</ScrollLayer>
+
+      <FadeLayer x="80" y="40" xRange="80" yRange="20" maxAlpha=".5" time="2">Dust</FadeLayer>
+      <FadeMoveLayer x="240" y="40" xRange="80" yRange="20" maxAlpha=".5" time="2">Dust</FadeMoveLayer>
+      <FadeMoveLayer x="80" y="60" xRange="80" yRange="20" maxAlpha=".3" time="1">Dust</FadeMoveLayer>
+      <FadeMoveLayer x="240" y="60" xRange="80" yRange="20" maxAlpha=".3" time="1">Dust</FadeMoveLayer>
+      <FadeMoveLayer x="80" y="80" xRange="80" yRange="20" maxAlpha=".25" time="0.8">SmallDust</FadeMoveLayer>
+      <FadeMoveLayer x="240" y="80" xRange="80" yRange="20" maxAlpha=".25" time="0.8">SmallDust</FadeMoveLayer>
+
+      <LightningFlash color="A4E4FF"/>
+      
+      <ScrollLayer x="0" y="0" speedX="1.5" speedY="3" opacity="0.05">cloudRain</ScrollLayer>
+      <ScrollLayer x="130" y="-10" speedX="4" speedY="0" opacity="0.05">thickMist</ScrollLayer>
+    </Background>
+    <Foreground>
+
+    </Foreground>
+  </BG>
+  
+  <BG id="Dreadwood">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">dreadSky</Backdrop>
+      <WavyLayer x="-5" y="0" waveFrames="400" amplitude="1" sliceSize="10" sliceAdd="0.05" opacity="1">dreadLeaves</WavyLayer>
+      <Backdrop x="0" y="0" opacity="1">dreadTrees</Backdrop>
+    </Background>
+    <Foreground>
+      <WavyLayer x="-5" y="0" waveFrames="200" amplitude="1" sliceSize="5" sliceAdd="0.1" opacity="0.2">smokeClouds</WavyLayer>
+    </Foreground>
+  </BG>
+  
+  <BG id="Darkfang">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">darkFangBack</Backdrop>
+      <ScrollLayer x="0" y="0" speedX="0.03" speedY="-.05" opacity="0.06">snow</ScrollLayer>
+      <ScrollLayer x="130" y="-10" speedX="0.04" speedY="0" opacity="0.2">thickMist</ScrollLayer>
+    </Background>
+    <Foreground>
+      <ScrollLayer x="130" y="-10" speedX="0.05" speedY="0" opacity="0.05">thickMist</ScrollLayer>
+      <ScrollLayer x="130" y="-00" speedX="0.1" speedY="0" opacity="0.05">thickMist</ScrollLayer>
+      <WavyLayer x="-5" y="0" waveFrames="200" amplitude="1" sliceSize="5" sliceAdd="0.1" opacity="0.15">smokeClouds</WavyLayer>
+    </Foreground>
+  </BG>
+
+  <BG id="TheAmaranth">
+    <Background bgColor="FFFFFF">
+      <ScrollLayer x="0" y="0" speedX="0.2" speedY="0" opacity="1">distantSky</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="0.4" speedY="0" opacity="0.02">thickMist</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="1" speedY="2.0" opacity="0.03">snow</ScrollLayer>
+
+      <WavyLayer x="-5" y="154" waveFrames="240" amplitude="4" sliceSize="5" horizontal="True" opacity="0.250" sliceAdd="-.005">sea</WavyLayer>
+      <WavyLayer x="-5" y="165" waveFrames="200" amplitude="5" sliceSize="10" horizontal="True" opacity="0.50" sliceAdd="-.005">sea</WavyLayer>
+      <!--ScrollLayer x="0" y="160" speedX="1" tileY="False" speedY="0" opacity="0.5">sea2</ScrollLayer-->
+      <GhostShipLayer x="160" y="195" scale="1"/>
+      <ScrollLayer x="0" y="170" speedX=".2" tileY="False" speedY="0" opacity="0.5">sea2</ScrollLayer>
+
+      <ScrollLayer x="0" y="0" speedX="0" speedY=".0" opacity="0.03">snow</ScrollLayer>
+
+      <WavyLayer x="-5" y="180" waveFrames="300" amplitude="5" sliceSize="5" horizontal="False" opacity="0.25" sliceAdd="-.04">sea</WavyLayer>
+      <WavyLayer x="-5" y="185" waveFrames="180" amplitude="5" sliceSize="5" horizontal="True" opacity="0.35" sliceAdd="-.01">sea</WavyLayer>
+      <OceanLayer x="50" y="240" opacity="1" timeMin="60" timeAdd="500">WaterSplash</OceanLayer>
+      <LightningFlash color="A4E4FC"/>
+
+      <ScrollLayer x="0" y="0" speedX="0.8" speedY="0.1" opacity="0.03">fastClouds</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="1.5" speedY="3" opacity="0.04">cloudRain</ScrollLayer>
+      <ScrollLayer x="0" y="0" speedX="3.5" speedY="5" opacity="0.05">fastRain</ScrollLayer>
+    </Background>
+
+    <Foreground>
+      <ScrollLayer x="0" y="0" speedX="3.5" speedY="6" opacity="0.18">fastRain</ScrollLayer>
+    </Foreground>
+  </BG>
+
+  <BG id="Cataclysm">
+    <Background bgColor="000000">
+      <VortexLayer x="210" y="120"/>
+    </Background>
+  </BG>
+
+  <BG id="Ending">
+    <Background bgColor="FFFFFF">
+      <Backdrop x="0" y="0" opacity="1">distantSky</Backdrop>
+      <ScrollLayer x="0" y="0" speedX="3" speedY="0" opacity="1">SkyClouds1</ScrollLayer>
+      <ScrollLayer x="0" y="32" speedX="2" speedY="0" opacity="1">SkyClouds2</ScrollLayer>
+      <ScrollLayer x="0" y="64" speedX="1" speedY="0" opacity="1">SkyClouds3</ScrollLayer>
+      <ScrollLayer x="0" y="96" speedX="0.5" speedY="0" opacity="1">SkyClouds4</ScrollLayer>
+      <ScrollLayer x="0" y="128" speedX="0.25" speedY="0" opacity="1">SkyClouds5</ScrollLayer>
+
+      <FadeLayer x="80" y="40" xRange="80" yRange="20" maxAlpha=".5" time="2">Dust</FadeLayer>
+      <FadeMoveLayer x="240" y="40" xRange="80" yRange="20" maxAlpha=".5" time="2">Dust</FadeMoveLayer>
+      <FadeMoveLayer x="80" y="60" xRange="80" yRange="20" maxAlpha=".3" time="1">Dust</FadeMoveLayer>
+      <FadeMoveLayer x="240" y="60" xRange="80" yRange="20" maxAlpha=".3" time="1">Dust</FadeMoveLayer>
+      <FadeMoveLayer x="80" y="80" xRange="80" yRange="20" maxAlpha=".25" time="0.8">SmallDust</FadeMoveLayer>
+      <FadeMoveLayer x="240" y="80" xRange="80" yRange="20" maxAlpha=".25" time="0.8">SmallDust</FadeMoveLayer>
+
+      <WavyLayer x="-110" y="120" waveFrames="500" amplitude="0" sliceSize="320" sliceAdd="1" horizontal="False" opacity="0.95">farMap</WavyLayer>
+      <WavyLayer x="0" y="120" waveFrames="200" amplitude="3" sliceSize="20" sliceAdd="0.01" horizontal="False" opacity="0.4">farMapClouds</WavyLayer>
+      <WavyLayer x="-5" y="150" waveFrames="400" amplitude="3" sliceSize="5" sliceAdd="0.05" opacity="0.35">lowClouds</WavyLayer>
+
+      <ScrollLayer x="0" y="0" speedX="1.5" speedY="3" opacity="0.05">cloudRain</ScrollLayer>
+      <ScrollLayer x="130" y="-10" speedX="4" speedY="0" opacity="0.05">thickMist</ScrollLayer>
+    </Background>
+  </BG>
+
+</backgrounds>

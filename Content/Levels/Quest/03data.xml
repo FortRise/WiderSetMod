@@ -280,7 +280,7 @@
         <enemies>[4]ScytheCultist</enemies>
       </group>
       <group>
-        <spawns>TopLeft,TopRight,</spawns>
+        <spawns>TopLeft,TopRight</spawns>
         <enemies>[2]Crow</enemies>
       </group>
       <group delay="60">

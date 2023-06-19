@@ -5,6 +5,7 @@ using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.ModInterop;
+using MonoMod.Utils;
 using TowerFall;
 
 namespace EightPlayerMod 
@@ -18,6 +19,7 @@ namespace EightPlayerMod
         public static bool CanVersusLevelSet;
         public static bool CanCoopLevelSet;
         public Atlas EightPlayerAtlas;
+        public Atlas EightPlayerBGAtlas;
         public SpriteData EightPlayerSpriteData;
 
         public static MatchTeams StandardTeams;
@@ -34,6 +36,7 @@ namespace EightPlayerMod
         public override void LoadContent()
         {
             EightPlayerAtlas = Content.LoadAtlas("Atlas/atlas.xml", "Atlas/atlas.png");
+            EightPlayerBGAtlas = Content.LoadAtlas("Atlas/bgatlas.xml", "Atlas/bgatlas.png");
             EightPlayerSpriteData = Content.LoadSpriteData("Atlas/spriteData.xml", EightPlayerAtlas);
             FakeVersusTowerData.Load(0, Content.GetContentPath("Levels/Versus/00 - Sacred Ground"));
             FakeVersusTowerData.Load(1, Content.GetContentPath("Levels/Versus/01 - Twilight Spire"));
@@ -91,6 +94,7 @@ namespace EightPlayerMod
             SmallVersusPlayerMatchResults.Load();
             VersusAwardsPatch.Load();
             LevelRandomPatch.Load();
+            LockDarkWorld();
 
             typeof(ModExports).ModInterop();
         }
@@ -127,6 +131,33 @@ namespace EightPlayerMod
             SmallVersusPlayerMatchResults.Unload();
             VersusAwardsPatch.Unload();
             LevelRandomPatch.Unload();
+            UnlockDarkWorld();
+        }
+
+        // Remove it soon, when it's finished or you need to test it
+        private static void LockDarkWorld() 
+        {
+            On.TowerFall.DarkWorldButton.OnConfirm += Lock;
+        }
+
+        private static void UnlockDarkWorld() 
+        {
+            On.TowerFall.DarkWorldButton.OnConfirm -= Lock;
+        }
+
+        private static void Lock(On.TowerFall.DarkWorldButton.orig_OnConfirm orig, DarkWorldButton self)
+        {
+            if (EightPlayerModule.LaunchedEightPlayer)
+            {
+                var selfDynamic = DynamicData.For(self);
+                Sounds.ui_invalid.Play(160f, 1f);
+                selfDynamic.Set("shake", 30f);
+                MenuInput.RumbleAll(1f, 20);
+                CoOpDataDisplay first = self.Scene.Layers[-1].GetFirst<CoOpDataDisplay>();
+                first?.DarkWorldShake();
+                return;
+            }
+            orig(self);
         }
     }
 

@@ -1,27 +1,68 @@
 using System;
+using System.Reflection;
 using System.Xml;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
+using MonoMod.Utils;
 using TowerFall;
 
 namespace EightPlayerMod
 {
     public static class BackdropPatch 
     {
+        private static IDetour hook_MoonBreakSequence;
+
         public static void Load() 
         {
-            On.TowerFall.Background.Backdrop.ctor_Level_XmlElement += Backdropctor_patch;
-            On.TowerFall.Background.FlightMoonLayer.Render += FlightMoonLayerRender_patch;
-            On.TowerFall.Background.SacredGroundMoonLayer.ctor += SacredGroundMoonLayerctor_patch;
-            On.TowerFall.Background.ScrollLayer.ctor_Level_XmlElement += ScrollLayerctor_patch;
+            IL.TowerFall.Background.Backdrop.ctor_Level_XmlElement += TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.ctor_Level_CustomBackgroundData += TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.ctor_Level_Texture2D_CustomBackgroundData += TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.FlightMoonLayer.ctor += TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.GhostShipLayer.ctor += TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.SacredGroundMoonLayer.Render += TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.SacredGroundMoonLayer.ctor += TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.ScrollLayer.ctor_Level_XmlElement += TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.VortexLayer.VortexRing.ctor += TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.WavyLayer.ctor_Level_XmlElement += TFGameBGAtlasToEightPlayerBGAtlas;
+
+            hook_MoonBreakSequence = new ILHook(
+                typeof(Background).GetMethod("MoonBreakSequence", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetStateMachineTarget(),
+                TFGameBGAtlasToEightPlayerBGAtlas
+            );
         }
 
         public static void Unload() 
         {
-            On.TowerFall.Background.Backdrop.ctor_Level_XmlElement -= Backdropctor_patch;
-            On.TowerFall.Background.FlightMoonLayer.Render -= FlightMoonLayerRender_patch;
-            On.TowerFall.Background.SacredGroundMoonLayer.ctor -= SacredGroundMoonLayerctor_patch;
-            On.TowerFall.Background.ScrollLayer.ctor_Level_XmlElement -= ScrollLayerctor_patch;
+            IL.TowerFall.Background.Backdrop.ctor_Level_XmlElement -= TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.ctor_Level_CustomBackgroundData -= TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.ctor_Level_Texture2D_CustomBackgroundData -= TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.FlightMoonLayer.ctor -= TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.GhostShipLayer.ctor -= TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.SacredGroundMoonLayer.Render -= TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.SacredGroundMoonLayer.ctor -= TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.ScrollLayer.ctor_Level_XmlElement -= TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.VortexLayer.VortexRing.ctor -= TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.WavyLayer.ctor_Level_XmlElement -= TFGameBGAtlasToEightPlayerBGAtlas;
+
+            hook_MoonBreakSequence.Dispose();
+        }
+
+
+        private static void TFGameBGAtlasToEightPlayerBGAtlas(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallOrCallvirt<TFGame>("get_BGAtlas"))) 
+            {
+                cursor.EmitDelegate<Func<Atlas, Atlas>>(atlas => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return EightPlayerModule.Instance.EightPlayerBGAtlas;
+                    return atlas;
+                });
+            }
         }
 
         private static void SacredGroundMoonLayerctor_patch(On.TowerFall.Background.SacredGroundMoonLayer.orig_ctor orig, Background.SacredGroundMoonLayer self, Level level, XmlElement xml)

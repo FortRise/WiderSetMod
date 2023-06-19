@@ -44,12 +44,15 @@ namespace EightPlayerMod
             IL.TowerFall.Level.ctor += Levelctor;
             IL.TowerFall.MapScene.InitButtons += InitButtons_patch;
             IL.TowerFall.QuestPlayerHUD.ctor += QuestPlayerHUD_patch;
+            IL.TowerFall.QuestSpawnPortal.FinishSpawn += MiddlePos_patch;
             IL.TowerFall.Level.CoreRender += LevelCoreRender_patch;
             IL.TowerFall.Session.EndlessContinue += SwapLevelLoader_patch;
             IL.TowerFall.Session.GotoNextRound += SwapLevelLoader_patch;
             IL.TowerFall.QuestWavesHUD.GetWaveX += MiddlePos_patch;
             IL.TowerFall.QuestGauntletCounter.ctor += MiddlePos_patch;
             IL.TowerFall.QuestGameOver.Render += MiddlePosAndScreen_patch;
+            IL.TowerFall.MenuButtonGuide.ctor_int_ButtonModes_string += MenuButtonGuide_patch;
+            IL.TowerFall.Saver.ctor += Saver_patch;
 
             On.TowerFall.MainMenu.ctor += MainMenuctor_patch;
             On.TowerFall.MapScene.ctor += MapScenector_patch;
@@ -105,12 +108,15 @@ namespace EightPlayerMod
             IL.TowerFall.MapScene.InitButtons -= InitButtons_patch;
             IL.TowerFall.Level.HandlePausing -= MiddlePos_patch;
             IL.TowerFall.QuestPlayerHUD.ctor -= QuestPlayerHUD_patch;
+            IL.TowerFall.QuestSpawnPortal.FinishSpawn -= MiddlePos_patch;
             IL.TowerFall.Level.CoreRender -= LevelCoreRender_patch;
             IL.TowerFall.Session.EndlessContinue -= SwapLevelLoader_patch;
             IL.TowerFall.Session.GotoNextRound -= SwapLevelLoader_patch;
             IL.TowerFall.QuestWavesHUD.GetWaveX -= MiddlePos_patch;
             IL.TowerFall.QuestGauntletCounter.ctor -= MiddlePos_patch;
             IL.TowerFall.QuestGameOver.Render -= MiddlePosAndScreen_patch;
+            IL.TowerFall.MenuButtonGuide.ctor_int_ButtonModes_string -= MenuButtonGuide_patch;
+            IL.TowerFall.Saver.ctor -= Saver_patch;
 
             On.TowerFall.MainMenu.ctor -= MainMenuctor_patch;
             On.TowerFall.MapScene.ctor -= MapScenector_patch;
@@ -125,6 +131,42 @@ namespace EightPlayerMod
             hook_QuestCompleteSequenceb__1.Dispose();
             hook_QuestCompleteSequenceb__5.Dispose();
             hook_QuestCompleteSequence.Dispose();
+        }
+
+        private static void Saver_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(280f))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(width => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 380f;
+                    return width;
+                });
+            }
+        }
+
+        private static void MenuButtonGuide_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(310f))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(width => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 410;
+                    return width;
+                });
+            }
+
+            cursor = new ILCursor(ctx);
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(4))) 
+            {
+                cursor.EmitDelegate<Func<int, int>>(width => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 8;
+                    return width;
+                });
+            }
         }
 
         private static void MiddlePosAndScreen_patch(ILContext ctx)

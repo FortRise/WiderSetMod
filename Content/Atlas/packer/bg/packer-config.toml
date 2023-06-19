@@ -1,12 +1,9 @@
-name = "atlas"
-output_path = "../"
+name = "bgatlas"
+output_path = "../../"
 output_type = "Json"
 allow_normal_output = false
 template_path = ["template.xml"]
-folders = [
-    "levelset",
-    "portrait"    
-]
+folders = ["."]
 
 [image_options]
 output_extension = "Png"
