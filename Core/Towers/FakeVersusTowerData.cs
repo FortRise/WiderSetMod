@@ -54,4 +54,20 @@ namespace TowerFall
             return list;
         }
     }
+
+    public static class FakeDarkWorldTowerData
+    {
+        public static Dictionary<string, string> LevelMap = new();
+
+        public static void Load(string tower, string modDirectory) 
+        {
+            var directory = Path.Combine("DarkWorldContent", "Levels", "DarkWorld", tower);
+            foreach (var text in Directory.EnumerateFiles(directory, "*.oel", SearchOption.TopDirectoryOnly)) 
+            {
+                var file = Path.GetFileName(text);
+                var path = Path.Combine(modDirectory, tower, file);
+                LevelMap.Add(text, path);
+            }
+        }
+    }
 }

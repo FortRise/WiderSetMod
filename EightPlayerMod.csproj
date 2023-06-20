@@ -30,10 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Harmony">
-      <HintPath>..\..\..\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="TowerFall">
       <HintPath>..\..\..\TowerFall.exe</HintPath>
       <Private>False</Private>

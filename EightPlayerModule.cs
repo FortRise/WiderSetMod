@@ -1,7 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using FortRise;
-using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.ModInterop;
@@ -54,6 +54,12 @@ namespace EightPlayerMod
             FakeVersusTowerData.Load(13, Content.GetContentPath("Levels/Versus/13 - Dreadwood"));
             FakeVersusTowerData.Load(14, Content.GetContentPath("Levels/Versus/14 - Darkfang"));
             FakeVersusTowerData.Load(15, Content.GetContentPath("Levels/Versus/15 - Cataclysm"));
+
+            FakeDarkWorldTowerData.Load("0 - The Amaranth", Content.GetContentPath("Levels/DarkWorldLevels"));
+            FakeDarkWorldTowerData.Load("1 - Dreadwood", Content.GetContentPath("Levels/DarkWorldLevels"));
+            FakeDarkWorldTowerData.Load("2 - Darkfang", Content.GetContentPath("Levels/DarkWorldLevels"));
+            FakeDarkWorldTowerData.Load("3 - Cataclysm", Content.GetContentPath("Levels/DarkWorldLevels"));
+            FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", Content.GetContentPath("Levels/DarkWorldLevels"));
         }
 
         public override void Load()
@@ -94,7 +100,8 @@ namespace EightPlayerMod
             SmallVersusPlayerMatchResults.Load();
             VersusAwardsPatch.Load();
             LevelRandomPatch.Load();
-            LockDarkWorld();
+            DarkWorldLevelSystemPatch.Load();
+            // LockDarkWorld();
 
             typeof(ModExports).ModInterop();
         }
@@ -131,7 +138,8 @@ namespace EightPlayerMod
             SmallVersusPlayerMatchResults.Unload();
             VersusAwardsPatch.Unload();
             LevelRandomPatch.Unload();
-            UnlockDarkWorld();
+            DarkWorldLevelSystemPatch.Unload();
+            // UnlockDarkWorld();
         }
 
         // Remove it soon, when it's finished or you need to test it

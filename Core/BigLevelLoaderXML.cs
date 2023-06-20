@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -38,7 +39,26 @@ namespace EightPlayerMod
                     int num6 = item2.AttrInt("x");
                     num6 += 50;
                     item2.SetAttr("x", num6);
+                    if (item2.Name == "Spawner") 
+                    {
+                        foreach (XmlElement node in item2) 
+                        {
+                            int nodeAttrX = node.AttrInt("x");
+                            nodeAttrX += 50;
+                            node.SetAttr("x", nodeAttrX);
+                        }
+                    }
                 }
+                var path = session.MatchSettings.Mode switch 
+                {
+                    Modes.DarkWorld => $"DumpLevels/DarkWorld/{session.RoundIndex}.oel",
+                    Modes.Quest => $"DumpLevels/Quest/{session.RoundIndex}.oel",
+                    Modes.LastManStanding or Modes.HeadHunters or Modes.TeamDeathmatch => $"DumpLevels/Versus/{session.RoundIndex}.oel",
+                    _ => $"DumpLevels/Other/{session.RoundIndex}.oel"
+                };
+                if (!Directory.Exists(Path.GetDirectoryName(path)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+                XML.OwnerDocument.Save(path);
             }
             Session.MatchSettings.LevelSystem.Theme.OnLoad();
             loader = new Coroutine(Coroutine.DoNoFrameSkip(Load()));
