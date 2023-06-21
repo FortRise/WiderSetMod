@@ -103,7 +103,7 @@ namespace EightPlayerMod
             DarkWorldLevelSystemPatch.Load();
             CoOpDataDisplayPatch.Load();
             QuestGameOverPatch.Load();
-            // LockDarkWorld();
+            LockDarkWorld();
 
             typeof(ModExports).ModInterop();
         }
@@ -143,7 +143,7 @@ namespace EightPlayerMod
             DarkWorldLevelSystemPatch.Unload();
             CoOpDataDisplayPatch.Unload();
             QuestGameOverPatch.Unload();
-            // UnlockDarkWorld();
+            UnlockDarkWorld();
         }
 
         // Remove it soon, when it's finished or you need to test it
