@@ -18,6 +18,7 @@ Wider Set is an Eight Player Mod ported as a FortRise mods. This includes a wide
 + TowerFall (v1.3.3.1 and higher)
 + [FortRise](https://github.com/Terria-K/FortRise) (v4.0.0.4 or Pre-Release 5 and higher)
 
+**Instructions**
 + Download the `.zip` file from the Releases page.
 + Extract the `.zip` file.
 + Put the folder in your `Mods` from your TowerFall.

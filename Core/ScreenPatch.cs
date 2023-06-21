@@ -21,7 +21,6 @@ namespace EightPlayerMod
         private static IDetour hook_QuestCompleteSequence;
         private static IDetour hook_QuestCompleteSequenceb__1;
         private static IDetour hook_QuestCompleteSequenceb__5;
-        private static IDetour hook_QuestGameOverSequence;
         public static void Load() 
         {
             foreach (var methodType in ILTypes) 
@@ -52,7 +51,6 @@ namespace EightPlayerMod
             IL.TowerFall.Session.GotoNextRound += SwapLevelLoader_patch;
             IL.TowerFall.QuestWavesHUD.GetWaveX += MiddlePos_patch;
             IL.TowerFall.QuestGauntletCounter.ctor += MiddlePos_patch;
-            IL.TowerFall.QuestGameOver.Render += MiddlePosAndScreen_patch;
             IL.TowerFall.MenuButtonGuide.ctor_int_ButtonModes_string += MenuButtonGuide_patch;
             IL.TowerFall.Saver.ctor += Saver_patch;
 
@@ -60,11 +58,6 @@ namespace EightPlayerMod
             On.TowerFall.MapScene.ctor += MapScenector_patch;
             On.TowerFall.VersusLevelSystem.GenLevels += GenLevels_patch;
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel += GetNextRoundLevel_patch;
-
-            hook_QuestGameOverSequence = new ILHook(
-                typeof(QuestGameOver).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic).GetStateMachineTarget(),
-                MiddlePos_patch
-            );
 
             hook_orig_StartGame = new ILHook(
                 typeof(Session).GetMethod("orig_StartGame"),
@@ -118,7 +111,6 @@ namespace EightPlayerMod
             IL.TowerFall.Session.GotoNextRound -= SwapLevelLoader_patch;
             IL.TowerFall.QuestWavesHUD.GetWaveX -= MiddlePos_patch;
             IL.TowerFall.QuestGauntletCounter.ctor -= MiddlePos_patch;
-            IL.TowerFall.QuestGameOver.Render -= MiddlePosAndScreen_patch;
             IL.TowerFall.MenuButtonGuide.ctor_int_ButtonModes_string -= MenuButtonGuide_patch;
             IL.TowerFall.Saver.ctor -= Saver_patch;
 
@@ -128,7 +120,6 @@ namespace EightPlayerMod
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel -= GetNextRoundLevel_patch;
 
 
-            hook_QuestGameOverSequence.Dispose();
             hook_orig_StartGame.Dispose();
             hook_QuestControlStartSequence.Dispose();
             hook_QuestControlStartSequenceb__2.Dispose();

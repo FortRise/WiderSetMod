@@ -101,6 +101,8 @@ namespace EightPlayerMod
             VersusAwardsPatch.Load();
             LevelRandomPatch.Load();
             DarkWorldLevelSystemPatch.Load();
+            CoOpDataDisplayPatch.Load();
+            QuestGameOverPatch.Load();
             // LockDarkWorld();
 
             typeof(ModExports).ModInterop();
@@ -139,6 +141,8 @@ namespace EightPlayerMod
             VersusAwardsPatch.Unload();
             LevelRandomPatch.Unload();
             DarkWorldLevelSystemPatch.Unload();
+            CoOpDataDisplayPatch.Unload();
+            QuestGameOverPatch.Unload();
             // UnlockDarkWorld();
         }
 
