@@ -146,8 +146,8 @@
       <node x="340" y="125" />
       <node x="320" y="100" />
     </Spawner>
-    <TreasureChest id="24" x="145" y="200" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
-    <TreasureChest id="25" x="275" y="200" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
+    <TreasureChest id="24" x="140" y="180" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
+    <TreasureChest id="25" x="280" y="180" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
     <EndlessPortal id="26" x="210" y="95" />
     <Spawner id="27" x="55" y="165" name="---" />
     <Spawner id="28" x="365" y="165" name="---" />

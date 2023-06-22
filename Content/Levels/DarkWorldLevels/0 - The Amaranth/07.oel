@@ -101,7 +101,7 @@
     <PlayerSpawn id="2" x="70" y="160" />
     <PlayerSpawn id="3" x="350" y="160" />
     <PlayerSpawn id="4" x="390" y="120" />
-    <JumpPad id="6" x="315" y="220" width="35" />
+    <JumpPad id="6" x="310" y="220" width="30" />
     <TreasureChest id="7" x="150" y="200" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
     <TreasureChest id="8" x="270" y="200" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
     <BGLantern id="11" x="210" y="205" Lit="True" />
@@ -128,7 +128,7 @@
     <PirateBanner id="32" x="270" y="110" />
     <PirateBanner id="33" x="165" y="195" />
     <PirateBanner id="34" x="255" y="195" />
-    <JumpPad id="5" x="80" y="220" width="35" />
+    <JumpPad id="5" x="80" y="220" width="30" />
     <PlayerSpawn id="9" x="90" y="210" />
     <PlayerSpawn id="10" x="125" y="220" />
     <PlayerSpawn id="35" x="295" y="220" />

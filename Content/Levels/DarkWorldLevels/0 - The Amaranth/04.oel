@@ -146,8 +146,8 @@
       <node x="230" y="90" />
     </Spawner>
     <EndlessPortal id="18" x="210" y="105" />
-    <TreasureChest id="19" x="130" y="195" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
-    <TreasureChest id="20" x="290" y="195" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
+    <TreasureChest id="19" x="155" y="195" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
+    <TreasureChest id="20" x="265" y="195" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
     <PirateBanner id="22" x="15" y="5" />
     <PirateBanner id="23" x="405" y="5" />
     <PirateBanner id="25" x="185" y="160" />
@@ -157,8 +157,8 @@
     <PirateBanner id="30" x="210" y="150" />
     <PirateBanner id="31" x="70" y="200" />
     <PirateBanner id="34" x="350" y="200" />
-    <BGLantern id="24" x="100" y="185" Lit="True" />
-    <BGLantern id="26" x="320" y="185" Lit="True" />
+    <BGLantern id="24" x="125" y="185" Lit="True" />
+    <BGLantern id="26" x="295" y="190" Lit="True" />
     <BGLantern id="35" x="125" y="65" Lit="True" />
     <BGLantern id="36" x="295" y="65" Lit="True" />
     <BGLantern id="37" x="185" y="90" Lit="True" />
@@ -166,8 +166,8 @@
     <PirateBanner id="32" x="185" y="185" />
     <PirateBanner id="33" x="235" y="185" />
     <BGLantern id="21" x="30" y="75" Lit="True" />
-    <BGLantern id="39" x="35" y="165" Lit="True" />
-    <BGLantern id="40" x="385" y="165" Lit="True" />
+    <BGLantern id="39" x="45" y="155" Lit="True" />
+    <BGLantern id="40" x="375" y="155" Lit="True" />
     <BGLantern id="41" x="390" y="75" Lit="True" />
     <Spawner id="42" x="35" y="60" name="---" />
     <Spawner id="43" x="385" y="60" name="---" />
