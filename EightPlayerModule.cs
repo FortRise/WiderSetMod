@@ -56,10 +56,10 @@ namespace EightPlayerMod
             FakeVersusTowerData.Load(15, Content.GetContentPath("Levels/Versus/15 - Cataclysm"));
 
             FakeDarkWorldTowerData.Load("0 - The Amaranth", Content.GetContentPath("Levels/DarkWorldLevels"));
-            FakeDarkWorldTowerData.Load("1 - Dreadwood", Content.GetContentPath("Levels/DarkWorldLevels"));
+            // FakeDarkWorldTowerData.Load("1 - Dreadwood", Content.GetContentPath("Levels/DarkWorldLevels"));
             FakeDarkWorldTowerData.Load("2 - Darkfang", Content.GetContentPath("Levels/DarkWorldLevels"));
-            FakeDarkWorldTowerData.Load("3 - Cataclysm", Content.GetContentPath("Levels/DarkWorldLevels"));
-            FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", Content.GetContentPath("Levels/DarkWorldLevels"));
+            // FakeDarkWorldTowerData.Load("3 - Cataclysm", Content.GetContentPath("Levels/DarkWorldLevels"));
+            // FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", Content.GetContentPath("Levels/DarkWorldLevels"));
         }
 
         public override void Load()
@@ -103,6 +103,9 @@ namespace EightPlayerMod
             DarkWorldLevelSystemPatch.Load();
             CoOpDataDisplayPatch.Load();
             QuestGameOverPatch.Load();
+            AmaranthBossPatch.Load();
+            DarkWorldHUDPatch.Load();
+            CyclopsEyePatch.Load();
             LockDarkWorld();
 
             typeof(ModExports).ModInterop();
@@ -143,16 +146,19 @@ namespace EightPlayerMod
             DarkWorldLevelSystemPatch.Unload();
             CoOpDataDisplayPatch.Unload();
             QuestGameOverPatch.Unload();
+            AmaranthBossPatch.Unload();
+            DarkWorldHUDPatch.Unload();
+            CyclopsEyePatch.Unload();
             UnlockDarkWorld();
         }
 
         // Remove it soon, when it's finished or you need to test it
-        private static void LockDarkWorld() 
+        public static void LockDarkWorld() 
         {
             On.TowerFall.DarkWorldButton.OnConfirm += Lock;
         }
 
-        private static void UnlockDarkWorld() 
+        public static void UnlockDarkWorld() 
         {
             On.TowerFall.DarkWorldButton.OnConfirm -= Lock;
         }
@@ -203,6 +209,12 @@ namespace EightPlayerMod
                 Engine.Instance.Screen.Resize(320, 240, 3f);
                 WrapMath.AddWidth = new Vector2(320, 0f);
             }
+        }
+
+        [Command("unlockme")]
+        public static void Unlock8PDarkWorld(string[] args) 
+        {
+            EightPlayerModule.UnlockDarkWorld();
         }
     }
 }
