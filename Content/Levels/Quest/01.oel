@@ -138,8 +138,8 @@
       <node x="370" y="155" />
       <node x="335" y="120" />
     </Spawner>
-    <TreasureChest id="14" x="80" y="135" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
-    <TreasureChest id="15" x="345" y="135" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
+    <TreasureChest id="14" x="95" y="135" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
+    <TreasureChest id="15" x="325" y="135" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
     <FloorMiasma id="18" x="20" y="225" width="30" Group="1" />
     <FloorMiasma id="19" x="370" y="225" width="30" Group="1" />
     <BGLantern id="20" x="210" y="150" Lit="True" />
