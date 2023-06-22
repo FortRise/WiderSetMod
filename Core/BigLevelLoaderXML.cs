@@ -51,10 +51,10 @@ namespace EightPlayerMod
                 }
                 var path = session.MatchSettings.Mode switch 
                 {
-                    Modes.DarkWorld => $"DumpLevels/DarkWorld/{session.RoundIndex}.oel",
-                    Modes.Quest => $"DumpLevels/Quest/{session.RoundIndex}.oel",
-                    Modes.LastManStanding or Modes.HeadHunters or Modes.TeamDeathmatch => $"DumpLevels/Versus/{session.RoundIndex}.oel",
-                    _ => $"DumpLevels/Other/{session.RoundIndex}.oel"
+                    Modes.DarkWorld => $"DumpLevels/DarkWorld/0{session.RoundIndex}.oel",
+                    Modes.Quest => $"DumpLevels/Quest/0{session.RoundIndex}.oel",
+                    Modes.LastManStanding or Modes.HeadHunters or Modes.TeamDeathmatch => $"DumpLevels/Versus/0{session.RoundIndex}.oel",
+                    _ => $"DumpLevels/Other/0{session.RoundIndex}.oel"
                 };
                 if (!Directory.Exists(Path.GetDirectoryName(path)))
                     Directory.CreateDirectory(Path.GetDirectoryName(path));
