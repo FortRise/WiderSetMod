@@ -28,7 +28,14 @@ namespace EightPlayerMod
                 {
                     if (EightPlayerModule.LaunchedEightPlayer || EightPlayerModule.IsEightPlayer) 
                     {
+#if DEBUG
+                        if (FakeDarkWorldTowerData.LevelMap.TryGetValue(text, out var newPath)) 
+                        {
+                            return newPath;
+                        }
+#else
                         return FakeDarkWorldTowerData.LevelMap[text];
+#endif
                     }
                     return text;
                 });
