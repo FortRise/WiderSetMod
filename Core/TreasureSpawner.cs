@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
@@ -12,12 +13,14 @@ namespace EightPlayerMod
 {
     public static class RoundLogicPatch 
     {
+        public static int[] TeamStartArrows = new int[7] { 3, 3, 3, 3, 2, 2, 1 };
         public static void Load() 
         {
             IL.TowerFall.RoundLogic.SpawnPlayersFFA += SpawnPlayers_patch;
             IL.TowerFall.RoundLogic.SpawnPlayersTeams += SpawnPlayers_patch;
             IL.TowerFall.RoundLogic.ctor += RoundLogicctor_patch;
             On.TowerFall.Session.ctor += Sessionctor_patch;
+            IL.TowerFall.Session.GetSpawnArrows += SessionGetSpawnArrows_patch;
             On.TowerFall.Variant.ctor += Variantctor_patch;
             IL.TowerFall.Player.cctor += Playercctor_patch;
         }
@@ -28,15 +31,30 @@ namespace EightPlayerMod
             IL.TowerFall.RoundLogic.SpawnPlayersTeams -= SpawnPlayers_patch;
             IL.TowerFall.RoundLogic.ctor -= RoundLogicctor_patch;
             On.TowerFall.Session.ctor -= Sessionctor_patch;
+            IL.TowerFall.Session.GetSpawnArrows -= SessionGetSpawnArrows_patch;
             On.TowerFall.Variant.ctor -= Variantctor_patch;
             IL.TowerFall.Player.cctor -= Playercctor_patch;
+        }
+
+        private static void SessionGetSpawnArrows_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld<TowerFall.Session>("TeamStartArrows")))
+            {
+                cursor.EmitDelegate<Func<int[], int[]>>(teamStartArrows => {
+                    if (EightPlayerModule.IsEightPlayer || EightPlayerModule.LaunchedEightPlayer)
+                        return TeamStartArrows;
+                    return teamStartArrows;
+                });
+            }
         }
 
         private static void RoundLogicctor_patch(ILContext ctx)
         {
             var cursor = new ILCursor(ctx);
 
-            cursor.GotoNext(MoveType.After, instr => instr.MatchLdcI4(4));
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(4)))
             {
                 cursor.EmitDelegate<Func<int, int>>(amount => {
                     return 8;
@@ -75,12 +93,71 @@ namespace EightPlayerMod
         {
             var cursor = new ILCursor(ctx);
 
+            // Instead of writing my own instructions.
+            // why not intercept them and add what we need inside of the object creation.
+            if (cursor.TryGotoNext(MoveType.After, 
+                instr => instr.MatchLdstr("TeamSpawnA"),
+                instr => instr.MatchCallOrCallvirt<Level>("GetXMLPositions"))) 
+            {
+                // need access to the class
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<List<Vector2>, RoundLogic, List<Vector2>>>((x, logic) => 
+                {
+                    if (EightPlayerModule.IsEightPlayer) 
+                    {
+                        var playerSpawn = logic.Session.CurrentLevel.GetXMLPositions("PlayerSpawn");
+                        foreach (var spawn in playerSpawn) 
+                        {
+                            if (spawn.X <= 210)
+                                x.Add(spawn);
+                        }
+                    }
+                    return x;
+                });
+            }
+
+            if (cursor.TryGotoNext(MoveType.After, 
+                instr => instr.MatchLdstr("TeamSpawnB"),
+                instr => instr.MatchCallOrCallvirt<Level>("GetXMLPositions"))) 
+            {
+                // need access to the class
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<List<Vector2>, RoundLogic, List<Vector2>>>((x, logic) => 
+                {
+                    if (EightPlayerModule.IsEightPlayer) 
+                    {
+                        var playerSpawn = logic.Session.CurrentLevel.GetXMLPositions("PlayerSpawn");
+                        foreach (var spawn in playerSpawn) 
+                        {
+                            if (spawn.X > 210)
+                                x.Add(spawn);
+                        }
+                    }
+                    return x;
+                });
+            }
+
+            cursor = new ILCursor(ctx);
+
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(4))) 
             {
                 cursor.EmitDelegate<Func<int, int>>(amount => {
                     if (EightPlayerModule.IsEightPlayer) 
                     {
                         return 8;
+                    }
+                    return amount;
+                });
+            }
+
+            cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(160))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(amount => {
+                    if (EightPlayerModule.IsEightPlayer) 
+                    {
+                        return 420 / 2;
                     }
                     return amount;
                 });
