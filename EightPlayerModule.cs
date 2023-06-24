@@ -58,7 +58,7 @@ namespace EightPlayerMod
             FakeDarkWorldTowerData.Load("0 - The Amaranth", Content.GetContentPath("Levels/DarkWorldLevels"));
             // FakeDarkWorldTowerData.Load("1 - Dreadwood", Content.GetContentPath("Levels/DarkWorldLevels"));
             FakeDarkWorldTowerData.Load("2 - Darkfang", Content.GetContentPath("Levels/DarkWorldLevels"));
-            // FakeDarkWorldTowerData.Load("3 - Cataclysm", Content.GetContentPath("Levels/DarkWorldLevels"));
+            FakeDarkWorldTowerData.Load("3 - Cataclysm", Content.GetContentPath("Levels/DarkWorldLevels"));
             // FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", Content.GetContentPath("Levels/DarkWorldLevels"));
         }
 
@@ -106,6 +106,8 @@ namespace EightPlayerMod
             AmaranthBossPatch.Load();
             DarkWorldHUDPatch.Load();
             CyclopsEyePatch.Load();
+            CataclysmEyePatch.Load();
+            VariantPatch.Load();
             LockDarkWorld();
 
             typeof(ModExports).ModInterop();
@@ -149,6 +151,8 @@ namespace EightPlayerMod
             AmaranthBossPatch.Unload();
             DarkWorldHUDPatch.Unload();
             CyclopsEyePatch.Unload();
+            CataclysmEyePatch.Unload();
+            VariantPatch.Unload();
             UnlockDarkWorld();
         }
 
