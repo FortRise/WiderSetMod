@@ -1,5 +1,5 @@
 using System;
-using FortRise;
+using System.Reflection;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
@@ -10,14 +10,73 @@ namespace EightPlayerMod
 {
     public class MatchSettingsPatch 
     {
+        private static IDetour hook_CanStartWithTeams;
         public static void Load() 
         {
             IL.TowerFall.MatchSettings.ctor += ctor_patch;
+            IL.TowerFall.MatchSettings.GetPlayerTeamSize += TeamSize_patch;
+            IL.TowerFall.MatchSettings.GetTeamMismatch += TeamSize_patch;
+            IL.TowerFall.MatchSettings.GetMaxTeamSize += TeamSize_patch;
+            hook_CanStartWithTeams = new Hook(
+                typeof(MatchSettings).GetProperty("CanStartWithTeams").GetGetMethod(),
+                typeof(MatchSettingsPatch).GetMethod(nameof(CanStartWithTeams_patch), BindingFlags.NonPublic | BindingFlags.Static)
+            );
         }
 
         public static void Unload() 
         {
+            IL.TowerFall.MatchSettings.GetPlayerTeamSize -= TeamSize_patch;
+            IL.TowerFall.MatchSettings.GetTeamMismatch -= TeamSize_patch;
+            IL.TowerFall.MatchSettings.GetMaxTeamSize -= TeamSize_patch;
             IL.TowerFall.MatchSettings.ctor -= ctor_patch;
+            hook_CanStartWithTeams.Dispose();
+        }
+
+        private static void TeamSize_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(4))) 
+            {
+                cursor.EmitDelegate<Func<int, int>>(x => {
+                    if (EightPlayerModule.IsEightPlayer || EightPlayerModule.LaunchedEightPlayer)
+                        return 8;
+                    return x;
+                });
+            }
+        }
+
+        private delegate bool orig_CanStartWithTeams(MatchSettings self);
+
+        private static bool CanStartWithTeams_patch(orig_CanStartWithTeams orig, MatchSettings self)
+        {
+            if (!EightPlayerModule.LaunchedEightPlayer)
+                return orig(self);
+
+            for (int i = 0; i < 8; i++)
+            {
+                if (TFGame.Players[i] && self.Teams[i] == Allegiance.Neutral)
+                {
+                    return false;
+                }
+            }
+            bool hasRed = false;
+            bool hasBlue = false;
+            for (int j = 0; j < 8; j++)
+            {
+                if (TFGame.Players[j])
+                {
+                    if (self.Teams[j] == Allegiance.Blue)
+                    {
+                        hasBlue = true;
+                    }
+                    else if (self.Teams[j] == Allegiance.Red)
+                    {
+                        hasRed = true;
+                    }
+                }
+            }
+            return hasRed && hasBlue;
         }
 
         private static void ctor_patch(ILContext ctx)
