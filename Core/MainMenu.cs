@@ -26,6 +26,8 @@ namespace EightPlayerMod
             On.TowerFall.MainMenu.CreateMain += CreateMain_patch;
             On.TowerFall.MainMenu.CreateRollcall += CreateRollcall_patch;
             IL.TowerFall.MainMenu.CreateCoOp += CreateCoop_patch;
+            IL.TowerFall.ReadyBanner.ctor += ReadyBanner_patch;
+            IL.TowerFall.ReadyBanner.Update += ReadyBanner_patch;
             On.TowerFall.RollcallElement.GetPosition += RollcallElementGetPosition_patch;
             On.TowerFall.RollcallElement.GetTweenSource += RollcallElementGetTweenSource_patch;
             On.TowerFall.MainMenu.CreateTeamSelect += CreateTeamSelect_patch;
@@ -42,10 +44,26 @@ namespace EightPlayerMod
             On.TowerFall.MainMenu.CreateMain -= CreateMain_patch;
             On.TowerFall.MainMenu.CreateRollcall -= CreateRollcall_patch;
             IL.TowerFall.MainMenu.CreateCoOp -= CreateCoop_patch;
+            IL.TowerFall.ReadyBanner.ctor -= ReadyBanner_patch;
+            IL.TowerFall.ReadyBanner.Update -= ReadyBanner_patch;
             On.TowerFall.RollcallElement.GetPosition -= RollcallElementGetPosition_patch;
             On.TowerFall.RollcallElement.GetTweenSource -= RollcallElementGetTweenSource_patch;
             On.TowerFall.MainMenu.CreateTeamSelect -= CreateTeamSelect_patch;
             hook_orig_Update.Dispose();
+        }
+
+        private static void ReadyBanner_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(4))) 
+            {
+                cursor.EmitDelegate<Func<int, int>>(x => {
+                    if (EightPlayerModule.LaunchedEightPlayer)
+                        return 8;
+                    return x;
+                });
+            }
         }
 
         private static void CreateTeamSelect_patch(On.TowerFall.MainMenu.orig_CreateTeamSelect orig, MainMenu self)
@@ -62,16 +80,24 @@ namespace EightPlayerMod
                 {
                     if (TFGame.Players[i])
                     {
-                        Vector2 vector = new Vector2(160f, (float)(125 + 20 * i));
-                        Vector2 vector2 = new Vector2(160f, (float)(115 + 20 * i));
-                        if (i % 2 == 0)
+                        Vector2 vector = new Vector2(160f, (float)(125 + 15 * i));
+                        Vector2 vector2 = new Vector2(160f, (float)(115 + 15 * i));
+                        if ((~i & 1) != 0) 
                         {
                             vector2.X = -40f;
                         }
-                        else
+                        else 
                         {
                             vector2.X = 360f;
                         }
+                        // if (i % 2 == 0)
+                        // {
+                        //     vector2.X = -40f;
+                        // }
+                        // else
+                        // {
+                        //     vector2.X = 360f;
+                        // }
                         TeamSelector teamSelector = new TeamSelector(vector, vector2, i);
                         self.Add<TeamSelector>(teamSelector);
                     }
