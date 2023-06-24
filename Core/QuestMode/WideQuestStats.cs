@@ -225,7 +225,7 @@ namespace EightPlayerMod
                 cursor.EmitDelegate<Func<int, int>>(x => {
                     if (EightPlayerModule.LaunchedEightPlayer) 
                     {
-                        return EightPlayerModule.SaveData.QuestStats.TotalWhiteSkulls;
+                        return EightPlayerModule.SaveData.QuestStats.TotalGoldSkulls;
                     }
                     return x;
                 });
