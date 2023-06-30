@@ -51,8 +51,11 @@ namespace EightPlayerMod
 
         private static void BuildFistSequenceList_patch(On.TowerFall.CyclopsEye.orig_BuildFistSequenceList orig, CyclopsEye self, int difficulty)
         {
-            if (!EightPlayerModule.IsEightPlayer)
+            if (!EightPlayerModule.IsEightPlayer) 
+            {
                 orig(self, difficulty);
+                return;
+            }
             
             var selfDynamic = DynamicData.For(self);
             var fistSequenceList = selfDynamic.Get<List<Func<IEnumerator>>>("fistSequenceList");
