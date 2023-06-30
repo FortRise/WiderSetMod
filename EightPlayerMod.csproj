@@ -24,6 +24,7 @@
     <Content Include="Content/**/*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Remove="Content/Atlas/packer/**/*"/>
     <Content Include="meta.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
