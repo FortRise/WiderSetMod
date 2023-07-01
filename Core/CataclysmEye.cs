@@ -10,6 +10,7 @@ namespace EightPlayerMod
     public static class CataclysmEyePatch 
     {
         private static IDetour hook_IdleSafeCoroutine;
+        private static IDetour hook_ExplodingCoroutine;
         private static IDetour hook_DeadCoroutine;
         private static IDetour hook_DeadCoroutine91_0b__1;
         public static void Load() 
@@ -21,6 +22,11 @@ namespace EightPlayerMod
             IL.TowerFall.CataclysmBullet.Update += CataclysmBulletUpdate_patch;
             hook_IdleSafeCoroutine = new ILHook(
                 typeof(CataclysmEye).GetMethod("IdleSafeCoroutine", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetStateMachineTarget(),
+                MiddlePatchSafe
+            );
+            hook_ExplodingCoroutine = new ILHook(
+                typeof(CataclysmEye).GetMethod("ExplodingCoroutine", BindingFlags.Instance | BindingFlags.NonPublic)
                     .GetStateMachineTarget(),
                 MiddlePatchSafe
             );
@@ -44,6 +50,7 @@ namespace EightPlayerMod
             IL.TowerFall.CataclysmBlade.Update -= CataclysmBladeUpdate_patch;
             IL.TowerFall.CataclysmBullet.Update -= CataclysmBulletUpdate_patch;
             hook_IdleSafeCoroutine.Dispose();
+            hook_ExplodingCoroutine.Dispose();
             hook_DeadCoroutine.Dispose();
             hook_DeadCoroutine91_0b__1.Dispose();
         }
@@ -78,6 +85,19 @@ namespace EightPlayerMod
                     return x;
                 });
             }
+
+            cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(25f))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(x => {
+                    if (EightPlayerModule.IsEightPlayer) 
+                    {
+                        return 50;
+                    }
+                    return x;
+                });
+            }
         }
 
         private static void IdleFreakoutEnter_patch(ILContext ctx)
@@ -103,6 +123,19 @@ namespace EightPlayerMod
                     if (EightPlayerModule.IsEightPlayer) 
                     {
                         return 240;
+                    }
+                    return x;
+                });
+            }
+
+            cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(130f))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(x => {
+                    if (EightPlayerModule.IsEightPlayer) 
+                    {
+                        return 180;
                     }
                     return x;
                 });

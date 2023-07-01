@@ -151,5 +151,6 @@
     </PrismBlock>
     <BossMarker id="29" x="40" y="65" />
     <BossMarker id="30" x="380" y="65" />
+    <BossMarker id="31" x="210" y="140" />
   </Entities>
 </level>
