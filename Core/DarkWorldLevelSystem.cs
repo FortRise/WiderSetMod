@@ -1,5 +1,8 @@
 using System;
+using System.IO;
 using FortRise;
+using Mono.Cecil.Cil;
+using Monocle;
 using MonoMod.Cil;
 using TowerFall;
 
@@ -21,23 +24,29 @@ namespace EightPlayerMod
         {
             var cursor = new ILCursor(ctx);
 
-            if (cursor.TryGotoNext(MoveType.Before, instr => instr.MatchCallOrCallvirt(
-                "Monocle.Calc", "System.Xml.XmlDocument LoadXML(System.String)"))) 
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallOrCallvirt(
+                typeof(File), "System.IO.FileStream OpenRead(System.String)"
+            ))) 
             {
-                cursor.EmitDelegate<Func<string, string>>(text => 
+                cursor.Emit(OpCodes.Ldloc_1);
+                cursor.EmitDelegate<Func<Stream, string, Stream>>((stream, path) => 
                 {
                     if (EightPlayerModule.LaunchedEightPlayer || EightPlayerModule.IsEightPlayer) 
                     {
 #if DEBUG
-                        if (FakeDarkWorldTowerData.LevelMap.TryGetValue(text, out var newPath)) 
+                        stream.Close();
+                        var correctPath = path.Replace('\\', '/');
+                        if (FakeDarkWorldTowerData.LevelMap.TryGetValue(correctPath, out var newPath)) 
                         {
-                            return newPath;
+                            var zipStream = EightPlayerModule.Instance.Content.MapResource[newPath].Stream;
+                            return zipStream;
                         }
 #else
-                        return FakeDarkWorldTowerData.LevelMap[text];
+                        var zipStream = EightPlayerModule.Instance.Content.MapResource[FakeDarkWorldTowerData.LevelMap[text]].Stream;
+                        return zipStream;
 #endif
                     }
-                    return text;
+                    return stream;
                 });
             }
         }

@@ -15,7 +15,7 @@ Wider Set is an Eight Player Mod ported as a FortRise mods. This includes a wide
 - [x] The Amaranth
 - [ ] Dreadwood
 - [x] Darkfang
-- [ ] Cataclysm
+- [x] Cataclysm
 - [ ] Dark Gauntlet
 
 ### Installation

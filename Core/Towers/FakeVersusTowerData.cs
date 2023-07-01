@@ -1,5 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Xml;
+using EightPlayerMod;
+using FortRise;
 using Monocle;
 
 namespace TowerFall 
@@ -11,12 +16,26 @@ namespace TowerFall
 
         public static void Load(int chapter, string directory) 
         {
+            Logger.Log("Content/" + directory);
             var fakeVersusTowerData = new FakeVersusTowerData();
-            foreach (var text in Directory.EnumerateFiles(directory, "*.oel", SearchOption.TopDirectoryOnly)) 
+            foreach (var text in EightPlayerModule.Instance.Content.MapResource["Content/" + directory].Childrens)
             {
-                fakeVersusTowerData.Levels.Add(new VersusLevelData(text));
+                if (!text.Path.EndsWith("oel"))
+                    continue;
+                using var fs = text.Stream;
+                fakeVersusTowerData.Levels.Add(CreateVersusLevelData(text.Path, fs));
             }
             Chapters.Add(chapter, fakeVersusTowerData);
+        }
+
+        public static VersusLevelData CreateVersusLevelData(string textPath, Stream path) 
+        {
+            VersusLevelData versusLevelData = (VersusLevelData)FormatterServices.GetUninitializedObject(typeof(VersusLevelData));
+            versusLevelData.Path = textPath;
+            var xmlElement = Calc.LoadXML(path)["level"]["Entities"];
+            versusLevelData.PlayerSpawns = xmlElement.GetElementsByTagName("PlayerSpawn").Count;
+            versusLevelData.TeamSpawns = Math.Min(xmlElement.GetElementsByTagName("TeamSpawnA").Count, xmlElement.GetElementsByTagName("TeamSpawnB").Count);
+            return versusLevelData;
         }
 
         public List<string> GetLevels(MatchSettings matchSettings)
@@ -66,7 +85,7 @@ namespace TowerFall
             {
                 var file = Path.GetFileName(text);
                 var path = Path.Combine(modDirectory, tower, file);
-                LevelMap.Add(text, path);
+                LevelMap.Add(text.Replace('\\', '/'), path.Replace('\\', '/'));
             }
         }
     }

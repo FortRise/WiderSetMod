@@ -38,27 +38,27 @@ namespace EightPlayerMod
             EightPlayerAtlas = Content.LoadAtlas("Atlas/atlas.xml", "Atlas/atlas.png");
             EightPlayerBGAtlas = Content.LoadAtlas("Atlas/bgatlas.xml", "Atlas/bgatlas.png");
             EightPlayerSpriteData = Content.LoadSpriteData("Atlas/spriteData.xml", EightPlayerAtlas);
-            FakeVersusTowerData.Load(0, Content.GetContentPath("Levels/Versus/00 - Sacred Ground"));
-            FakeVersusTowerData.Load(1, Content.GetContentPath("Levels/Versus/01 - Twilight Spire"));
-            FakeVersusTowerData.Load(2, Content.GetContentPath("Levels/Versus/02 - Backfire"));
-            FakeVersusTowerData.Load(3, Content.GetContentPath("Levels/Versus/03 - Flight"));
-            FakeVersusTowerData.Load(4, Content.GetContentPath("Levels/Versus/04 - Mirage"));
-            FakeVersusTowerData.Load(5, Content.GetContentPath("Levels/Versus/05 - Thornwood"));
-            FakeVersusTowerData.Load(6, Content.GetContentPath("Levels/Versus/06 - Frostfang Keep"));
-            FakeVersusTowerData.Load(7, Content.GetContentPath("Levels/Versus/07 - Kings Court"));
-            FakeVersusTowerData.Load(8, Content.GetContentPath("Levels/Versus/08 - Sunken City"));
-            FakeVersusTowerData.Load(9, Content.GetContentPath("Levels/Versus/09 - Moonstone"));
-            FakeVersusTowerData.Load(10, Content.GetContentPath("Levels/Versus/10 - TowerForge"));
-            FakeVersusTowerData.Load(11, Content.GetContentPath("Levels/Versus/11 - Ascension"));
-            FakeVersusTowerData.Load(12, Content.GetContentPath("Levels/Versus/12 - The Amaranth"));
-            FakeVersusTowerData.Load(13, Content.GetContentPath("Levels/Versus/13 - Dreadwood"));
-            FakeVersusTowerData.Load(14, Content.GetContentPath("Levels/Versus/14 - Darkfang"));
-            FakeVersusTowerData.Load(15, Content.GetContentPath("Levels/Versus/15 - Cataclysm"));
+            FakeVersusTowerData.Load(0, "Levels/Versus/00 - Sacred Ground");
+            FakeVersusTowerData.Load(1, "Levels/Versus/01 - Twilight Spire");
+            FakeVersusTowerData.Load(2, "Levels/Versus/02 - Backfire");
+            FakeVersusTowerData.Load(3, "Levels/Versus/03 - Flight");
+            FakeVersusTowerData.Load(4, "Levels/Versus/04 - Mirage");
+            FakeVersusTowerData.Load(5, "Levels/Versus/05 - Thornwood");
+            FakeVersusTowerData.Load(6, "Levels/Versus/06 - Frostfang Keep");
+            FakeVersusTowerData.Load(7, "Levels/Versus/07 - Kings Court");
+            FakeVersusTowerData.Load(8, "Levels/Versus/08 - Sunken City");
+            FakeVersusTowerData.Load(9, "Levels/Versus/09 - Moonstone");
+            FakeVersusTowerData.Load(10, "Levels/Versus/10 - TowerForge");
+            FakeVersusTowerData.Load(11, "Levels/Versus/11 - Ascension");
+            FakeVersusTowerData.Load(12, "Levels/Versus/12 - The Amaranth");
+            FakeVersusTowerData.Load(13, "Levels/Versus/13 - Dreadwood");
+            FakeVersusTowerData.Load(14, "Levels/Versus/14 - Darkfang");
+            FakeVersusTowerData.Load(15, "Levels/Versus/15 - Cataclysm");
 
-            FakeDarkWorldTowerData.Load("0 - The Amaranth", Content.GetContentPath("Levels/DarkWorldLevels"));
+            FakeDarkWorldTowerData.Load("0 - The Amaranth", "Content/Levels/DarkWorldLevels");
             // FakeDarkWorldTowerData.Load("1 - Dreadwood", Content.GetContentPath("Levels/DarkWorldLevels"));
-            FakeDarkWorldTowerData.Load("2 - Darkfang", Content.GetContentPath("Levels/DarkWorldLevels"));
-            FakeDarkWorldTowerData.Load("3 - Cataclysm", Content.GetContentPath("Levels/DarkWorldLevels"));
+            FakeDarkWorldTowerData.Load("2 - Darkfang", "Content/Levels/DarkWorldLevels");
+            FakeDarkWorldTowerData.Load("3 - Cataclysm", "Content/Levels/DarkWorldLevels");
             // FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", Content.GetContentPath("Levels/DarkWorldLevels"));
         }
 

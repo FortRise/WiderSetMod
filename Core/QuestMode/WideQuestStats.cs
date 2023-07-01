@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Xml;
+using FortRise;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
@@ -14,6 +16,7 @@ namespace EightPlayerMod
 {
     public static class QuestSavePatch 
     {
+        private static Action<QuestControl> base_Added;
         private static IDetour hook_MainMenuCreateCredits;
         private static IDetour hook_QuestControlLevelSequence;
         private static IDetour hook_QuestCompleteSequence;
@@ -21,6 +24,7 @@ namespace EightPlayerMod
 
         public static void Load() 
         {
+            base_Added = CallHelper.CallBaseGen<HUD, QuestControl>("Added");
             IL.TowerFall.MapButton.InitQuestGraphics += InlineTowers_patch;
             IL.TowerFall.MapButton.UnlockSequence += InlineTowers_patch;
             IL.TowerFall.UnlockData.GetQuestTowerUnlocked += InlineTowers_patch;
@@ -31,7 +35,7 @@ namespace EightPlayerMod
             IL.TowerFall.QuestRoundLogic.OnLevelLoadFinish += InlineTowers_patch;
             IL.TowerFall.QuestRoundLogic.OnPlayerDeath += InlineTowers_patch;
             IL.TowerFall.CoOpDataDisplay.ctor += CoOpDataDisplayctor_patch;
-            IL.TowerFall.QuestControl.Added += QuestControlAdded_patch;
+            On.TowerFall.QuestControl.Added += QuestControlAdded_patch;
             On.TowerFall.QuestControl.LoadWaves += QuestControlLoadWaves_patch;
             On.TowerFall.MapScene.QuestIntroSequence += QuestIntroSequence_patch;
 
@@ -69,12 +73,34 @@ namespace EightPlayerMod
             IL.TowerFall.QuestRoundLogic.OnPlayerDeath -= InlineTowers_patch;
             IL.TowerFall.CoOpDataDisplay.ctor -= CoOpDataDisplayctor_patch;
             On.TowerFall.MapScene.QuestIntroSequence -= QuestIntroSequence_patch;
-            IL.TowerFall.QuestControl.Added -= QuestControlAdded_patch;
+            On.TowerFall.QuestControl.Added -= QuestControlAdded_patch;
             On.TowerFall.QuestControl.LoadWaves -= QuestControlLoadWaves_patch;
             hook_MainMenuCreateCredits.Dispose();
             hook_QuestControlLevelSequence.Dispose();
             hook_QuestCompleteSequence.Dispose();
             hook_MapButtonUnlockSequence.Dispose();
+        }
+
+        private static void QuestControlAdded_patch(On.TowerFall.QuestControl.orig_Added orig, QuestControl self)
+        {
+            if (!EightPlayerModule.IsEightPlayer) 
+            {
+                orig(self);
+                return;
+            }
+            var selfDynamic = DynamicData.For(self);
+            base_Added.Invoke(self);
+            selfDynamic.Invoke("LoadSpawns");
+            var dataPath = (self.Level.Session.MatchSettings.LevelSystem as QuestLevelSystem).QuestTowerData.DataPath.Replace('\\', '/');
+            using var fs = EightPlayerModule.Instance.Content.MapResource[dataPath].Stream;
+            XmlDocument xmlDocument = Calc.LoadXML(fs);
+            self.Gauntlet = xmlDocument["data"].AttrBool("gauntlet", false);
+            if (self.Gauntlet)
+            {
+                selfDynamic.Invoke("LoadGauntlet", xmlDocument);
+                return;
+            }
+            selfDynamic.Invoke("LoadWaves", xmlDocument);
         }
 
         private static void QuestControlLoadWaves_patch(On.TowerFall.QuestControl.orig_LoadWaves orig, QuestControl self, XmlDocument doc)
@@ -154,23 +180,6 @@ namespace EightPlayerMod
                     selfDynamic.Get<List<IEnumerator>>("waves").Add(waveRoutine);
                 }
                 num++;
-            }
-        }
-
-        private static void QuestControlAdded_patch(ILContext ctx)
-        {
-            var cursor = new ILCursor(ctx);
-
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdfld<QuestLevelData>("DataPath"))) 
-            {
-                cursor.EmitDelegate<Func<string, string>>(x => {
-                    if (EightPlayerModule.IsEightPlayer || EightPlayerModule.LaunchedEightPlayer)
-                    {
-                        var str = x.Replace("\\", "/");
-                        return EightPlayerModule.Instance.Content.GetContentPath(QuestTowers.DataTowers[str]);
-                    }
-                    return x;
-                });
             }
         }
 

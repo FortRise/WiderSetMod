@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Xml;
@@ -56,8 +57,9 @@ namespace EightPlayerMod
 
             On.TowerFall.MainMenu.ctor += MainMenuctor_patch;
             On.TowerFall.MapScene.ctor += MapScenector_patch;
-            On.TowerFall.VersusLevelSystem.GenLevels += GenLevels_patch;
-            On.TowerFall.QuestLevelSystem.GetNextRoundLevel += GetNextRoundLevel_patch;
+            On.TowerFall.VersusLevelSystem.GenLevels += VersusLevelSystem_GenLevels_patch;
+            On.TowerFall.QuestLevelSystem.GetNextRoundLevel += QuestLevelSystem_GetNextRoundLevel_patch;
+            On.TowerFall.VersusLevelSystem.GetNextRoundLevel += VersusLevelSystem_GetNextRoundLevel_patch;
 
             hook_orig_StartGame = new ILHook(
                 typeof(Session).GetMethod("orig_StartGame"),
@@ -116,8 +118,9 @@ namespace EightPlayerMod
 
             On.TowerFall.MainMenu.ctor -= MainMenuctor_patch;
             On.TowerFall.MapScene.ctor -= MapScenector_patch;
-            On.TowerFall.VersusLevelSystem.GenLevels -= GenLevels_patch;
-            On.TowerFall.QuestLevelSystem.GetNextRoundLevel -= GetNextRoundLevel_patch;
+            On.TowerFall.VersusLevelSystem.GenLevels -= VersusLevelSystem_GenLevels_patch;
+            On.TowerFall.QuestLevelSystem.GetNextRoundLevel -= QuestLevelSystem_GetNextRoundLevel_patch;
+            On.TowerFall.VersusLevelSystem.GetNextRoundLevel -= VersusLevelSystem_GetNextRoundLevel_patch;
 
 
             hook_orig_StartGame.Dispose();
@@ -239,18 +242,44 @@ namespace EightPlayerMod
             }
         }
 
-        private static XmlElement GetNextRoundLevel_patch(On.TowerFall.QuestLevelSystem.orig_GetNextRoundLevel orig, QuestLevelSystem self, MatchSettings matchSettings, int roundIndex, out int randomSeed)
+        private static XmlElement QuestLevelSystem_GetNextRoundLevel_patch(On.TowerFall.QuestLevelSystem.orig_GetNextRoundLevel orig, QuestLevelSystem self, MatchSettings matchSettings, int roundIndex, out int randomSeed)
         {
             if (!EightPlayerModule.LaunchedEightPlayer)
                 return orig(self, matchSettings, roundIndex, out randomSeed);
             
             var id = self.QuestTowerData.ID.X;
             randomSeed = id;
-            var path = $"{EightPlayerModule.Instance.Content.GetContentPath(QuestTowers.Towers[id])}";
+            using var path = EightPlayerModule.Instance.Content.MapResource[QuestTowers.Towers[id]].Stream;
             return Calc.LoadXML(path)["level"];
         }
 
-        private static void GenLevels_patch(On.TowerFall.VersusLevelSystem.orig_GenLevels orig, VersusLevelSystem self, MatchSettings matchSettings)
+
+        private static XmlElement VersusLevelSystem_GetNextRoundLevel_patch(On.TowerFall.VersusLevelSystem.orig_GetNextRoundLevel orig, VersusLevelSystem self, MatchSettings matchSettings, int roundIndex, out int randomSeed)
+        {
+            if (!EightPlayerModule.LaunchedEightPlayer)
+            {
+                return orig(self, matchSettings, roundIndex, out randomSeed);
+            }
+            var selfDynamic = DynamicData.For(self);
+            var levels = selfDynamic.Get<List<string>>("levels");
+            if (levels.Count == 0)
+            {
+                selfDynamic.Invoke("GenLevels", matchSettings);
+            }
+            levels = selfDynamic.Get<List<string>>("levels");
+            selfDynamic.Set("lastLevel", levels[0]);
+            var lastLevel = selfDynamic.Get<string>("lastLevel");
+            levels.RemoveAt(0);
+            randomSeed = 0;
+            foreach (char c in lastLevel)
+            {
+                randomSeed += (int)c;
+            }
+            using var fs = EightPlayerModule.Instance.Content.MapResource[lastLevel].Stream;
+            return Calc.LoadXML(fs)["level"];
+        }
+
+        private static void VersusLevelSystem_GenLevels_patch(On.TowerFall.VersusLevelSystem.orig_GenLevels orig, VersusLevelSystem self, MatchSettings matchSettings)
         {
             if (!EightPlayerModule.LaunchedEightPlayer) 
             {
