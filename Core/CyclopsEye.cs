@@ -19,6 +19,8 @@ namespace EightPlayerMod
             CyclopsEyeExt.Load();
             On.TowerFall.CyclopsEye.ctor += ctor_normal_patch;
             On.TowerFall.CyclopsEye.BuildFistSequenceList += BuildFistSequenceList_patch;
+            On.TowerFall.CyclopsEye.MadCoroutine += MadCoroutine_patch;
+            On.TowerFall.CyclopsEye.DeadCoroutine += DeadCoroutine_patch;
             IL.TowerFall.CyclopsEye.ctor += ctor_patch;
             IL.TowerFall.CyclopsEye.Update += Update_patch;
             IL.TowerFall.CyclopsEye.FistMirrorTo_Vector2_Easer_int_Impacts += FistMirrorTo_patch;
@@ -38,6 +40,8 @@ namespace EightPlayerMod
         {
             On.TowerFall.CyclopsEye.ctor -= ctor_normal_patch;
             On.TowerFall.CyclopsEye.BuildFistSequenceList -= BuildFistSequenceList_patch;
+            On.TowerFall.CyclopsEye.MadCoroutine -= MadCoroutine_patch;
+            On.TowerFall.CyclopsEye.DeadCoroutine -= DeadCoroutine_patch;
             IL.TowerFall.CyclopsEye.ctor -= ctor_patch;
             IL.TowerFall.CyclopsEye.Update -= Update_patch;
             IL.TowerFall.CyclopsEye.FistMirrorTo_Vector2_Easer_int_Impacts -= FistMirrorTo_patch;
@@ -47,6 +51,21 @@ namespace EightPlayerMod
             IL.TowerFall.CyclopsCeilingBones.ctor -= CyclopsCeilingBonesctor_patch;
             IL.TowerFall.CyclopsPlatform.ctor -= CyclopsPlatformctor_patch;
             hook_ShootSequence.Dispose();
+        }
+
+        private static IEnumerator DeadCoroutine_patch(On.TowerFall.CyclopsEye.orig_DeadCoroutine orig, CyclopsEye self)
+        {
+            DarkWorldBoss.MiasmaDissipate();
+            yield return orig(self);
+        }
+
+        private static IEnumerator MadCoroutine_patch(On.TowerFall.CyclopsEye.orig_MadCoroutine orig, CyclopsEye self)
+        {
+            if (EightPlayerModule.IsEightPlayer && self.Difficulty + DynamicData.For(self).Get<int>("madCounter") >= 3) 
+            {
+                self.Level.Add<Miasma>(new Miasma(Miasma.Modes.CataclysmBoss));
+            }
+            yield return orig(self);
         }
 
         private static void BuildFistSequenceList_patch(On.TowerFall.CyclopsEye.orig_BuildFistSequenceList orig, CyclopsEye self, int difficulty)
@@ -100,7 +119,6 @@ namespace EightPlayerMod
                 fistSequenceList.Add(new Func<IEnumerator>(() => FistCeilingD(self)));
                 fistSequenceList.Add(new Func<IEnumerator>(() => FistSideB(self)));
                 fistSequenceList.Add(new Func<IEnumerator>(() => Invoke("FistMiddleD")));
-                fistSequenceList.Add(new Func<IEnumerator>(() => FistCornerCheeseA(self)));
                 return;
             default:
                 return;
