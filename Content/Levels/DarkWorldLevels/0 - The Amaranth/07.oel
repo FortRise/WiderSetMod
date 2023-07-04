@@ -96,7 +96,7 @@
 
 </SolidTiles>
   <Entities>
-    <RotatePlatformsCenter id="0" x="210" y="125" Amount="4" Width="40" DegSpeed="0.6" Radius="70" />
+    <RotatePlatformsCenter id="0" x="210" y="125" Amount="4" Width="40" DegSpeed="0.8" Radius="70" />
     <PlayerSpawn id="1" x="30" y="120" />
     <PlayerSpawn id="2" x="70" y="160" />
     <PlayerSpawn id="3" x="350" y="160" />

@@ -106,27 +106,6 @@
     <BossMarker id="12" x="50" y="230">
       <node x="160" y="230" />
     </BossMarker>
-    <Spawner id="14" x="90" y="70" name="---">
-      <node x="160" y="60" />
-      <node x="180" y="95" />
-      <node x="145" y="140" />
-      <node x="145" y="160" />
-      <node x="30" y="160" />
-      <node x="30" y="85" />
-    </Spawner>
-    <Spawner id="15" x="330" y="70" name="---">
-      <node x="260" y="60" />
-      <node x="240" y="95" />
-      <node x="275" y="140" />
-      <node x="275" y="160" />
-      <node x="390" y="160" />
-      <node x="390" y="85" />
-    </Spawner>
-    <Spawner id="16" x="210" y="75" name="---">
-      <node x="160" y="85" />
-      <node x="260" y="100" />
-      <node x="210" y="130" />
-    </Spawner>
     <BGLantern id="17" x="120" y="155" Lit="True" />
     <BGLantern id="18" x="300" y="155" Lit="True" />
     <BGLantern id="19" x="180" y="115" Lit="True" />
