@@ -15,7 +15,7 @@ namespace TowerFall
         public static void Load(int chapter, string directory) 
         {
             var fakeVersusTowerData = new FakeVersusTowerData();
-            foreach (var text in EightPlayerModule.Instance.Content.MapResource["Content/" + directory].Childrens)
+            foreach (var text in EightPlayerModule.Instance.Content["Content/" + directory].Childrens)
             {
                 if (!text.Path.EndsWith("oel"))
                     continue;
