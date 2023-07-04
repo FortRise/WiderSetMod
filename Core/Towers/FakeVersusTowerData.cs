@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Xml;
 using EightPlayerMod;
-using FortRise;
 using Monocle;
 
-namespace TowerFall 
+namespace TowerFall
 {
     public class FakeVersusTowerData 
     {
@@ -16,7 +14,6 @@ namespace TowerFall
 
         public static void Load(int chapter, string directory) 
         {
-            Logger.Log("Content/" + directory);
             var fakeVersusTowerData = new FakeVersusTowerData();
             foreach (var text in EightPlayerModule.Instance.Content.MapResource["Content/" + directory].Childrens)
             {
