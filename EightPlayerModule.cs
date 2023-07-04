@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Xml;
 using FortRise;
 using Microsoft.Xna.Framework;
 using Monocle;
@@ -56,7 +57,7 @@ namespace EightPlayerMod
             FakeVersusTowerData.Load(15, "Levels/Versus/15 - Cataclysm");
 
             FakeDarkWorldTowerData.Load("0 - The Amaranth", "Content/Levels/DarkWorldLevels");
-            // FakeDarkWorldTowerData.Load("1 - Dreadwood", Content.GetContentPath("Levels/DarkWorldLevels"));
+            FakeDarkWorldTowerData.Load("1 - Dreadwood", "Content/Levels/DarkWorldLevels");
             FakeDarkWorldTowerData.Load("2 - Darkfang", "Content/Levels/DarkWorldLevels");
             FakeDarkWorldTowerData.Load("3 - Cataclysm", "Content/Levels/DarkWorldLevels");
             // FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", Content.GetContentPath("Levels/DarkWorldLevels"));
@@ -108,6 +109,8 @@ namespace EightPlayerMod
             CyclopsEyePatch.Load();
             CataclysmEyePatch.Load();
             VariantPatch.Load();
+            DreadwoodBossControlPatch.Load();
+            BottomMiasmaPatch.Load();
             LockDarkWorld();
 
             typeof(ModExports).ModInterop();
@@ -153,6 +156,8 @@ namespace EightPlayerMod
             CyclopsEyePatch.Unload();
             CataclysmEyePatch.Unload();
             VariantPatch.Unload();
+            DreadwoodBossControlPatch.Unload();
+            BottomMiasmaPatch.Unload();
             UnlockDarkWorld();
         }
 
@@ -213,6 +218,83 @@ namespace EightPlayerMod
                 Engine.Instance.Screen.Resize(320, 240, 3f);
                 WrapMath.AddWidth = new Vector2(320, 0f);
             }
+        }
+
+        [Command("resize")]
+        public static void Resize(string[] args) 
+        {
+            if (args.Length == 0)
+                return;
+            var folderPath = args[0];
+            var directories = Directory.GetDirectories(folderPath);
+
+            foreach (var dir in directories) 
+            {
+                var dirName = new DirectoryInfo(dir).Name;
+                var files = Directory.GetFiles(dir);
+
+                foreach (var file in files) 
+                {
+                    if (!Path.GetExtension(file).Contains("oel"))
+                        continue;
+                    var filename = Path.GetFileName(file);
+                    var xml = Calc.LoadXML(file)["level"];
+
+                    if (xml.GetAttribute("width") == "320") 
+                    {
+                        xml.SetAttr("width", 420);
+                        InsertColumns(xml["BG"], "00000");
+                        InsertColumns(xml["BGTiles"], "-1,-1,-1,-1,-1,");
+                        InsertColumns(xml["Solids"], "00000");
+                        InsertColumns(xml["SolidTiles"], "-1,-1,-1,-1,-1,");
+                        foreach (XmlElement item2 in xml["Entities"])
+                        {
+                            int num6 = item2.AttrInt("x");
+                            num6 += 50;
+                            item2.SetAttr("x", num6);
+                            if (item2.Name == "Spawner") 
+                            {
+                                foreach (XmlElement node in item2) 
+                                {
+                                    int nodeAttrX = node.AttrInt("x");
+                                    nodeAttrX += 50;
+                                    node.SetAttr("x", nodeAttrX);
+                                }
+                            }
+                        }
+                        var path = $"DumpLevels/Current/{dirName}/{filename}";
+                        if (!Directory.Exists(Path.GetDirectoryName(path)))
+                            Directory.CreateDirectory(Path.GetDirectoryName(path));
+                        xml.OwnerDocument.Save(path);
+                    }
+                }
+            }
+        }
+
+        private static void InsertColumns(XmlElement xml, string insert)
+        {
+            if (xml == null || !(xml.InnerText != ""))
+            {
+                return;
+            }
+            string text = xml.InnerText;
+            int num = 0;
+            while (num < text.Length)
+            {
+                if (text[num] == '\n')
+                {
+                    num++;
+                    continue;
+                }
+                text = text.Insert(num, insert);
+                num = text.IndexOf('\n', num);
+                if (num == -1)
+                {
+                    break;
+                }
+                num++;
+            }
+            xml.InnerText = text;
         }
 
         [Command("unlockme")]

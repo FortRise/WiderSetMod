@@ -1,12 +1,10 @@
 using System;
 using System.IO;
-using FortRise;
 using Mono.Cecil.Cil;
-using Monocle;
 using MonoMod.Cil;
 using TowerFall;
 
-namespace EightPlayerMod 
+namespace EightPlayerMod
 {
     public static class DarkWorldLevelSystemPatch 
     {
@@ -33,16 +31,17 @@ namespace EightPlayerMod
                 {
                     if (EightPlayerModule.LaunchedEightPlayer || EightPlayerModule.IsEightPlayer) 
                     {
-#if DEBUG
-                        stream.Close();
                         var correctPath = path.Replace('\\', '/');
+#if DEBUG
                         if (FakeDarkWorldTowerData.LevelMap.TryGetValue(correctPath, out var newPath)) 
                         {
+                            stream.Dispose();
                             var zipStream = EightPlayerModule.Instance.Content.MapResource[newPath].Stream;
                             return zipStream;
                         }
 #else
-                        var zipStream = EightPlayerModule.Instance.Content.MapResource[FakeDarkWorldTowerData.LevelMap[text]].Stream;
+                        stream.Dispose();
+                        var zipStream = EightPlayerModule.Instance.Content.MapResource[FakeDarkWorldTowerData.LevelMap[correctPath]].Stream;
                         return zipStream;
 #endif
                     }
