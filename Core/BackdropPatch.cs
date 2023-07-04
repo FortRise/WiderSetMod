@@ -25,6 +25,8 @@ namespace EightPlayerMod
             IL.TowerFall.Background.SacredGroundMoonLayer.ctor += TFGameBGAtlasToEightPlayerBGAtlas;
             IL.TowerFall.Background.ScrollLayer.ctor_Level_XmlElement += TFGameBGAtlasToEightPlayerBGAtlas;
             IL.TowerFall.Background.VortexLayer.VortexRing.ctor += TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.VortexLayer.GetRandomBezier += VortexLayerGetRandomBezier_patch;
+            IL.TowerFall.Background.VortexLayer.Render += VortexLayerRender_patch;
             IL.TowerFall.Background.WavyLayer.ctor_Level_XmlElement += TFGameBGAtlasToEightPlayerBGAtlas;
 
             hook_MoonBreakSequence = new ILHook(
@@ -45,11 +47,51 @@ namespace EightPlayerMod
             IL.TowerFall.Background.SacredGroundMoonLayer.ctor -= TFGameBGAtlasToEightPlayerBGAtlas;
             IL.TowerFall.Background.ScrollLayer.ctor_Level_XmlElement -= TFGameBGAtlasToEightPlayerBGAtlas;
             IL.TowerFall.Background.VortexLayer.VortexRing.ctor -= TFGameBGAtlasToEightPlayerBGAtlas;
+            IL.TowerFall.Background.VortexLayer.GetRandomBezier -= VortexLayerGetRandomBezier_patch;
+            IL.TowerFall.Background.VortexLayer.Render -= VortexLayerRender_patch;
             IL.TowerFall.Background.WavyLayer.ctor_Level_XmlElement -= TFGameBGAtlasToEightPlayerBGAtlas;
 
             hook_MoonBreakSequence.Dispose();
         }
 
+        private static void VortexLayerGetRandomBezier_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(100f))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(x => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 150;
+                    return x;
+                });
+            }
+
+            cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(155f))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(x => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 205;
+                    return x;
+                });
+            }
+        }
+
+        private static void VortexLayerRender_patch(ILContext ctx)
+        {
+            var cursor = new ILCursor(ctx);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(320f))) 
+            {
+                cursor.EmitDelegate<Func<float, float>>(x => {
+                    if (EightPlayerModule.IsEightPlayer)
+                        return 420;
+                    return x;
+                });
+            }
+        }
 
         private static void TFGameBGAtlasToEightPlayerBGAtlas(ILContext ctx)
         {
