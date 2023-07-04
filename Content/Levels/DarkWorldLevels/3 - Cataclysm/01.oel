@@ -101,8 +101,8 @@
     <PlayerSpawn id="2" x="385" y="210" />
     <PlayerSpawn id="3" x="405" y="60" />
     <PlayerSpawn id="4" x="15" y="60" />
-    <TreasureChest id="5" x="85" y="195" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
-    <TreasureChest id="6" x="335" y="195" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
+    <TreasureChest id="5" x="85" y="165" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
+    <TreasureChest id="6" x="335" y="165" Mode="Normal" Treasure="Arrows" Type="Normal" Timer="300" />
     <Spawner id="7" x="170" y="175" name="---" />
     <Spawner id="8" x="250" y="175" name="---" />
     <Spawner id="9" x="210" y="175" name="---" />
