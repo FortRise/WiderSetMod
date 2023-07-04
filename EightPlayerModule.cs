@@ -60,7 +60,7 @@ namespace EightPlayerMod
             FakeDarkWorldTowerData.Load("1 - Dreadwood", "Content/Levels/DarkWorldLevels");
             FakeDarkWorldTowerData.Load("2 - Darkfang", "Content/Levels/DarkWorldLevels");
             FakeDarkWorldTowerData.Load("3 - Cataclysm", "Content/Levels/DarkWorldLevels");
-            // FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", Content.GetContentPath("Levels/DarkWorldLevels"));
+            FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", "Content/Levels/DarkWorldLevels");
         }
 
         public override void Load()
