@@ -136,11 +136,19 @@
     <PlayerSpawn id="37" x="265" y="200" />
     <TeamSpawnA id="38" x="40" y="150" />
     <TeamSpawnA id="39" x="55" y="210" />
-    <TeamSpawnA id="40" x="135" y="110" />
+    <TeamSpawnA id="40" x="140" y="110" />
     <TeamSpawnA id="41" x="105" y="210" />
     <TeamSpawnB id="42" x="365" y="210" />
     <TeamSpawnB id="43" x="315" y="210" />
     <TeamSpawnB id="44" x="380" y="150" />
-    <TeamSpawnB id="45" x="285" y="110" />
+    <TeamSpawnB id="45" x="280" y="110" />
+    <TeamSpawnA id="46" x="170" y="110" />
+    <TeamSpawnA id="47" x="30" y="70" />
+    <TeamSpawnA id="48" x="20" y="130" />
+    <TeamSpawnA id="49" x="155" y="200" />
+    <TeamSpawnB id="50" x="265" y="200" />
+    <TeamSpawnB id="51" x="400" y="130" />
+    <TeamSpawnB id="52" x="390" y="70" />
+    <TeamSpawnB id="53" x="250" y="110" />
   </Entities>
 </level>

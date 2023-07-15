@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using EightPlayerMod;
+using FortRise;
 using Monocle;
 
 namespace TowerFall
@@ -10,7 +11,28 @@ namespace TowerFall
     public class FakeVersusTowerData 
     {
         internal static Dictionary<int, FakeVersusTowerData> Chapters = new();
+        internal static Dictionary<string, Dictionary<int, FakeVersusTowerData>> CustomChapters = new();
         public List<VersusLevelData> Levels = new();
+        public RiseCore.ResourceSystem ResourceSystem;
+
+        public static void Load(int chapter, FortContent content, RiseCore.Resource resource, string gamemodeName) 
+        {
+            var fakeVersusTowerData = new FakeVersusTowerData();
+            foreach (var text in resource.Childrens)
+            {
+                if (!text.Path.EndsWith("oel"))
+                    continue;
+                using var fs = text.Stream;
+                fakeVersusTowerData.ResourceSystem = content.ResourceSystem;
+                fakeVersusTowerData.Levels.Add(CreateVersusLevelData(text.Path, fs));
+            }
+            if (CustomChapters.TryGetValue(gamemodeName, out var val)) 
+            {
+                val.Add(chapter, fakeVersusTowerData);
+                return;
+            }
+            CustomChapters.Add(gamemodeName, new Dictionary<int, FakeVersusTowerData>() {{chapter, fakeVersusTowerData }});
+        }
 
         public static void Load(int chapter, string directory) 
         {

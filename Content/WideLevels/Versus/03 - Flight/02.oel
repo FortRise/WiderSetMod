@@ -132,5 +132,13 @@
     <TeamSpawnB id="34" x="350" y="210" />
     <TeamSpawnA id="30" x="30" y="70" />
     <TeamSpawnB id="35" x="390" y="70" />
+    <TeamSpawnA id="36" x="110" y="120" />
+    <TeamSpawnA id="37" x="130" y="120" />
+    <TeamSpawnA id="38" x="90" y="210" />
+    <TeamSpawnA id="39" x="110" y="210" />
+    <TeamSpawnB id="40" x="290" y="120" />
+    <TeamSpawnB id="41" x="310" y="120" />
+    <TeamSpawnB id="42" x="330" y="210" />
+    <TeamSpawnB id="43" x="310" y="210" />
   </Entities>
 </level>

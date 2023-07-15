@@ -39,22 +39,22 @@ namespace EightPlayerMod
             EightPlayerAtlas = Content.LoadAtlas("Atlas/atlas.xml", "Atlas/atlas.png");
             EightPlayerBGAtlas = Content.LoadAtlas("Atlas/bgatlas.xml", "Atlas/bgatlas.png");
             EightPlayerSpriteData = Content.LoadSpriteData("Atlas/spriteData.xml", EightPlayerAtlas);
-            FakeVersusTowerData.Load(0, "Levels/Versus/00 - Sacred Ground");
-            FakeVersusTowerData.Load(1, "Levels/Versus/01 - Twilight Spire");
-            FakeVersusTowerData.Load(2, "Levels/Versus/02 - Backfire");
-            FakeVersusTowerData.Load(3, "Levels/Versus/03 - Flight");
-            FakeVersusTowerData.Load(4, "Levels/Versus/04 - Mirage");
-            FakeVersusTowerData.Load(5, "Levels/Versus/05 - Thornwood");
-            FakeVersusTowerData.Load(6, "Levels/Versus/06 - Frostfang Keep");
-            FakeVersusTowerData.Load(7, "Levels/Versus/07 - Kings Court");
-            FakeVersusTowerData.Load(8, "Levels/Versus/08 - Sunken City");
-            FakeVersusTowerData.Load(9, "Levels/Versus/09 - Moonstone");
-            FakeVersusTowerData.Load(10, "Levels/Versus/10 - TowerForge");
-            FakeVersusTowerData.Load(11, "Levels/Versus/11 - Ascension");
-            FakeVersusTowerData.Load(12, "Levels/Versus/12 - The Amaranth");
-            FakeVersusTowerData.Load(13, "Levels/Versus/13 - Dreadwood");
-            FakeVersusTowerData.Load(14, "Levels/Versus/14 - Darkfang");
-            FakeVersusTowerData.Load(15, "Levels/Versus/15 - Cataclysm");
+            FakeVersusTowerData.Load(0, "WideLevels/Versus/00 - Sacred Ground");
+            FakeVersusTowerData.Load(1, "WideLevels/Versus/01 - Twilight Spire");
+            FakeVersusTowerData.Load(2, "WideLevels/Versus/02 - Backfire");
+            FakeVersusTowerData.Load(3, "WideLevels/Versus/03 - Flight");
+            FakeVersusTowerData.Load(4, "WideLevels/Versus/04 - Mirage");
+            FakeVersusTowerData.Load(5, "WideLevels/Versus/05 - Thornwood");
+            FakeVersusTowerData.Load(6, "WideLevels/Versus/06 - Frostfang Keep");
+            FakeVersusTowerData.Load(7, "WideLevels/Versus/07 - Kings Court");
+            FakeVersusTowerData.Load(8, "WideLevels/Versus/08 - Sunken City");
+            FakeVersusTowerData.Load(9, "WideLevels/Versus/09 - Moonstone");
+            FakeVersusTowerData.Load(10, "WideLevels/Versus/10 - TowerForge");
+            FakeVersusTowerData.Load(11, "WideLevels/Versus/11 - Ascension");
+            FakeVersusTowerData.Load(12, "WideLevels/Versus/12 - The Amaranth");
+            FakeVersusTowerData.Load(13, "WideLevels/Versus/13 - Dreadwood");
+            FakeVersusTowerData.Load(14, "WideLevels/Versus/14 - Darkfang");
+            FakeVersusTowerData.Load(15, "WideLevels/Versus/15 - Cataclysm");
 
             FakeDarkWorldTowerData.Load("0 - The Amaranth", "Content/Levels/DarkWorldLevels");
             FakeDarkWorldTowerData.Load("1 - Dreadwood", "Content/Levels/DarkWorldLevels");
@@ -75,6 +75,7 @@ namespace EightPlayerMod
             }
             typeof(Player).GetField("wasColliders", BindingFlags.NonPublic | BindingFlags.Static)
                 .SetValue(null, new Collider[8]);
+            CursedMode.CursedModule.Load();
             ScreenPatch.Load();
             BackdropPatch.Load();
             RollcallPatch.Load();
@@ -111,6 +112,9 @@ namespace EightPlayerMod
             VariantPatch.Load();
             DreadwoodBossControlPatch.Load();
             BottomMiasmaPatch.Load();
+            DarkWorldControlPatch.Load();
+            DarkWorldBossTitlePatch.Load();
+            VersusLevelSystemPatch.Load();
             LockDarkWorld();
 
             typeof(ModExports).ModInterop();
@@ -122,6 +126,7 @@ namespace EightPlayerMod
 
         public override void Unload()
         {
+            CursedMode.CursedModule.Unload();
             ScreenPatch.Unload();
             BackdropPatch.Unload();
             RollcallPatch.Unload();
@@ -158,6 +163,9 @@ namespace EightPlayerMod
             VariantPatch.Unload();
             DreadwoodBossControlPatch.Unload();
             BottomMiasmaPatch.Unload();
+            DarkWorldControlPatch.Unload();
+            DarkWorldBossTitlePatch.Unload();
+            VersusLevelSystemPatch.Unload();
             UnlockDarkWorld();
         }
 
@@ -193,6 +201,18 @@ namespace EightPlayerMod
     {
         public static bool IsEightPlayer() => EightPlayerModule.IsEightPlayer;
         public static bool LaunchedEightPlayer() => EightPlayerModule.LaunchedEightPlayer;
+        public static void AddVersusModResourceMapper(string gamemodeName, string folder, FortContent content) 
+        {
+            var resources = content[folder].Childrens;
+            int chapter = 0;
+            foreach (var resource in resources)
+            {
+                if (!content.IsResourceExist(Path.Combine(resource.Path, "tower.xml")))
+                    continue;
+                
+                FakeVersusTowerData.Load(chapter++, content, resource, gamemodeName);
+            }
+        }
     }
 
     public static class Commands 

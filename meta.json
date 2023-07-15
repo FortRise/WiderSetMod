@@ -2,7 +2,7 @@
     "name": "WiderSetMod",
 	"version": "0.5.0",
 	"required": "4.1.0",
-	"author": "FortRise",
+	"author": "Terria and RedDude",
 	"description": "Allows eight player in TowerFall",
 	"dll": "EightPlayerMod.dll"
 }

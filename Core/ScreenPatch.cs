@@ -57,9 +57,7 @@ namespace EightPlayerMod
 
             On.TowerFall.MainMenu.ctor += MainMenuctor_patch;
             On.TowerFall.MapScene.ctor += MapScenector_patch;
-            On.TowerFall.VersusLevelSystem.GenLevels += VersusLevelSystem_GenLevels_patch;
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel += QuestLevelSystem_GetNextRoundLevel_patch;
-            On.TowerFall.VersusLevelSystem.GetNextRoundLevel += VersusLevelSystem_GetNextRoundLevel_patch;
 
             hook_orig_StartGame = new ILHook(
                 typeof(Session).GetMethod("orig_StartGame"),
@@ -118,9 +116,7 @@ namespace EightPlayerMod
 
             On.TowerFall.MainMenu.ctor -= MainMenuctor_patch;
             On.TowerFall.MapScene.ctor -= MapScenector_patch;
-            On.TowerFall.VersusLevelSystem.GenLevels -= VersusLevelSystem_GenLevels_patch;
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel -= QuestLevelSystem_GetNextRoundLevel_patch;
-            On.TowerFall.VersusLevelSystem.GetNextRoundLevel -= VersusLevelSystem_GetNextRoundLevel_patch;
 
 
             hook_orig_StartGame.Dispose();
@@ -251,61 +247,6 @@ namespace EightPlayerMod
             randomSeed = id;
             using var path = EightPlayerModule.Instance.Content.MapResource[QuestTowers.Towers[id]].Stream;
             return Calc.LoadXML(path)["level"];
-        }
-
-
-        private static XmlElement VersusLevelSystem_GetNextRoundLevel_patch(On.TowerFall.VersusLevelSystem.orig_GetNextRoundLevel orig, VersusLevelSystem self, MatchSettings matchSettings, int roundIndex, out int randomSeed)
-        {
-            if (!EightPlayerModule.LaunchedEightPlayer)
-            {
-                return orig(self, matchSettings, roundIndex, out randomSeed);
-            }
-            var selfDynamic = DynamicData.For(self);
-            var levels = selfDynamic.Get<List<string>>("levels");
-            if (levels.Count == 0)
-            {
-                selfDynamic.Invoke("GenLevels", matchSettings);
-            }
-            levels = selfDynamic.Get<List<string>>("levels");
-            selfDynamic.Set("lastLevel", levels[0]);
-            var lastLevel = selfDynamic.Get<string>("lastLevel");
-            levels.RemoveAt(0);
-            randomSeed = 0;
-            foreach (char c in lastLevel)
-            {
-                randomSeed += (int)c;
-            }
-            using var fs = EightPlayerModule.Instance.Content.MapResource[lastLevel].Stream;
-            return Calc.LoadXML(fs)["level"];
-        }
-
-        private static void VersusLevelSystem_GenLevels_patch(On.TowerFall.VersusLevelSystem.orig_GenLevels orig, VersusLevelSystem self, MatchSettings matchSettings)
-        {
-            if (!EightPlayerModule.LaunchedEightPlayer) 
-            {
-                orig(self, matchSettings);
-                return;
-            }
-            var levelSystem = DynamicData.For(self);
-            var lastLevel = levelSystem.Get<string>("lastlevel");
-            var fake = FakeVersusTowerData.Chapters[self.ID.X];
-            var levels = fake.GetLevels(matchSettings);
-			if (self.VersusTowerData.FixedFirst && lastLevel == null)
-			{
-				string text = levels[0];
-				levels.RemoveAt(0);
-				levels.Shuffle(new Random());
-				levels.Insert(0, text);
-                levelSystem.Set("levels", levels);
-				return;
-			}
-			levels.Shuffle(new Random());
-			if (levels[0] == lastLevel)
-			{
-				levels.RemoveAt(0);
-				levels.Add(lastLevel);
-			}
-            levelSystem.Set("levels", levels);
         }
 
         private static void LevelCoreRender_patch(ILContext ctx)
