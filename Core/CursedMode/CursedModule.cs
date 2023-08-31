@@ -61,11 +61,14 @@ public static class QuestSpawnPortalPatch
         var counter = new Counter(40);
         self.Add(counter);
         var toSpawn = DynamicData.For(self).Get<Queue<string>>("toSpawn");
-        var peek = toSpawn.Peek();
-        if (peek.StartsWith("CursedMode/")) 
+        if (toSpawn.Count != 0) 
         {
-            DynamicData.For(self).Set("skullCounter", counter);
-            DynamicData.For(self).Set("isSummonedCursed", false);
+            var peek = toSpawn.Peek();
+            if (peek.StartsWith("CursedMode/")) 
+            {
+                DynamicData.For(self).Set("skullCounter", counter);
+                DynamicData.For(self).Set("isSummonedCursed", false);
+            }
         }
 
         return orig(self);

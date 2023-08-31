@@ -5,7 +5,7 @@ using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using TowerFall;
 
-namespace EightPlayerMod 
+namespace EightPlayerMod
 {
     public class KingReaperPatch 
     {
@@ -34,7 +34,7 @@ namespace EightPlayerMod
 
         private static void ctor_patch(On.TowerFall.KingReaper.orig_ctor orig, KingReaper self, QuestControl control, Vector2 position, bool fromIntro, bool finalWave, int difficulty)
         {
-            if (EightPlayerModule.IsEightPlayer) 
+            if (!EightPlayerModule.IsEightPlayer) 
             {
                 orig(self, control, position, fromIntro, finalWave, difficulty);
                 return;

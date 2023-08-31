@@ -13,14 +13,14 @@ namespace TowerFall
         internal static Dictionary<int, FakeVersusTowerData> Chapters = new();
         internal static Dictionary<string, Dictionary<int, FakeVersusTowerData>> CustomChapters = new();
         public List<VersusLevelData> Levels = new();
-        public RiseCore.ResourceSystem ResourceSystem;
+        public RiseCore.ModResource ResourceSystem;
 
         public static void Load(int chapter, FortContent content, RiseCore.Resource resource, string gamemodeName) 
         {
             var fakeVersusTowerData = new FakeVersusTowerData();
             foreach (var text in resource.Childrens)
             {
-                if (!text.Path.EndsWith("oel"))
+                if (text.ResourceType != typeof(RiseCore.ResourceTypeOel))
                     continue;
                 using var fs = text.Stream;
                 fakeVersusTowerData.ResourceSystem = content.ResourceSystem;

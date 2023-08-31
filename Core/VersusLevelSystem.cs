@@ -11,7 +11,7 @@ namespace EightPlayerMod;
 public static class VersusLevelSystemPatch 
 {
     public static bool Customized;
-    public static FortRise.RiseCore.ResourceSystem CurrentResource;
+    public static FortRise.RiseCore.ModResource CurrentResource;
     public static void Load() 
     {
         On.TowerFall.VersusLevelSystem.GenLevels += GenLevels_patch;
@@ -46,17 +46,18 @@ public static class VersusLevelSystemPatch
         {
             randomSeed += (int)c;
         }
-        Stream fs;
+        Stream fs = null;
         try 
         {
             if (CurrentResource == null)
                 fs = EightPlayerModule.Instance.Content.MapResource[lastLevel].Stream;
             else
-                fs = CurrentResource.MapResource[lastLevel].Stream;
+                fs = CurrentResource.Resources[lastLevel].Stream;
             return Calc.LoadXML(fs)["level"];
         }
         finally 
         {
+            fs.Dispose();
         }
     }
 

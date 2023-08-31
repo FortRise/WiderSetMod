@@ -56,11 +56,11 @@ namespace EightPlayerMod
             FakeVersusTowerData.Load(14, "WideLevels/Versus/14 - Darkfang");
             FakeVersusTowerData.Load(15, "WideLevels/Versus/15 - Cataclysm");
 
-            FakeDarkWorldTowerData.Load("0 - The Amaranth", "Content/Levels/DarkWorldLevels");
-            FakeDarkWorldTowerData.Load("1 - Dreadwood", "Content/Levels/DarkWorldLevels");
-            FakeDarkWorldTowerData.Load("2 - Darkfang", "Content/Levels/DarkWorldLevels");
-            FakeDarkWorldTowerData.Load("3 - Cataclysm", "Content/Levels/DarkWorldLevels");
-            FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", "Content/Levels/DarkWorldLevels");
+            FakeDarkWorldTowerData.Load("0 - The Amaranth", "Content/WideLevels/DarkWorld");
+            FakeDarkWorldTowerData.Load("1 - Dreadwood", "Content/WideLevels/DarkWorld");
+            FakeDarkWorldTowerData.Load("2 - Darkfang", "Content/WideLevels/DarkWorld");
+            FakeDarkWorldTowerData.Load("3 - Cataclysm", "Content/WideLevels/DarkWorld");
+            FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", "Content/WideLevels/DarkWorld");
         }
 
         public override void Load()
@@ -115,7 +115,14 @@ namespace EightPlayerMod
             DarkWorldControlPatch.Load();
             DarkWorldBossTitlePatch.Load();
             VersusLevelSystemPatch.Load();
-            LockDarkWorld();
+            QuestControlPatch.Load();
+            WideDarkWorldSavePatch.Load();
+            DarkWorldPlayerResults.Load();
+            DarkWorldRoundLogicPatch.Load();
+            DarkWorldSessionStatePatch.Load();
+            DarkWorldCompletePatch.Load();
+            DarkWorldTowerDataPatch.LevelDataPatch.Load();
+            AmaranthShotPatch.Load();
 
             typeof(ModExports).ModInterop();
         }
@@ -166,33 +173,14 @@ namespace EightPlayerMod
             DarkWorldControlPatch.Unload();
             DarkWorldBossTitlePatch.Unload();
             VersusLevelSystemPatch.Unload();
-            UnlockDarkWorld();
-        }
-
-        // Remove it soon, when it's finished or you need to test it
-        public static void LockDarkWorld() 
-        {
-            On.TowerFall.DarkWorldButton.OnConfirm += Lock;
-        }
-
-        public static void UnlockDarkWorld() 
-        {
-            On.TowerFall.DarkWorldButton.OnConfirm -= Lock;
-        }
-
-        private static void Lock(On.TowerFall.DarkWorldButton.orig_OnConfirm orig, DarkWorldButton self)
-        {
-            if (EightPlayerModule.LaunchedEightPlayer)
-            {
-                var selfDynamic = DynamicData.For(self);
-                Sounds.ui_invalid.Play(160f, 1f);
-                selfDynamic.Set("shake", 30f);
-                MenuInput.RumbleAll(1f, 20);
-                CoOpDataDisplay first = self.Scene.Layers[-1].GetFirst<CoOpDataDisplay>();
-                first?.DarkWorldShake();
-                return;
-            }
-            orig(self);
+            QuestControlPatch.Unload();
+            WideDarkWorldSavePatch.Unload();
+            DarkWorldPlayerResults.Unload();
+            DarkWorldRoundLogicPatch.Unload();
+            DarkWorldSessionStatePatch.Unload();
+            DarkWorldCompletePatch.Unload();
+            DarkWorldTowerDataPatch.LevelDataPatch.Unload();
+            AmaranthShotPatch.Unload();
         }
     }
 
@@ -315,12 +303,6 @@ namespace EightPlayerMod
                 num++;
             }
             xml.InnerText = text;
-        }
-
-        [Command("unlockme")]
-        public static void Unlock8PDarkWorld(string[] args) 
-        {
-            EightPlayerModule.UnlockDarkWorld();
         }
     }
 }

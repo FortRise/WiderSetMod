@@ -14,7 +14,7 @@ namespace EightPlayerMod
 
         public static void Load() 
         {
-            IL.TowerFall.AmaranthBoss.ctor += ctor_patch;
+            IL.TowerFall.AmaranthBoss.ctor += ScreenUtils.PatchHalfWidthFloat;
             hook_MoveSequence = new ILHook(
                 typeof(AmaranthBoss).GetMethod("MoveSequence", BindingFlags.Instance | BindingFlags.NonPublic)
                     .GetStateMachineTarget(),
@@ -23,29 +23,15 @@ namespace EightPlayerMod
             hook_DeadSequence45_2b__3 = new ILHook(
                 typeof(AmaranthBoss).GetNestedType("<>c__DisplayClass45_2", BindingFlags.NonPublic | BindingFlags.Instance)
                     .GetMethod("<DeadCoroutine>b__3", BindingFlags.NonPublic | BindingFlags.Instance),
-                DeadSequence_patch
+                ScreenUtils.PatchHalfWidthFloat
             );
         }
 
         public static void Unload() 
         {
-            IL.TowerFall.AmaranthBoss.ctor -= ctor_patch;
+            IL.TowerFall.AmaranthBoss.ctor -= ScreenUtils.PatchHalfWidthFloat;
             hook_MoveSequence.Dispose();
             hook_DeadSequence45_2b__3.Dispose();
-        }
-
-        private static void DeadSequence_patch(ILContext ctx)
-        {
-            var cursor = new ILCursor(ctx);
-
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(160f))) 
-            {
-                cursor.EmitDelegate<Func<float, float>>(x => {
-                    if (EightPlayerModule.IsEightPlayer)
-                        return 420 / 2;
-                    return x;
-                });
-            }
         }
 
         private static void MoveSequence_patch(ILContext ctx)
@@ -79,20 +65,6 @@ namespace EightPlayerMod
                 cursor.EmitDelegate<Func<float, float>>(x => {
                     if (EightPlayerModule.IsEightPlayer)
                         return 480 / 2;
-                    return x;
-                });
-            }
-        }
-
-        private static void ctor_patch(ILContext ctx)
-        {
-            var cursor = new ILCursor(ctx);
-
-            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(160f))) 
-            {
-                cursor.EmitDelegate<Func<float, float>>(x => {
-                    if (EightPlayerModule.IsEightPlayer)
-                        return 420 / 2;
                     return x;
                 });
             }

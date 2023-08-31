@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using Monocle;
 using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
+using MonoMod.Utils;
 using TeuJson;
 using TowerFall;
 
@@ -9,19 +13,32 @@ namespace EightPlayerMod;
 
 public static class WideDarkWorldSavePatch
 {
+    private static IDetour hook_MapButtonUnlockSequence;
+    private static IDetour hook_DarkWorldLevelSelectOverlayRefreshLevelStats;
+
     public static void Load() 
     {
         IL.TowerFall.MapButton.InitDarkWorldGraphics += InlineTowers_patch;
         IL.TowerFall.MapButton.UnlockSequence += InlineTowers_patch;
         IL.TowerFall.UnlockData.GetDarkWorldTowerUnlocked += InlineTowers_patch;
         IL.TowerFall.UnlockData.GetArcherToIntro += InlineTowers_patch;
-        IL.TowerFall.DarkWorldLevelSelectOverlay.RefreshLevelStats += InlineTowers_patch;
         // IL.TowerFall.QuestLevelSelectOverlay.ctor += QuestLevelSelectOverlayctor_patch;
         IL.TowerFall.DarkWorldMapButton.GetLocked += InlineTowers_patch;
-        IL.TowerFall.QuestRoundLogic.OnLevelLoadFinish += InlineTowers_patch;
-        IL.TowerFall.QuestRoundLogic.OnPlayerDeath += InlineTowers_patch;
+        IL.TowerFall.Session.StartGame += InlineTowers_patch;
+        IL.FortRise.RiseCore.Events.InvokeDarkWorldComplete_Result += InlineTowers_patch;
+
+        IL.TowerFall.DarkWorldRoundLogic.OnPlayerDeath += InlineTowers_patch;
         IL.TowerFall.CoOpDataDisplay.ctor += CoOpDataDisplayctor_patch;
         On.TowerFall.MapScene.DarkWorldIntroSequence += DarkWorldIntroSequence_patch;
+
+        hook_DarkWorldLevelSelectOverlayRefreshLevelStats = new ILHook(
+            typeof(DarkWorldLevelSelectOverlay).GetMethod("orig_RefreshLevelStats", BindingFlags.Instance | BindingFlags.NonPublic),
+            InlineTowers_patch
+        );
+        hook_MapButtonUnlockSequence = new ILHook(
+            typeof(MapButton).GetMethod("UnlockSequence").GetStateMachineTarget(),
+            InlineTowers_patch
+        );
     }
 
     public static void Unload() 
@@ -30,35 +47,24 @@ public static class WideDarkWorldSavePatch
         IL.TowerFall.MapButton.UnlockSequence -= InlineTowers_patch;
         IL.TowerFall.UnlockData.GetDarkWorldTowerUnlocked -= InlineTowers_patch;
         IL.TowerFall.UnlockData.GetArcherToIntro -= InlineTowers_patch;
-        IL.TowerFall.DarkWorldLevelSelectOverlay.RefreshLevelStats -= InlineTowers_patch;
-        // IL.TowerFall.QuestLevelSelectOverlay.ctor -= QuestLevelSelectOverlayctor_patch;
         IL.TowerFall.DarkWorldMapButton.GetLocked -= InlineTowers_patch;
-        IL.TowerFall.QuestRoundLogic.OnLevelLoadFinish -= InlineTowers_patch;
-        IL.TowerFall.QuestRoundLogic.OnPlayerDeath -= InlineTowers_patch;
+        IL.TowerFall.Session.StartGame -= InlineTowers_patch;
+        IL.FortRise.RiseCore.Events.InvokeDarkWorldComplete_Result -= InlineTowers_patch;
+
+        IL.TowerFall.DarkWorldRoundLogic.OnPlayerDeath -= InlineTowers_patch;
         IL.TowerFall.CoOpDataDisplay.ctor -= CoOpDataDisplayctor_patch;
         On.TowerFall.MapScene.DarkWorldIntroSequence -= DarkWorldIntroSequence_patch;
+
+        hook_MapButtonUnlockSequence.Dispose();
+        hook_DarkWorldLevelSelectOverlayRefreshLevelStats.Dispose();
     }
 
     private static void CoOpDataDisplayctor_patch(ILContext ctx)
     {
         var cursor = new ILCursor(ctx);
 
-        // TODO GameData.DarkWorldTowers.Count
         while (cursor.TryGotoNext(MoveType.After, 
-            instr => instr.MatchLdfld<SaveData>("GameData"),
-            instr => instr.MatchLdfld<QuestStats>("Towers"))) 
-        {
-            cursor.EmitDelegate<Func<DarkWorldTowerStats[], DarkWorldTowerStats[]>>(x => {
-                if (EightPlayerModule.LaunchedEightPlayer)
-                    return EightPlayerModule.SaveData.DarkWorldStats.Towers;
-                return x;
-            });
-        }
-
-        cursor = new ILCursor(ctx);
-
-        while (cursor.TryGotoNext(MoveType.After, 
-            instr => instr.MatchCallOrCallvirt<QuestStats>("get_TotalRedSkulls")))
+            instr => instr.MatchCallOrCallvirt<DarkWorldStats>("get_TotalRedSkulls")))
         {
             cursor.EmitDelegate<Func<int, int>>(x => {
                 if (EightPlayerModule.LaunchedEightPlayer) 
@@ -72,12 +78,12 @@ public static class WideDarkWorldSavePatch
         cursor = new ILCursor(ctx);
 
         while (cursor.TryGotoNext(MoveType.After, 
-            instr => instr.MatchCallOrCallvirt<QuestStats>("get_TotalWhiteSkulls")))
+            instr => instr.MatchCallOrCallvirt<DarkWorldStats>("get_TotalWhiteSkulls")))
         {
             cursor.EmitDelegate<Func<int, int>>(x => {
                 if (EightPlayerModule.LaunchedEightPlayer) 
                 {
-                    return EightPlayerModule.SaveData.QuestStats.TotalWhiteSkulls;
+                    return EightPlayerModule.SaveData.DarkWorldStats.TotalWhiteSkulls;
                 }
                 return x;
             });
@@ -86,12 +92,12 @@ public static class WideDarkWorldSavePatch
         cursor = new ILCursor(ctx);
 
         while (cursor.TryGotoNext(MoveType.After, 
-            instr => instr.MatchCallOrCallvirt<QuestStats>("get_TotalGoldSkulls")))
+            instr => instr.MatchCallOrCallvirt<DarkWorldStats>("get_TotalGoldSkulls")))
         {
             cursor.EmitDelegate<Func<int, int>>(x => {
                 if (EightPlayerModule.LaunchedEightPlayer) 
                 {
-                    return EightPlayerModule.SaveData.QuestStats.TotalGoldSkulls;
+                    return EightPlayerModule.SaveData.DarkWorldStats.TotalGoldSkulls;
                 }
                 return x;
             });
@@ -128,9 +134,9 @@ public static class WideDarkWorldSavePatch
             instr => instr.MatchLdfld<SaveData>("DarkWorld"),
             instr => instr.MatchLdfld<DarkWorldStats>("Towers"))) 
         {
-            cursor.EmitDelegate<Func<QuestTowerStats[], QuestTowerStats[]>>(x => {
+            cursor.EmitDelegate<Func<DarkWorldTowerStats[], DarkWorldTowerStats[]>>(x => {
                 if (EightPlayerModule.LaunchedEightPlayer)
-                    return EightPlayerModule.SaveData.QuestStats.Towers;
+                    return EightPlayerModule.SaveData.DarkWorldStats.Towers;
                 return x;
             });
         }

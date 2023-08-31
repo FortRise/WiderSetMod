@@ -16,7 +16,6 @@ namespace EightPlayerMod
 {
     public static partial class ScreenPatch 
     {
-        private static IDetour hook_orig_StartGame;
         private static IDetour hook_QuestControlStartSequence;
         private static IDetour hook_QuestControlStartSequenceb__2;
         private static IDetour hook_QuestCompleteSequence;
@@ -59,10 +58,8 @@ namespace EightPlayerMod
             On.TowerFall.MapScene.ctor += MapScenector_patch;
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel += QuestLevelSystem_GetNextRoundLevel_patch;
 
-            hook_orig_StartGame = new ILHook(
-                typeof(Session).GetMethod("orig_StartGame"),
-                SwapLevelLoader_patch
-            );
+            IL.TowerFall.Session.StartGame += SwapLevelLoader_patch;
+
             hook_QuestControlStartSequence = new ILHook(
                 typeof(QuestControl).GetMethod("StartSequence", BindingFlags.Instance | BindingFlags.NonPublic).GetStateMachineTarget(),
                 MiddlePos_patch
@@ -118,8 +115,7 @@ namespace EightPlayerMod
             On.TowerFall.MapScene.ctor -= MapScenector_patch;
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel -= QuestLevelSystem_GetNextRoundLevel_patch;
 
-
-            hook_orig_StartGame.Dispose();
+            IL.TowerFall.Session.StartGame -= SwapLevelLoader_patch;
             hook_QuestControlStartSequence.Dispose();
             hook_QuestControlStartSequenceb__2.Dispose();
             hook_QuestCompleteSequenceb__1.Dispose();
