@@ -197,15 +197,15 @@
     <BGLantern id="44" x="370" y="135" Lit="True" />
     <BGLantern id="45" x="65" y="85" Lit="True" />
     <BGLantern id="46" x="355" y="85" Lit="True" />
-    <Spawner id="47" x="15" y="175" name="---">
-      <node x="70" y="175" />
-      <node x="75" y="135" />
-      <node x="60" y="115" />
+    <Spawner id="47" x="25" y="175" name="---">
+      <node x="80" y="175" />
+      <node x="85" y="135" />
+      <node x="70" y="115" />
     </Spawner>
-    <Spawner id="48" x="405" y="175" name="---">
-      <node x="350" y="175" />
-      <node x="345" y="135" />
-      <node x="360" y="115" />
+    <Spawner id="48" x="395" y="175" name="---">
+      <node x="340" y="175" />
+      <node x="335" y="135" />
+      <node x="350" y="115" />
     </Spawner>
   </Entities>
 </level>

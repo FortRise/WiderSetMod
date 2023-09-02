@@ -174,7 +174,7 @@
     <Spawner id="44" x="365" y="150" name="---" />
     <Spawner id="45" x="55" y="150" name="---" />
     <PlayerSpawn id="46" x="125" y="210" />
-    <PlayerSpawn id="47" x="295" y="215" />
+    <PlayerSpawn id="47" x="295" y="210" />
     <PlayerSpawn id="48" x="125" y="140" />
     <PlayerSpawn id="49" x="295" y="140" />
   </Entities>
