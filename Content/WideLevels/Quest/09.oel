@@ -168,5 +168,7 @@
     <PlayerSpawn id="30" x="170" y="190" />
     <PlayerSpawn id="31" x="250" y="190" />
     <BGCrystal id="32" x="260" y="160" />
+    <Spawner id="33" x="110" y="55" name="WideLeft" />
+    <Spawner id="34" x="310" y="55" name="WideRight" />
   </Entities>
 </level>

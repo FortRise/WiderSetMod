@@ -182,5 +182,11 @@
     <BGLantern id="20" x="380" y="80" Lit="True" />
     <PlayerSpawn id="21" x="175" y="220" />
     <PlayerSpawn id="22" x="245" y="220" />
+    <FloorMiasma id="23" x="140" y="85" width="20" Group="0" />
+    <FloorMiasma id="24" x="260" y="85" width="20" Group="0" />
+    <FloorMiasma id="25" x="130" y="155" width="20" Group="0" />
+    <FloorMiasma id="26" x="270" y="155" width="20" Group="0" />
+    <FloorMiasma id="27" x="230" y="155" width="20" Group="0" />
+    <FloorMiasma id="28" x="170" y="155" width="20" Group="0" />
   </Entities>
 </level>

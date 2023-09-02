@@ -119,6 +119,7 @@
     
     <!-- 7 -->
     <wave>
+      <floors>0</floors>
       <group>
         <spawns>TopLeft</spawns>
         <enemies>LaserSkeleton</enemies>
@@ -168,6 +169,7 @@
 
     <!-- 3 -->
     <wave>
+      <floors>0</floors>
       <group>
         <spawns>TopMid,Mid</spawns>
         <enemies>Bat,EvilCrystal</enemies>
@@ -270,6 +272,7 @@
 
     <!-- 7 -->
     <wave>
+      <floors>0</floors>
       <group>
         <spawns>TopLeft</spawns>
         <enemies>LaserSkeleton</enemies>

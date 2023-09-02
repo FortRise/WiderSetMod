@@ -140,8 +140,8 @@
     <!-- 8 -->
     <wave>
       <group>
-        <spawns>MidLeft,MidRight</spawns>
-        <enemies>[2]TechnoMage</enemies>
+        <spawns>MidLeft,MidRight,WideLeft,WideRight</spawns>
+        <enemies>[4]TechnoMage</enemies>
       </group>
       <group delay="120">
         <spawns>BotLeft,BotRight</spawns>
@@ -280,12 +280,12 @@
         <enemies>[2]BombBat</enemies>
       </group>
       <group delay="60">
-        <spawns>MidLeft</spawns>
-        <enemies>TechnoMage</enemies>
+        <spawns>MidLeft,WideLeft</spawns>
+        <enemies>[2]TechnoMage</enemies>
       </group>
       <group delay="60">
-        <spawns>MidRight</spawns>
-        <enemies>TechnoMage</enemies>
+        <spawns>MidRight,WideRight</spawns>
+        <enemies>[2]TechnoMage</enemies>
       </group>
     </wave>
 
@@ -307,8 +307,8 @@
         <enemies>TechnoMage</enemies>
       </group>
       <group delay="60">
-        <spawns>MidLeft</spawns>
-        <enemies>TechnoMage</enemies>
+        <spawns>MidLeft,WideLeft,WideRight</spawns>
+        <enemies>[3]TechnoMage</enemies>
       </group>
       <group delay="60">
         <spawns>MidRight</spawns>
@@ -336,8 +336,8 @@
     <!-- 8 -->
     <wave>
       <group>
-        <spawns>MidLeft,MidRight,TopLeft,TopRight</spawns>
-        <enemies>[2]TechnoMage,[2]BlueSlime</enemies>
+        <spawns>WideLeft,WideRight,MidLeft,MidRight,TopLeft,TopRight</spawns>
+        <enemies>[4]TechnoMage,[2]BlueSlime</enemies>
       </group>
       <group delay="120">
         <spawns>TopMid</spawns>

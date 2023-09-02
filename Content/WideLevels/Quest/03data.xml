@@ -10,8 +10,8 @@
     <!-- 1 -->
     <wave>
       <group>
-        <spawns>TopLeft,TopRight</spawns>
-        <enemies>[2]Crow</enemies>
+        <spawns>WideTopLeft,WideTopRight,TopLeft,TopRight</spawns>
+        <enemies>[4]Crow</enemies>
       </group>
       <group delay="60">
         <spawns>BotLeft,BotRight</spawns>
@@ -68,8 +68,8 @@
         <enemies>[2]ScytheCultist</enemies>
       </group>
       <group delay="30">
-        <spawns>TopLeft,TopRight</spawns>
-        <enemies>[2]Crow</enemies>
+        <spawns>WideTopLeft,WideTopRight,TopLeft,TopRight</spawns>
+        <enemies>[4]Crow</enemies>
       </group>
       <group delay="60">
         <spawns>MidLeft,MidRight</spawns>
@@ -95,8 +95,8 @@
         <enemies>[2]Crow</enemies>
       </group>
       <group delay="60">
-        <spawns>MidLeft,MidRight</spawns>
-        <enemies>[1*2]Crow</enemies>
+        <spawns>WideTopLeft,MidLeft,MidRight</spawns>
+        <enemies>[1*3]Crow</enemies>
       </group>
       <group delay="60">
         <spawns>TopMid</spawns>
@@ -114,8 +114,8 @@
         <enemies>[2]ScytheCultist</enemies>
       </group>
       <group delay="30">
-        <spawns>TopLeft,TopRight,TopMid</spawns>
-        <enemies>[2*3]Crow</enemies>
+        <spawns>WideTopRight,WideTopLeft,TopLeft,TopRight,TopMid</spawns>
+        <enemies>[2*5]Crow</enemies>
       </group>
       <group delay="60">
         <spawns>BotLeft,BotRight</spawns>
@@ -153,16 +153,16 @@
         <enemies>[2]Crow</enemies>
       </group>
       <group delay="180">
-        <spawns>TopLeft,TopRight,TopMid</spawns>
-        <enemies>[3]Crow</enemies>
+        <spawns>WideTopLeft,WideTopRight,TopLeft,TopRight,TopMid</spawns>
+        <enemies>[5]Crow</enemies>
       </group>
       <group delay="60">
-        <spawns>Mid</spawns>
-        <enemies>Birdman</enemies>
+        <spawns>Mid,WideTopLeft</spawns>
+        <enemies>[2]Birdman</enemies>
       </group>
       <group delay="60">
-        <spawns>BotLeft,BotRight</spawns>
-        <enemies>[2]ScytheCultist</enemies>
+        <spawns>MidLeft,MidRight,BotLeft,BotRight</spawns>
+        <enemies>[4]ScytheCultist</enemies>
       </group>
     </wave>
   </normal>
@@ -173,8 +173,8 @@
     <!-- 1 -->
     <wave>
       <group>
-        <spawns>TopLeft,TopRight,MidLeft,MidRight</spawns>
-        <enemies>[4]Crow</enemies>
+        <spawns>WideTopRight, WideTopLeft,TopLeft,TopRight,MidLeft,MidRight</spawns>
+        <enemies>[6]Crow</enemies>
       </group>
       <group>
         <treasure>Wings</treasure>
@@ -280,8 +280,8 @@
         <enemies>[4]ScytheCultist</enemies>
       </group>
       <group>
-        <spawns>TopLeft,TopRight</spawns>
-        <enemies>[2]Crow</enemies>
+        <spawns>WideTopLeft,WideTopRight,TopLeft,TopRight</spawns>
+        <enemies>[4]Crow</enemies>
       </group>
       <group delay="60">
         <spawns>MidLeft,MidRight,TopLeft,TopRight</spawns>
@@ -312,8 +312,8 @@
         <enemies>Birdman</enemies>
       </group>
       <group delay="20">
-        <spawns>TopRight,TopLeft</spawns>
-        <enemies>[2]Birdman</enemies>
+        <spawns>TopRight,TopLeft,WideTopLeft,WideTopRight</spawns>
+        <enemies>Birdman</enemies>
       </group>
       <group delay="20">
         <spawns>TopRight,TopLeft</spawns>
@@ -356,8 +356,8 @@
         <enemies>[2]ScytheCultist</enemies>
       </group>
       <group delay="30">
-        <spawns>TopLeft,TopRight,TopMid</spawns>
-        <enemies>[3]Crow</enemies>
+        <spawns>WideTopLeft,WideTopRight,TopLeft,TopRight,TopMid</spawns>
+        <enemies>[5]Crow</enemies>
       </group>
       <group delay="60">
         <spawns>BotLeft,BotRight</spawns>
@@ -388,8 +388,8 @@
     <!-- 7 -->
     <wave>
       <group>
-        <spawns>TopLeft,TopRight,TopMid,MidLeft,MidRight</spawns>
-        <enemies>[5]Crow</enemies>
+        <spawns>WideTopLeft,WideTopRight,TopLeft,TopRight,TopMid,MidLeft,MidRight</spawns>
+        <enemies>[7]Crow</enemies>
       </group>
       <group players="=1">
         <spawns>Mid</spawns>
@@ -420,12 +420,12 @@
         <enemies>[4]Ghost</enemies>
       </group>
       <group delay="60">
-        <spawns>Mid</spawns>
-        <enemies>Birdman</enemies>
+        <spawns>Mid,WideTopLeft,WideTopRight</spawns>
+        <enemies>[3]Birdman</enemies>
       </group>
       <group>
-        <spawns>BotLeft,BotRight,TopLeft,TopRight</spawns>
-        <enemies>[4]ScytheCultist</enemies>
+        <spawns>MidLeft,MidRight,BotLeft,BotRight,TopLeft,TopRight</spawns>
+        <enemies>[6]ScytheCultist</enemies>
       </group>
     </wave>
   </hardcore>

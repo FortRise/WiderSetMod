@@ -3,6 +3,6 @@
 	"version": "0.5.0",
 	"required": "4.1.0",
 	"author": "Terria and RedDude",
-	"description": "Allows eight player in TowerFall",
+	"description": "Allows eight player in TowerFall with Wider levels",
 	"dll": "EightPlayerMod.dll"
 }
