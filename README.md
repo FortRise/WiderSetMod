@@ -10,18 +10,13 @@ Wider Set is an Eight Player Mod ported as a FortRise mods. This includes a wide
 
 + The quest saves are separated from original, so you have to unlock all of the quest level again but in Wide levels. (or use cheats to unlock all levels).
 
-## DarkWorld (WIP)
+## DarkWorld
 ![darkworld](./img/eight-player-darkworld.png)
-- [x] The Amaranth
-- [x] Dreadwood
-- [x] Darkfang
-- [x] Cataclysm
-- [x] Dark Gauntlet
 
 ### Installation
 **Prerequisites:**
 + TowerFall (v1.3.3.1 or higher)
-+ [FortRise](https://github.com/Terria-K/FortRise) (v4.0.0.4 or Pre-Release 5 and higher)
++ [FortRise](https://github.com/Terria-K/FortRise) (v4.1.0.0 or higher)
 
 **Instructions**
 + Download the `.zip` file from the Releases page.
