@@ -1,8 +1,10 @@
 using System;
 using System.IO;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using TowerFall;
+using System.Xml;
+using FortRise;
+using FortRise.Adventure;
+using Monocle;
+using MonoMod.Utils;
 
 namespace EightPlayerMod
 {
@@ -10,44 +12,59 @@ namespace EightPlayerMod
     {
         public static void Load() 
         {
-            IL.TowerFall.DarkWorldLevelSystem.GetNextRoundLevel += GetNextRoundLevel_patch;
+            // IL.TowerFall.DarkWorldLevelSystem.GetNextRoundLevel += GetNextRoundLevel_patch;
+            On.TowerFall.DarkWorldLevelSystem.GetNextRoundLevel += GetNextRoundLevel_patch;
         }
 
         public static void Unload() 
         {
-            IL.TowerFall.DarkWorldLevelSystem.GetNextRoundLevel -= GetNextRoundLevel_patch;
+            // IL.TowerFall.DarkWorldLevelSystem.GetNextRoundLevel -= GetNextRoundLevel_patch;
+            On.TowerFall.DarkWorldLevelSystem.GetNextRoundLevel -= GetNextRoundLevel_patch;
         }
 
-        private static void GetNextRoundLevel_patch(ILContext ctx)
+        private static XmlElement GetNextRoundLevel_patch(On.TowerFall.DarkWorldLevelSystem.orig_GetNextRoundLevel orig, TowerFall.DarkWorldLevelSystem self, TowerFall.MatchSettings matchSettings, int roundIndex, out int randomSeed)
         {
-            var cursor = new ILCursor(ctx);
-
-            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallOrCallvirt(
-                typeof(File), "System.IO.FileStream OpenRead(System.String)"
-            ))) 
+            if (!EightPlayerModule.LaunchedEightPlayer && !EightPlayerModule.IsEightPlayer) 
             {
-                cursor.Emit(OpCodes.Ldloc_1);
-                cursor.EmitDelegate<Func<Stream, string, Stream>>((stream, path) => 
-                {
-                    if (EightPlayerModule.LaunchedEightPlayer || EightPlayerModule.IsEightPlayer) 
-                    {
-                        var correctPath = path.Replace('\\', '/');
-#if DEBUG
-                        if (FakeDarkWorldTowerData.LevelMap.TryGetValue(correctPath, out var newPath)) 
-                        {
-                            stream.Dispose();
-                            var zipStream = EightPlayerModule.Instance.Content.MapResource[newPath].Stream;
-                            return zipStream;
-                        }
-#else
-                        stream.Dispose();
-                        var zipStream = EightPlayerModule.Instance.Content.MapResource[FakeDarkWorldTowerData.LevelMap[correctPath]].Stream;
-                        return zipStream;
-#endif
-                    }
-                    return stream;
-                });
+                return orig(self, matchSettings, roundIndex, out randomSeed);
             }
+
+            XmlElement xmlElement;
+            try
+            {
+                if (self.Procedural)
+                {
+                    matchSettings.RandomLevelSeed = new Random().Next(1000000000);
+                }
+                int file = self.DarkWorldTowerData[matchSettings.DarkWorldDifficulty][roundIndex + DynamicData.For(self).Get<int>("startLevel")].File;
+                randomSeed = file;
+                string text = self.DarkWorldTowerData.Levels[file];
+
+                if (self.DarkWorldTowerData is AdventureWorldTowerData)
+                {
+                    text = text.Replace("Content/Levels/", "Content/WideLevels/");
+                    using Stream stream = RiseCore.ResourceTree.TreeMap[text].Stream;
+                    if (text.EndsWith("json"))
+                    {
+                        return Ogmo3ToOel.OgmoToOel(Ogmo3ToOel.LoadOgmo(stream))["level"];
+                    }
+                    return Calc.LoadXML(stream)["level"];
+                }
+                text = text.Replace("DarkWorldContent", "Content")
+                    .Replace('\\', '/')
+                    .Replace("Content/Levels", "Content/WideLevels");
+                Logger.Log(text);
+                using Stream levelStream = EightPlayerModule.Instance.Content[text].Stream;
+                xmlElement = Calc.LoadXML(levelStream)["level"];
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString());
+                ErrorHelper.StoreException("Missing Level", ex);
+                randomSeed = 0;
+                xmlElement = null;
+            }
+            return xmlElement;
         }
     }
 }
