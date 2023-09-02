@@ -10,7 +10,7 @@ namespace EightPlayerMod
             IL.TowerFall.LevelRandomGeometry.GenerateData += GenerateData_patch;
             IL.TowerFall.LevelRandomBGTiles.GenerateBitData += GenerateBitData_patch;
             IL.TowerFall.LevelRandomBGTiles.Set += Set_patch;
-            IL.TowerFall.LevelRandomBGDetails.GenerateTileData += GenerateTileData_patch;
+            IL.TowerFall.LevelRandomBGDetails.GenCataclysm += GenCataclysm_patch;
             IL.TowerFall.LevelRandomBGDetails.Check += Check_patch;
             IL.TowerFall.LevelRandomBGDetails.Empty += Empty_patch;
             IL.TowerFall.LevelRandomTreasure.AddRandomTreasure += AddRandomTreasure_patch;
@@ -23,7 +23,7 @@ namespace EightPlayerMod
             IL.TowerFall.LevelRandomGeometry.GenerateData -= GenerateData_patch;
             IL.TowerFall.LevelRandomBGTiles.GenerateBitData -= GenerateBitData_patch;
             IL.TowerFall.LevelRandomBGTiles.Set -= Set_patch;
-            IL.TowerFall.LevelRandomBGDetails.GenerateTileData -= GenerateTileData_patch;
+            IL.TowerFall.LevelRandomBGDetails.GenCataclysm -= GenCataclysm_patch;
             IL.TowerFall.LevelRandomBGDetails.Check -= Check_patch;
             IL.TowerFall.LevelRandomBGDetails.Empty -= Empty_patch;
             IL.TowerFall.LevelRandomTreasure.AddRandomTreasure -= AddRandomTreasure_patch;
@@ -211,7 +211,7 @@ namespace EightPlayerMod
             }
         }
 
-        private static void GenerateTileData_patch(ILContext ctx)
+        private static void GenCataclysm_patch(ILContext ctx)
         {
             var cursor = new ILCursor(ctx);
             int i = 0;
