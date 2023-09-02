@@ -23,13 +23,15 @@ public static class DarkWorldCompletePatch
             SequenceEnumeratorInfo,
             Sequence_patch
         );
+        IL.TowerFall.DarkWorldComplete.Update += ScreenUtils.PatchHalfWidthFloat;
     }
 
     public static void Unload() 
     {
         hook_Sequence.Dispose();
+        IL.TowerFall.DarkWorldComplete.Update -= ScreenUtils.PatchHalfWidthFloat;
     }
-    
+
     private static void Sequence_patch(ILContext ctx) 
     {
         var from = SequenceEnumeratorInfo.DeclaringType.GetField("<from>5__6", BindingFlags.Instance | BindingFlags.NonPublic);

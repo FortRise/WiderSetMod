@@ -123,6 +123,7 @@ namespace EightPlayerMod
             DarkWorldCompletePatch.Load();
             DarkWorldTowerDataPatch.LevelDataPatch.Load();
             AmaranthShotPatch.Load();
+            DarkWorldGameOverPatch.Load();
 
             typeof(ModExports).ModInterop();
         }
@@ -181,6 +182,7 @@ namespace EightPlayerMod
             DarkWorldCompletePatch.Unload();
             DarkWorldTowerDataPatch.LevelDataPatch.Unload();
             AmaranthShotPatch.Unload();
+            DarkWorldGameOverPatch.Unload();
         }
     }
 
