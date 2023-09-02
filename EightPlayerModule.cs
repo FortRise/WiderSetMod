@@ -11,7 +11,7 @@ using TowerFall;
 
 namespace EightPlayerMod 
 {
-    [Fort("com.fortrise.eightplayer", "EightPlayer")]
+    [Fort("com.fortrise.eightplayer", "WiderSetMod")]
     public sealed class EightPlayerModule : FortModule
     {
         public static EightPlayerModule Instance;

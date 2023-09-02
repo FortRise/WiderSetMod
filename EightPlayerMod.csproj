@@ -5,7 +5,7 @@
     <LangVersion>11</LangVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <OutputPath>..\..\..\Mods\EightPlayerMod</OutputPath>
+    <OutputPath>..\..\..\Mods\WiderSetMod</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
