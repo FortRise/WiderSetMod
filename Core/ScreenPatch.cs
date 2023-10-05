@@ -21,6 +21,8 @@ namespace EightPlayerMod
         private static IDetour hook_QuestCompleteSequence;
         private static IDetour hook_QuestCompleteSequenceb__1;
         private static IDetour hook_QuestCompleteSequenceb__5;
+        private static IDetour hook_LevelCtor;
+
         public static void Load() 
         {
             foreach (var methodType in ILTypes) 
@@ -40,7 +42,6 @@ namespace EightPlayerMod
             IL.TowerFall.LevelEntity.Render += MiddlePos_patch;
             IL.TowerFall.PauseMenu.Render += MiddlePos_patch;
             IL.TowerFall.Level.HandlePausing += MiddlePos_patch;
-            IL.TowerFall.Level.ctor += Levelctor;
             IL.TowerFall.TreasureSpawner.GetChestSpawnsForLevel += MiddlePos_patch;
             IL.TowerFall.WrapMath.Opposite += MiddlePos_patch;
             IL.TowerFall.MapScene.InitButtons += InitButtons_patch;
@@ -59,6 +60,11 @@ namespace EightPlayerMod
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel += QuestLevelSystem_GetNextRoundLevel_patch;
 
             IL.TowerFall.Session.StartGame += SwapLevelLoader_patch;
+
+            hook_LevelCtor = new ILHook(
+                typeof(Level).GetMethod("orig_ctor"),
+                Levelctor
+            );
 
             hook_QuestControlStartSequence = new ILHook(
                 typeof(QuestControl).GetMethod("StartSequence", BindingFlags.Instance | BindingFlags.NonPublic).GetStateMachineTarget(),
@@ -95,7 +101,6 @@ namespace EightPlayerMod
                 methodType.Unload();
             }
             IL.TowerFall.LevelEntity.Render -= MiddlePos_patch;
-            IL.TowerFall.Level.ctor -= Levelctor;
             IL.TowerFall.PauseMenu.Render -= MiddlePos_patch;
             IL.TowerFall.MapScene.InitButtons -= InitButtons_patch;
             IL.TowerFall.Level.HandlePausing -= MiddlePos_patch;
@@ -116,6 +121,7 @@ namespace EightPlayerMod
             On.TowerFall.QuestLevelSystem.GetNextRoundLevel -= QuestLevelSystem_GetNextRoundLevel_patch;
 
             IL.TowerFall.Session.StartGame -= SwapLevelLoader_patch;
+            hook_LevelCtor.Dispose();
             hook_QuestControlStartSequence.Dispose();
             hook_QuestControlStartSequenceb__2.Dispose();
             hook_QuestCompleteSequenceb__1.Dispose();

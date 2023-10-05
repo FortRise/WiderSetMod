@@ -65,6 +65,7 @@ namespace EightPlayerMod
 
         public override void Load()
         {
+            Environment.SetEnvironmentVariable("FNA_GAMEPAD_NUM_GAMEPADS", "8");
             TFGame.Players = new bool[8];
             TFGame.Characters = new int[8];
             TFGame.AltSelect = new ArcherData.ArcherTypes[8];
@@ -75,7 +76,6 @@ namespace EightPlayerMod
             }
             typeof(Player).GetField("wasColliders", BindingFlags.NonPublic | BindingFlags.Static)
                 .SetValue(null, new Collider[8]);
-            CursedMode.CursedModule.Load();
             ScreenPatch.Load();
             BackdropPatch.Load();
             RollcallPatch.Load();
@@ -124,6 +124,7 @@ namespace EightPlayerMod
             DarkWorldTowerDataPatch.LevelDataPatch.Load();
             AmaranthShotPatch.Load();
             DarkWorldGameOverPatch.Load();
+            MInputPatch.Load();
 
             typeof(ModExports).ModInterop();
         }
@@ -134,7 +135,6 @@ namespace EightPlayerMod
 
         public override void Unload()
         {
-            CursedMode.CursedModule.Unload();
             ScreenPatch.Unload();
             BackdropPatch.Unload();
             RollcallPatch.Unload();
@@ -183,6 +183,7 @@ namespace EightPlayerMod
             DarkWorldTowerDataPatch.LevelDataPatch.Unload();
             AmaranthShotPatch.Unload();
             DarkWorldGameOverPatch.Unload();
+            MInputPatch.Unload();
         }
     }
 
