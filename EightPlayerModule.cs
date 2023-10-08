@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Xml;
 using FortRise;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Monocle;
 using MonoMod.ModInterop;
 using MonoMod.Utils;
@@ -63,9 +64,17 @@ namespace EightPlayerMod
             FakeDarkWorldTowerData.Load("4 - Dark Gauntlet", "Content/WideLevels/DarkWorld");
         }
 
+        private static void ChangeGamepadCount(int amount) 
+        {
+            var amountString = amount.ToString();
+            Environment.SetEnvironmentVariable("FNA_GAMEPAD_NUM_GAMEPADS", amountString);
+            var fieldGamepadCount = typeof(GamePad).GetField("GAMEPAD_COUNT", BindingFlags.NonPublic | BindingFlags.Static);
+            fieldGamepadCount.SetValue(null, amount);
+        }
+
         public override void Load()
         {
-            Environment.SetEnvironmentVariable("FNA_GAMEPAD_NUM_GAMEPADS", "8");
+            ChangeGamepadCount(8);
             TFGame.Players = new bool[8];
             TFGame.Characters = new int[8];
             TFGame.AltSelect = new ArcherData.ArcherTypes[8];
