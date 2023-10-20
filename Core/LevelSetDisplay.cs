@@ -99,6 +99,8 @@ namespace EightPlayerMod
 
         public override void TweenIn()
         {
+            // Clear the frame cache to fix the broken recording issue.
+            ReplayRecorder.ClearFrameCache();
         }
 
         public override void TweenOut()
