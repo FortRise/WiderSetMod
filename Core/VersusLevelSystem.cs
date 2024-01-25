@@ -73,7 +73,8 @@ public static class VersusLevelSystemPatch
         var levelSystem = DynamicData.For(self);
         var lastLevel = levelSystem.Get<string>("lastlevel");
         FakeVersusTowerData fake;
-        if (FakeVersusTowerData.CustomChapters.TryGetValue(matchSettings.CurrentModeName, out var level)) 
+        if (matchSettings.CurrentModeName != null &&
+            FakeVersusTowerData.CustomChapters.TryGetValue(matchSettings.CurrentModeName, out var level)) 
         {
             fake = level[self.ID.X];
             Customized = true;
