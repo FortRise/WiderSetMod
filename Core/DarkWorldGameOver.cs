@@ -9,8 +9,8 @@ namespace EightPlayerMod;
 
 public static class DarkWorldGameOverPatch 
 {
-    private static IDetour hook_Sequence;
-    private static IDetour hook_Sequenceb__2;
+    private static ILHook hook_Sequence;
+    private static ILHook hook_Sequenceb__2;
 
     public static void Load() 
     {
@@ -20,8 +20,9 @@ public static class DarkWorldGameOverPatch
             Sequence_patch
         );
         hook_Sequenceb__2 = new ILHook(
-            typeof(DarkWorldGameOver).GetNestedType("<>c__DisplayClass6_0", BindingFlags.NonPublic)
-                .GetMethod("<Sequence>b__2", BindingFlags.Instance | BindingFlags.NonPublic),
+            (typeof(DarkWorldGameOver).GetNestedType("<>c__DisplayClass6_0", BindingFlags.NonPublic) ??
+            typeof(DarkWorldGameOver).GetNestedType("<>c__DisplayClass9", BindingFlags.NonPublic))
+                .FindMethod("<Sequence>b__2"),
             Sequence_patch
         );
         IL.TowerFall.DarkWorldGameOver.Render += Render_patch;

@@ -3,13 +3,14 @@ using System.Reflection;
 using Microsoft.Xna.Framework;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
+using MonoMod.Utils;
 using TowerFall;
 
 namespace EightPlayerMod
 {
     public class KingReaperPatch 
     {
-        private static IDetour hook_AppearCoroutineb__0;
+        private static ILHook hook_AppearCoroutineb__0;
         public static void Load() 
         {
             IL.TowerFall.KingReaper.AttackUpdate += PatchMiddle;
@@ -18,8 +19,11 @@ namespace EightPlayerMod
             // we do a little bit of hacking to patch that delegate method.
             hook_AppearCoroutineb__0 = new ILHook(
                 typeof(KingReaper)
-                .GetNestedType("<>c__DisplayClass35_0", BindingFlags.Instance | BindingFlags.NonPublic)
-                .GetMethod("<AppearCoroutine>b__0", BindingFlags.Instance | BindingFlags.NonPublic),
+                .GetNestedType("<>c__DisplayClass35_0", BindingFlags.NonPublic)
+                ?.GetMethod("<AppearCoroutine>b__0", BindingFlags.Instance | BindingFlags.NonPublic) ??
+                typeof(KingReaper)
+                .GetNestedType("<>c__DisplayClass1", BindingFlags.NonPublic)
+                .FindMethod("<AppearCoroutine>b__0"),
                 AppearCoroutine_patch
             );
         }

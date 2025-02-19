@@ -2,19 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
-using TeuJson;
 using TowerFall;
 
 namespace EightPlayerMod;
 
 public static class WideDarkWorldSavePatch
 {
-    private static IDetour hook_MapButtonUnlockSequence;
-    private static IDetour hook_DarkWorldLevelSelectOverlayRefreshLevelStats;
+    private static ILHook hook_MapButtonUnlockSequence;
+    private static ILHook hook_DarkWorldLevelSelectOverlayRefreshLevelStats;
 
     public static void Load() 
     {
@@ -28,7 +28,7 @@ public static class WideDarkWorldSavePatch
         IL.FortRise.RiseCore.Events.InvokeDarkWorldComplete_Result += InlineTowers_patch;
 
         IL.TowerFall.DarkWorldRoundLogic.OnPlayerDeath += InlineTowers_patch;
-        IL.TowerFall.CoOpDataDisplay.ctor += CoOpDataDisplayctor_patch;
+        // IL.TowerFall.CoOpDataDisplay.ctor += CoOpDataDisplayctor_patch;
         On.TowerFall.MapScene.DarkWorldIntroSequence += DarkWorldIntroSequence_patch;
 
         hook_DarkWorldLevelSelectOverlayRefreshLevelStats = new ILHook(
@@ -52,7 +52,7 @@ public static class WideDarkWorldSavePatch
         IL.FortRise.RiseCore.Events.InvokeDarkWorldComplete_Result -= InlineTowers_patch;
 
         IL.TowerFall.DarkWorldRoundLogic.OnPlayerDeath -= InlineTowers_patch;
-        IL.TowerFall.CoOpDataDisplay.ctor -= CoOpDataDisplayctor_patch;
+        // IL.TowerFall.CoOpDataDisplay.ctor -= CoOpDataDisplayctor_patch;
         On.TowerFall.MapScene.DarkWorldIntroSequence -= DarkWorldIntroSequence_patch;
 
         hook_MapButtonUnlockSequence.Dispose();
@@ -145,6 +145,7 @@ public static class WideDarkWorldSavePatch
 
 public class WideDarkWorldStats
 {
+    [JsonInclude]
     public WideDarkWorldTowerStats[] Towers;
 
 
@@ -165,7 +166,7 @@ public class WideDarkWorldStats
 
     public void RevealAll()
     {
-        DarkWorldTowerStats[] towers = this.Towers;
+        WideDarkWorldTowerStats[] towers = this.Towers;
         for (int i = 0; i < towers.Length; i++)
         {
             towers[i].Revealed = true;
@@ -203,7 +204,7 @@ public class WideDarkWorldStats
         get
         {
             int num = 0;
-            DarkWorldTowerStats[] towers = this.Towers;
+            WideDarkWorldTowerStats[] towers = this.Towers;
             for (int i = 0; i < towers.Length; i++)
             {
                 if (towers[i].CompletedNormal)
@@ -220,7 +221,7 @@ public class WideDarkWorldStats
         get
         {
             int num = 0;
-            DarkWorldTowerStats[] towers = this.Towers;
+            WideDarkWorldTowerStats[] towers = this.Towers;
             for (int i = 0; i < towers.Length; i++)
             {
                 if (towers[i].CompletedHardcore)
@@ -237,7 +238,7 @@ public class WideDarkWorldStats
         get
         {
             int num = 0;
-            DarkWorldTowerStats[] towers = this.Towers;
+            WideDarkWorldTowerStats[] towers = this.Towers;
             for (int i = 0; i < towers.Length; i++)
             {
                 if (towers[i].CompletedLegendary)
@@ -254,7 +255,7 @@ public class WideDarkWorldStats
         get
         {
             int num = 0;
-            DarkWorldTowerStats[] towers = this.Towers;
+            WideDarkWorldTowerStats[] towers = this.Towers;
             for (int i = 0; i < towers.Length; i++)
             {
                 if (towers[i].EarnedEye)
@@ -271,7 +272,7 @@ public class WideDarkWorldStats
         get
         {
             long num = 0L;
-            foreach (DarkWorldTowerStats darkWorldTowerStats in this.Towers)
+            foreach (WideDarkWorldTowerStats darkWorldTowerStats in this.Towers)
             {
                 if (darkWorldTowerStats.Best1PTime <= 0L)
                 {
@@ -288,7 +289,7 @@ public class WideDarkWorldStats
         get
         {
             long num = 0L;
-            foreach (DarkWorldTowerStats darkWorldTowerStats in this.Towers)
+            foreach (WideDarkWorldTowerStats darkWorldTowerStats in this.Towers)
             {
                 if (darkWorldTowerStats.Best2PTime <= 0L)
                 {
@@ -305,7 +306,7 @@ public class WideDarkWorldStats
         get
         {
             long num = 0L;
-            foreach (DarkWorldTowerStats darkWorldTowerStats in this.Towers)
+            foreach (WideDarkWorldTowerStats darkWorldTowerStats in this.Towers)
             {
                 if (darkWorldTowerStats.Best3PTime <= 0L)
                 {
@@ -322,7 +323,7 @@ public class WideDarkWorldStats
         get
         {
             long num = 0L;
-            foreach (DarkWorldTowerStats darkWorldTowerStats in this.Towers)
+            foreach (WideDarkWorldTowerStats darkWorldTowerStats in this.Towers)
             {
                 if (darkWorldTowerStats.Best4PTime <= 0L)
                 {
@@ -368,7 +369,7 @@ public class WideDarkWorldStats
         get
         {
             int num = 0;
-            foreach (DarkWorldTowerStats darkWorldTowerStats in this.Towers)
+            foreach (WideDarkWorldTowerStats darkWorldTowerStats in this.Towers)
             {
                 num += darkWorldTowerStats.Most1PCurses;
             }
@@ -381,7 +382,7 @@ public class WideDarkWorldStats
         get
         {
             int num = 0;
-            foreach (DarkWorldTowerStats darkWorldTowerStats in this.Towers)
+            foreach (WideDarkWorldTowerStats darkWorldTowerStats in this.Towers)
             {
                 num += darkWorldTowerStats.Most2PCurses;
             }
@@ -394,7 +395,7 @@ public class WideDarkWorldStats
         get
         {
             int num = 0;
-            foreach (DarkWorldTowerStats darkWorldTowerStats in this.Towers)
+            foreach (WideDarkWorldTowerStats darkWorldTowerStats in this.Towers)
             {
                 num += darkWorldTowerStats.Most3PCurses;
             }
@@ -407,7 +408,7 @@ public class WideDarkWorldStats
         get
         {
             int num = 0;
-            foreach (DarkWorldTowerStats darkWorldTowerStats in this.Towers)
+            foreach (WideDarkWorldTowerStats darkWorldTowerStats in this.Towers)
             {
                 num += darkWorldTowerStats.Most4PCurses;
             }
@@ -420,7 +421,7 @@ public class WideDarkWorldStats
         get
         {
             ulong num = 0UL;
-            foreach (DarkWorldTowerStats darkWorldTowerStats in this.Towers)
+            foreach (WideDarkWorldTowerStats darkWorldTowerStats in this.Towers)
             {
                 num += darkWorldTowerStats.Deaths;
             }
@@ -433,7 +434,7 @@ public class WideDarkWorldStats
         get
         {
             ulong num = 0UL;
-            foreach (DarkWorldTowerStats darkWorldTowerStats in this.Towers)
+            foreach (WideDarkWorldTowerStats darkWorldTowerStats in this.Towers)
             {
                 num += darkWorldTowerStats.Attempts;
             }
@@ -442,16 +443,120 @@ public class WideDarkWorldStats
     }
 }
 
-public class WideDarkWorldTowerStats : DarkWorldTowerStats, ISerialize, IDeserialize
+public class WideDarkWorldTowerStats : DarkWorldTowerStats
 {
+    public new bool Revealed
+    {
+        get => Revealed;
+        set => Revealed = value;
+    }
+
+    public new bool CompletedNormal
+    {
+        get => CompletedNormal;
+        set => CompletedNormal = value;
+    }
+
+    public new bool CompletedHardcore
+    {
+        get => CompletedHardcore;
+        set => CompletedHardcore = value;
+    }
+
+    public new bool CompletedLegendary
+    {
+        get => CompletedLegendary;
+        set => CompletedLegendary = value;
+    }
+
+    public new bool EarnedEye
+    {
+        get => EarnedEye;
+        set => EarnedEye = value;
+    }
+
+    public new bool EarnedGoldEye
+    {
+        get => EarnedGoldEye;
+        set => EarnedGoldEye = value;
+    }
+
+    public new long Best1PTime
+    {
+        get => Best1PTime;
+        set => Best1PTime = value;
+    }
+
+    public new long Best2PTime
+    {
+        get => Best2PTime;
+        set => Best2PTime = value;
+    }
+
+    public new long Best3PTime
+    {
+        get => Best3PTime;
+        set => Best3PTime = value;
+    }
+
+    public new long Best4PTime
+    {
+        get => Best4PTime;
+        set => Best4PTime = value;
+    }
+
+    public new int Most1PCurses
+    {
+        get => Most1PCurses;
+        set => Most1PCurses = value;
+    }
+
+    public new int Most2PCurses
+    {
+        get => Most2PCurses;
+        set => Most2PCurses = value;
+    }
+
+    public new int Most3PCurses
+    {
+        get => Most3PCurses;
+        set => Most3PCurses = value;
+    }
+
+    public new int Most4PCurses
+    {
+        get => Most4PCurses;
+        set => Most4PCurses = value;
+    }
+
+    public new ulong Deaths
+    {
+        get => Deaths;
+        set => Deaths = value;
+    }
+
+    public new ulong Attempts
+    {
+        get => Attempts;
+        set => Attempts = value;
+    }
+
+    [JsonInclude]
     public long Best5PTime;
+    [JsonInclude]
     public long Best6PTime;
+    [JsonInclude]
     public long Best7PTime;
+    [JsonInclude]
     public long Best8PTime;
 
+    [JsonInclude]
     public int Most5PCurses;
+    [JsonInclude]
     public int Most6PCurses;
+    [JsonInclude]
     public int Most7PCurses;
+    [JsonInclude]
     public int Most8PCurses;
 
     public static void Load() 
@@ -573,64 +678,5 @@ public class WideDarkWorldTowerStats : DarkWorldTowerStats, ISerialize, IDeseria
                 this.Most8PCurses = Math.Max(this.Most8PCurses, curses);
                 break;
         }
-    }
-
-    public void Deserialize(JsonObject value)
-    {
-        Best1PTime = value["Best1PTime"];
-        Best2PTime = value["Best2PTime"];
-        Best3PTime = value["Best3PTime"];
-        Best4PTime = value["Best4PTime"];
-        Best5PTime = value["Best5PTime"];
-        Best6PTime = value["Best6PTime"];
-        Best7PTime = value["Best7PTime"];
-        Best8PTime = value["Best8PTime"];
-        Most1PCurses = value["Most1PCurses"];
-        Most2PCurses = value["Most2PCurses"];
-        Most3PCurses = value["Most3PCurses"];
-        Most4PCurses = value["Most4PCurses"];
-        Most5PCurses = value["Most5PCurses"];
-        Most6PCurses = value["Most6PCurses"];
-        Most7PCurses = value["Most7PCurses"];
-        Most8PCurses = value["Most8PCurses"];
-        Revealed = value["Revealed"];
-        CompletedNormal = value["CompletedNormal"];
-        CompletedHardcore = value["CompletedHardcore"];
-        CompletedLegendary = value["CompletedLegendary"];
-        EarnedEye = value["EarnedEye"];
-        EarnedGoldEye = value["EarnedGoldEye"];
-        Deaths = value["Deaths"];
-        Attempts = value["Attempts"];
-    }
-
-    public JsonObject Serialize()
-    {
-        return new JsonObject 
-        {
-            ["Best1PTime"] = Best1PTime,
-            ["Best2PTime"] = Best2PTime,
-            ["Best3PTime"] = Best3PTime,
-            ["Best4PTime"] = Best4PTime,
-            ["Best5PTime"] = Best5PTime,
-            ["Best6PTime"] = Best6PTime,
-            ["Best7PTime"] = Best7PTime,
-            ["Best8PTime"] = Best8PTime,
-            ["Most1PCurses"] = Most1PCurses,
-            ["Most2PCurses"] = Most2PCurses,
-            ["Most3PCurses"] = Most3PCurses,
-            ["Most4PCurses"] = Most4PCurses,
-            ["Most5PCurses"] = Most5PCurses,
-            ["Most6PCurses"] = Most6PCurses,
-            ["Most7PCurses"] = Most7PCurses,
-            ["Most8PCurses"] = Most8PCurses,
-            ["Revealed"] = Revealed,
-            ["CompletedNormal"] = CompletedNormal,
-            ["CompletedHardcore"] = CompletedHardcore,
-            ["CompletedLegendary"] = CompletedLegendary,
-            ["Deaths"] = Deaths,
-            ["Attempts"] = Attempts,
-            ["EarnedEye"] = EarnedEye,
-            ["EarnedGoldEye"] = EarnedGoldEye
-        };
     }
 }

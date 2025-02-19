@@ -11,8 +11,8 @@ namespace EightPlayerMod
 {
     public static class DreadwoodBossControlPatch 
     {
-        private static IDetour hook_SpawnEnemiesSequence;
-        private static IDetour hook_DeathSequence;
+        private static ILHook hook_SpawnEnemiesSequence;
+        private static ILHook hook_DeathSequence;
 
         public static void Load() 
         {

@@ -14,8 +14,8 @@ namespace EightPlayerMod;
 
 public static class QuestControlPatch 
 {
-    private static IDetour hook_SpawnGroup;
-    private static IDetour hook_QuestControlLevelSequence;
+    private static ILHook hook_SpawnGroup;
+    private static ILHook hook_QuestControlLevelSequence;
     private static Action<QuestControl> base_Added;
 
 

@@ -7,7 +7,7 @@ namespace EightPlayerMod
 {
     public static class VariantPatch 
     {
-        private static IDetour hook_get_AllTrue, hook_get_Players, hook_get_Value, hook_set_Value;
+        private static ILHook hook_get_AllTrue, hook_get_Players, hook_get_Value, hook_set_Value;
         public static void Load() 
         {
             IL.TowerFall.Variant.Clean += PlayersPatch;

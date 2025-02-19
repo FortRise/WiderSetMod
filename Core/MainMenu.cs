@@ -14,11 +14,11 @@ namespace EightPlayerMod
 {
     public static class MainMenuPatch 
     {
-        private static FastReflectionDelegate tweenBGToUICamera;
+        private static FastReflectionHelper.FastInvoker tweenBGToUICamera;
 
         public static void Load() 
         {
-            tweenBGToUICamera = FastReflectionHelper.CreateFastDelegate(typeof(MainMenu)
+            tweenBGToUICamera = FastReflectionHelper.GetFastInvoker(typeof(MainMenu)
                 .GetMethod("TweenBGCameraToY", BindingFlags.Instance | BindingFlags.NonPublic));
             On.TowerFall.FightButton.MenuAction += FightButtonMenuAction_patch;
             On.TowerFall.CoOpButton.MenuAction += CoopButtonMenuAction_patch;

@@ -12,7 +12,7 @@ namespace EightPlayerMod;
 
 public static class DarkWorldCompletePatch 
 {
-    private static IDetour hook_Sequence;
+    private static ILHook hook_Sequence;
     private static MethodInfo SequenceEnumeratorInfo;
 
     public static void Load() 
@@ -34,8 +34,11 @@ public static class DarkWorldCompletePatch
 
     private static void Sequence_patch(ILContext ctx) 
     {
-        var from = SequenceEnumeratorInfo.DeclaringType.GetField("<from>5__6", BindingFlags.Instance | BindingFlags.NonPublic);
-        var to = SequenceEnumeratorInfo.DeclaringType.GetField("<to>5__7", BindingFlags.Instance | BindingFlags.NonPublic);
+        var from = SequenceEnumeratorInfo.DeclaringType.GetField("<from>5__6", BindingFlags.Instance | BindingFlags.NonPublic)
+            ?? SequenceEnumeratorInfo.DeclaringType.GetField("<from>5__1e");
+
+        var to = SequenceEnumeratorInfo.DeclaringType.GetField("<to>5__7", BindingFlags.Instance | BindingFlags.NonPublic)
+            ?? SequenceEnumeratorInfo.DeclaringType.GetField("<to>5__1f");
 
         var Vector2 = typeof(Vector2);
         var Vector2ctor = Vector2.GetConstructor(new Type[2] { typeof(float), typeof(float) });

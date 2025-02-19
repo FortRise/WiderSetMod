@@ -167,9 +167,9 @@ namespace EightPlayerMod
 
     public static class VersusMatchResultsPatch 
     {
-        public static IDetour hook_Sequence;
-        public static IDetour hook_VersusPlayerMatchResultsSequence;
-        public static IDetour hook_VersusPlayerMatchResultsSequenceb__5;
+        public static ILHook hook_Sequence;
+        public static ILHook hook_VersusPlayerMatchResultsSequence;
+        public static ILHook hook_VersusPlayerMatchResultsSequenceb__5;
         private static ConstructorInfo base_VersusMatchResult;
 
         public static void Load() 
@@ -188,7 +188,9 @@ namespace EightPlayerMod
             );
             hook_VersusPlayerMatchResultsSequenceb__5 = new ILHook(
                 typeof(VersusPlayerMatchResults).GetNestedType("<>c__DisplayClass21_4", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetMethod("<Sequence>b__6", BindingFlags.Instance | BindingFlags.NonPublic),
+                    ?.GetMethod("<Sequence>b__6", BindingFlags.Instance | BindingFlags.NonPublic) ??
+                typeof(VersusPlayerMatchResults).GetNestedType("<>c__DisplayClass16", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .FindMethod("<Sequence>b__e"),
                 VersusPlayerMatchResultsSequenceb__6_patch
             );
         }

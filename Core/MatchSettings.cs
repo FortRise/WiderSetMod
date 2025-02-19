@@ -10,7 +10,7 @@ namespace EightPlayerMod
 {
     public class MatchSettingsPatch 
     {
-        private static IDetour hook_CanStartWithTeams;
+        private static Hook hook_CanStartWithTeams;
         public static void Load() 
         {
             IL.TowerFall.MatchSettings.ctor += ctor_patch;
@@ -97,10 +97,10 @@ namespace EightPlayerMod
 
     public class EightPlayerMatchTeams : MatchTeams
     {
-        private static IDetour hook_get_ProperlyAssigned;
-        private static IDetour hook_get_HasEvenTeams;
-        private static IDetour hook_get_Item;
-        private static IDetour hook_set_Item;
+        private static ILHook hook_get_ProperlyAssigned;
+        private static Hook hook_get_HasEvenTeams;
+        private static Hook hook_get_Item;
+        private static Hook hook_set_Item;
         public Allegiance player5Team;
 		public Allegiance player6Team;
 		public Allegiance player7Team;

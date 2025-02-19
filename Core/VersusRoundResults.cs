@@ -9,7 +9,7 @@ namespace EightPlayerMod
 {
     public static class VersusRoundResultsPatch 
     {
-        private static IDetour hook_Sequence;
+        private static ILHook hook_Sequence;
         public static void Load() 
         {
             hook_Sequence = new ILHook(

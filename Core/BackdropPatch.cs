@@ -12,7 +12,7 @@ namespace EightPlayerMod
 {
     public static class BackdropPatch 
     {
-        private static IDetour hook_MoonBreakSequence;
+        private static ILHook hook_MoonBreakSequence;
 
         public static void Load() 
         {

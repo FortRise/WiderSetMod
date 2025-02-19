@@ -9,7 +9,7 @@ public static class DarkWorldTowerDataPatch
 {
     public static class LevelDataPatch 
     {
-        private static IDetour hook_orig_ctor;
+        private static ILHook hook_orig_ctor;
         public static void Load() 
         {
             hook_orig_ctor = new ILHook(

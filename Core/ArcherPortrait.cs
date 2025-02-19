@@ -15,14 +15,14 @@ namespace EightPlayerMod
     {
         private static Action<ArcherPortrait> base_Render;
         private static ConstructorInfo base_ArcherPortrait;
-        private static FastReflectionDelegate InitGem;
-        private static FastReflectionDelegate ShouldFlip;
+        private static FastReflectionHelper.FastInvoker InitGem;
+        private static FastReflectionHelper.FastInvoker ShouldFlip;
         public static void Load() 
         {
             base_Render = CallHelper.CallBaseGen<CompositeComponent, ArcherPortrait>("Render");
             base_ArcherPortrait = typeof(CompositeComponent).GetConstructor(new Type[2] { typeof(bool), typeof(bool) });
-            InitGem = FastReflectionHelper.GetFastDelegate(typeof(ArcherPortrait).GetMethod("InitGem", BindingFlags.Instance | BindingFlags.NonPublic));
-            ShouldFlip = FastReflectionHelper.GetFastDelegate(typeof(ArcherPortrait).GetMethod("ShouldFlip", BindingFlags.Instance | BindingFlags.NonPublic));
+            InitGem = FastReflectionHelper.GetFastInvoker(typeof(ArcherPortrait).GetMethod("InitGem", BindingFlags.Instance | BindingFlags.NonPublic));
+            ShouldFlip = FastReflectionHelper.GetFastInvoker(typeof(ArcherPortrait).GetMethod("ShouldFlip", BindingFlags.Instance | BindingFlags.NonPublic));
             On.TowerFall.ArcherPortrait.ctor += ArcherPortraitctor_patch;
             On.TowerFall.ArcherPortrait.SetCharacter += SetCharacter_patch;
             On.TowerFall.ArcherPortrait.Render += Render_patch;

@@ -1,8 +1,13 @@
 {
     "name": "WiderSetMod",
-	"version": "0.5.3",
-	"required": "4.1.0",
-	"author": "Terria and RedDude",
-	"description": "Allows eight player in TowerFall with Wider levels",
-	"dll": "EightPlayerMod.dll"
+	"version": "0.6.0",
+	"author": "Terria, RedDude",
+	"description": "Allows eight player in TowerFall with Wide levels",
+	"dll": "EightPlayerMod.dll",
+	"dependencies": [
+		{
+			"name": "FortRise",
+			"version": "5.0.0"
+		}
+	]
 }

@@ -1,19 +1,19 @@
 using System;
 using System.Collections;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
-using TeuJson;
 using TowerFall;
 
 namespace EightPlayerMod
 {
     public static class QuestSavePatch 
     {
-        private static IDetour hook_MainMenuCreateCredits;
-        private static IDetour hook_MapButtonUnlockSequence;
+        private static ILHook hook_MainMenuCreateCredits;
+        private static ILHook hook_MapButtonUnlockSequence;
 
         public static void Load() 
         {
@@ -27,11 +27,12 @@ namespace EightPlayerMod
             IL.FortRise.RiseCore.Events.InvokeQuestRoundLogic_PlayerDeath += InlineTowers_patch;
             IL.FortRise.RiseCore.Events.InvokeQuestRoundLogic_LevelLoadFinish += InlineTowers_patch;
             IL.FortRise.RiseCore.Events.InvokeQuestComplete_Result += InlineTowers_patch;
-            IL.TowerFall.CoOpDataDisplay.ctor += CoOpDataDisplayctor_patch;
+            // IL.TowerFall.CoOpDataDisplay.ctor += CoOpDataDisplayctor_patch;
             On.TowerFall.MapScene.QuestIntroSequence += QuestIntroSequence_patch;
 
             hook_MainMenuCreateCredits = new ILHook(
-                typeof(MainMenu).GetMethod("<CreateCredits>b__111_7", BindingFlags.Instance | BindingFlags.NonPublic),
+                typeof(MainMenu).GetMethod("<CreateCredits>b__111_7", BindingFlags.Instance | BindingFlags.NonPublic) ??
+                typeof(MainMenu).GetMethod("<CreateCredits>b__3e", BindingFlags.Instance | BindingFlags.NonPublic),
                 CreateCredits_patch
             );
             hook_MapButtonUnlockSequence = new ILHook(
@@ -52,7 +53,7 @@ namespace EightPlayerMod
             IL.FortRise.RiseCore.Events.InvokeQuestRoundLogic_PlayerDeath -= InlineTowers_patch;
             IL.FortRise.RiseCore.Events.InvokeQuestRoundLogic_LevelLoadFinish -= InlineTowers_patch;
             IL.FortRise.RiseCore.Events.InvokeQuestComplete_Result -= InlineTowers_patch;
-            IL.TowerFall.CoOpDataDisplay.ctor -= CoOpDataDisplayctor_patch;
+            // IL.TowerFall.CoOpDataDisplay.ctor -= CoOpDataDisplayctor_patch;
             On.TowerFall.MapScene.QuestIntroSequence -= QuestIntroSequence_patch;
 
             hook_MainMenuCreateCredits.Dispose();
@@ -198,6 +199,7 @@ namespace EightPlayerMod
 
     public class WideQuestStats 
     {
+        [JsonInclude]
         public WideQuestTowerStats[] Towers;
 
         public void Verify()
@@ -215,7 +217,7 @@ namespace EightPlayerMod
 
 		public void RevealAll()
 		{
-			QuestTowerStats[] towers = this.Towers;
+			WideQuestTowerStats[] towers = this.Towers;
 			for (int i = 0; i < towers.Length; i++)
 			{
 				towers[i].Revealed = true;
@@ -276,7 +278,7 @@ namespace EightPlayerMod
 			get
 			{
 				int num = 0;
-				QuestTowerStats[] towers = this.Towers;
+				WideQuestTowerStats[] towers = this.Towers;
 				for (int i = 0; i < towers.Length; i++)
 				{
 					if (towers[i].CompletedNormal)
@@ -293,7 +295,7 @@ namespace EightPlayerMod
 			get
 			{
 				int num = 0;
-				QuestTowerStats[] towers = this.Towers;
+				WideQuestTowerStats[] towers = this.Towers;
 				for (int i = 0; i < towers.Length; i++)
 				{
 					if (towers[i].CompletedHardcore)
@@ -310,7 +312,7 @@ namespace EightPlayerMod
 			get
 			{
 				int num = 0;
-				QuestTowerStats[] towers = this.Towers;
+				WideQuestTowerStats[] towers = this.Towers;
 				for (int i = 0; i < towers.Length; i++)
 				{
 					if (towers[i].CompletedNoDeaths)
@@ -327,7 +329,7 @@ namespace EightPlayerMod
 			get
 			{
 				long num = 0L;
-				foreach (QuestTowerStats questTowerStats in this.Towers)
+				foreach (WideQuestTowerStats questTowerStats in this.Towers)
 				{
 					if (questTowerStats.Best1PTime == 0L)
 					{
@@ -368,7 +370,7 @@ namespace EightPlayerMod
 			get
 			{
 				ulong num = 0UL;
-				foreach (QuestTowerStats questTowerStats in this.Towers)
+				foreach (WideQuestTowerStats questTowerStats in this.Towers)
 				{
 					num += questTowerStats.TotalDeaths;
 				}
@@ -381,7 +383,7 @@ namespace EightPlayerMod
 			get
 			{
 				ulong num = 0UL;
-				foreach (QuestTowerStats questTowerStats in this.Towers)
+				foreach (WideQuestTowerStats questTowerStats in this.Towers)
 				{
 					num += questTowerStats.TotalAttempts;
 				}
@@ -390,9 +392,42 @@ namespace EightPlayerMod
 		}
     }
 
-    public class WideQuestTowerStats : QuestTowerStats, ISerialize, IDeserialize
+    public class WideQuestTowerStats : QuestTowerStats
     {
+        public new bool Revealed 
+        {
+            get => base.Revealed;
+            set => base.Revealed = value;
+        }
+        public new bool CompletedNormal 
+        {
+            get => base.CompletedNormal;
+            set => base.CompletedNormal = value;
+        }
+        public new bool CompletedHardcore 
+        {
+            get => base.CompletedHardcore;
+            set => base.CompletedHardcore = value;
+        }
+        public new bool CompletedNoDeaths
+        {
+            get => base.CompletedNoDeaths;
+            set => base.CompletedNoDeaths = value;
+        }
+
+        public new long Best1PTime 
+        {
+            get => base.Best1PTime;
+            set => base.Best1PTime = value;
+        }
+        public new long Best2PTime
+        {
+            get => base.Best2PTime;
+            set => base.Best2PTime = value;
+        }
+        [JsonInclude]
         public long Best3PTime;
+        [JsonInclude]
         public long Best4PTime;
 
         public static void Load() 
@@ -409,29 +444,29 @@ namespace EightPlayerMod
         {
             if (self is WideQuestTowerStats wideSelf) 
             {
-                self.CompletedNormal = (self.CompletedHardcore = true);
+                wideSelf.CompletedNormal = (wideSelf.CompletedHardcore = true);
                 if (noDeaths)
                 {
-                    self.CompletedNoDeaths = true;
+                    wideSelf.CompletedNoDeaths = true;
                 }
                 if (players == 1)
                 {
-                    if (self.Best1PTime == 0L)
+                    if (wideSelf.Best1PTime == 0L)
                     {
-                        self.Best1PTime = time;
+                        wideSelf.Best1PTime = time;
                         return;
                     }
-                    self.Best1PTime = Math.Min(self.Best1PTime, time);
+                    wideSelf.Best1PTime = Math.Min(wideSelf.Best1PTime, time);
                     return;
                 }
                 if (players == 2)
                 {
-                    if (self.Best2PTime == 0L)
+                    if (wideSelf.Best2PTime == 0L)
                     {
-                        self.Best2PTime = time;
+                        wideSelf.Best2PTime = time;
                         return;
                     }
-                    self.Best2PTime = Math.Min(self.Best2PTime, time);
+                    wideSelf.Best2PTime = Math.Min(wideSelf.Best2PTime, time);
                     return;
                 }
                 if (players == 3)
@@ -456,37 +491,6 @@ namespace EightPlayerMod
                 }
             }
             orig(self, players, time, noDeaths);
-        }
-
-        public void Deserialize(JsonObject value)
-        {
-            Best1PTime = value["Best1PTime"];
-            Best2PTime = value["Best2PTime"];
-            Best3PTime = value["Best3PTime"];
-            Best4PTime = value["Best4PTime"];
-            Revealed = value["Revealed"];
-            CompletedNormal = value["CompletedNormal"];
-            CompletedHardcore = value["CompletedHardcore"];
-            CompletedNoDeaths = value["CompletedNoDeaths"];
-            TotalDeaths = value["TotalDeaths"];
-            TotalAttempts = value["TotalAttempts"];
-        }
-
-        public JsonObject Serialize()
-        {
-            return new JsonObject 
-            {
-                ["Best1PTime"] = Best1PTime,
-                ["Best2PTime"] = Best2PTime,
-                ["Best3PTime"] = Best3PTime,
-                ["Best4PTime"] = Best4PTime,
-                ["Revealed"] = Revealed,
-                ["CompletedNormal"] = CompletedNormal,
-                ["CompletedHardcore"] = CompletedHardcore,
-                ["CompletedNoDeaths"] = CompletedNoDeaths,
-                ["TotalDeaths"] = TotalDeaths,
-                ["TotalAttempts"] = TotalAttempts,
-            };
         }
     }
 }

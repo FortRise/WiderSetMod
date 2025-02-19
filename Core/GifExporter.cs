@@ -90,7 +90,7 @@ namespace EightPlayerMod
 
     public static class GifExporterPatch 
     {
-        private static IDetour hook_ExportGif;
+        private static ILHook hook_ExportGif;
         public static void Load() 
         {
             hook_ExportGif = new ILHook(

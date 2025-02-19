@@ -9,7 +9,7 @@ namespace EightPlayerMod
     {
         public Type Type;
         public bool IsPrivate;
-        protected IDetour BaseHook;
+        protected ILHook BaseHook;
 
         public abstract void Load(ILContext.Manipulator manipulator);
         public void Unload() 

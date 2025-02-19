@@ -39,8 +39,8 @@ namespace EightPlayerMod
 
     public static class TFGamePatch 
     {
-        private static IDetour hook_orig_Initialize;
-        private static IDetour hook_FirstPlayer;
+        private static ILHook hook_orig_Initialize;
+        private static ILHook hook_FirstPlayer;
 
         public static void Load() 
         {

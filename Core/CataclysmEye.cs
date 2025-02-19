@@ -9,10 +9,10 @@ namespace EightPlayerMod
 {
     public static class CataclysmEyePatch 
     {
-        private static IDetour hook_IdleSafeCoroutine;
-        private static IDetour hook_ExplodingCoroutine;
-        private static IDetour hook_DeadCoroutine;
-        private static IDetour hook_DeadCoroutine91_0b__1;
+        private static ILHook hook_IdleSafeCoroutine;
+        private static ILHook hook_ExplodingCoroutine;
+        private static ILHook hook_DeadCoroutine;
+        private static ILHook hook_DeadCoroutine91_0b__1;
         public static void Load() 
         {
             IL.TowerFall.CataclysmEye.ctor += MiddlePatch;
@@ -37,7 +37,9 @@ namespace EightPlayerMod
             );
             hook_DeadCoroutine91_0b__1 = new ILHook(
                 typeof(CataclysmEye).GetNestedType("<>c__DisplayClass91_0", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetMethod("<DeadCoroutine>b__1", BindingFlags.Instance | BindingFlags.NonPublic),
+                    ?.GetMethod("<DeadCoroutine>b__1", BindingFlags.Instance | BindingFlags.NonPublic) ??
+                typeof(CataclysmEye).GetNestedType("<>c__DisplayClass78", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .FindMethod("<DeadCoroutine>b__76"),
                 MiddlePatch
             );
         }

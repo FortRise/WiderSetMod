@@ -9,8 +9,8 @@ namespace EightPlayerMod
 {
     public static class DarkWorldControlPatch 
     {
-        private static IDetour hook_BossIntroSequence;
-        private static IDetour hook_LevelIntroSequence;
+        private static ILHook hook_BossIntroSequence;
+        private static ILHook hook_LevelIntroSequence;
         public static void Load() 
         {
             hook_BossIntroSequence = new ILHook(

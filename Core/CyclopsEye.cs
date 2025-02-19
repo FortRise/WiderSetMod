@@ -13,7 +13,7 @@ namespace EightPlayerMod
 {
     public static class CyclopsEyePatch 
     {
-        private static IDetour hook_ShootSequence;
+        private static ILHook hook_ShootSequence;
         public static void Load() 
         {
             CyclopsEyeExt.Load();
@@ -468,20 +468,20 @@ namespace EightPlayerMod
             dynData.Set("moveOffset", dataBank.moveOffset);
         }
 
-        private static FastReflectionDelegate FistMirrorTo_Vector2_Easer_int_Impacts;
-        private static FastReflectionDelegate FistMirrorTo_Vector2_Vector2_Easer_int_Impacts;
+        private static FastReflectionHelper.FastInvoker FistMirrorTo_Vector2_Easer_int_Impacts;
+        private static FastReflectionHelper.FastInvoker FistMirrorTo_Vector2_Vector2_Easer_int_Impacts;
 
         public static void Load() 
         {
             var FistMirrorTo = typeof(CyclopsEye).GetMethod(
                 "FistMirrorTo", BindingFlags.Instance | BindingFlags.NonPublic, null, 
                 new Type[4] { typeof(Vector2), typeof(Ease.Easer), typeof(int), typeof(CyclopsFist.Impacts) }, null);
-            FistMirrorTo_Vector2_Easer_int_Impacts = FistMirrorTo.GetFastDelegate();
+            FistMirrorTo_Vector2_Easer_int_Impacts = FistMirrorTo.GetFastInvoker();
 
             var FistMirrorTo2 = typeof(CyclopsEye).GetMethod(
                 "FistMirrorTo", BindingFlags.Instance | BindingFlags.NonPublic, null, 
                 new Type[5] { typeof(Vector2), typeof(Vector2), typeof(Ease.Easer), typeof(int), typeof(CyclopsFist.Impacts) }, null);
-            FistMirrorTo_Vector2_Vector2_Easer_int_Impacts = FistMirrorTo2.GetFastDelegate();
+            FistMirrorTo_Vector2_Vector2_Easer_int_Impacts = FistMirrorTo2.GetFastInvoker();
         }
 
         public static void FistMirrorTo(this CyclopsEye eye, Vector2 to, Ease.Easer ease, int time, CyclopsFist.Impacts impact) 

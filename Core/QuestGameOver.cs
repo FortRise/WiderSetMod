@@ -9,10 +9,10 @@ namespace EightPlayerMod
 {
     public static class QuestGameOverPatch 
     {
-        private static IDetour hook_QuestGameOverSequence;
-        private static IDetour hook_QuestGameOverSequence6_0b__2;
-        private static IDetour hook_QuestGameOverSequence6_2b__5;
-        private static IDetour hook_QuestGameOverSequence6_3b__6;
+        private static ILHook hook_QuestGameOverSequence;
+        private static ILHook hook_QuestGameOverSequence6_0b__2;
+        private static ILHook hook_QuestGameOverSequence6_2b__5;
+        private static ILHook hook_QuestGameOverSequence6_3b__6;
         public static void Load() 
         {
             IL.TowerFall.QuestGameOver.Render += Render_patch;
@@ -21,21 +21,27 @@ namespace EightPlayerMod
                 Sequence_patch
             );
             hook_QuestGameOverSequence6_0b__2 = new ILHook(
+                (typeof(QuestGameOver).GetNestedType(
+                    "<>c__DisplayClass6_0", BindingFlags.Instance | BindingFlags.NonPublic) ??
                 typeof(QuestGameOver).GetNestedType(
-                    "<>c__DisplayClass6_0", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetMethod("<Sequence>b__2", BindingFlags.Instance | BindingFlags.NonPublic),
+                    "<>c__DisplayClassb", BindingFlags.Instance | BindingFlags.NonPublic))
+                    .FindMethod("<Sequence>b__2"),
                 Sequence_patch
             );
             hook_QuestGameOverSequence6_2b__5 = new ILHook(
+                (typeof(QuestGameOver).GetNestedType(
+                    "<>c__DisplayClass6_2", BindingFlags.Instance | BindingFlags.NonPublic) ??
                 typeof(QuestGameOver).GetNestedType(
-                    "<>c__DisplayClass6_2", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetMethod("<Sequence>b__5", BindingFlags.Instance | BindingFlags.NonPublic),
+                    "<>c__DisplayClassf", BindingFlags.Instance | BindingFlags.NonPublic))
+                    .FindMethod("<Sequence>b__5"),
                 Sequence_patch
             );
             hook_QuestGameOverSequence6_3b__6 = new ILHook(
+                (typeof(QuestGameOver).GetNestedType(
+                    "<>c__DisplayClass6_3", BindingFlags.Instance | BindingFlags.NonPublic) ??
                 typeof(QuestGameOver).GetNestedType(
-                    "<>c__DisplayClass6_3", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetMethod("<Sequence>b__6", BindingFlags.Instance | BindingFlags.NonPublic),
+                    "<>c__DisplayClass11", BindingFlags.Instance | BindingFlags.NonPublic))
+                    .FindMethod("<Sequence>b__6"),
                 Sequence_patch
             );
         }

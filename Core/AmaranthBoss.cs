@@ -9,8 +9,8 @@ namespace EightPlayerMod
 {
     public static class AmaranthBossPatch 
     {
-        private static IDetour hook_MoveSequence;
-        private static IDetour hook_DeadSequence45_2b__3;
+        private static ILHook hook_MoveSequence;
+        private static ILHook hook_DeadSequence45_2b__3;
 
         public static void Load() 
         {
@@ -22,7 +22,9 @@ namespace EightPlayerMod
             );
             hook_DeadSequence45_2b__3 = new ILHook(
                 typeof(AmaranthBoss).GetNestedType("<>c__DisplayClass45_2", BindingFlags.NonPublic | BindingFlags.Instance)
-                    .GetMethod("<DeadCoroutine>b__3", BindingFlags.NonPublic | BindingFlags.Instance),
+                    ?.GetMethod("<DeadCoroutine>b__3", BindingFlags.NonPublic | BindingFlags.Instance) ??
+                typeof(AmaranthBoss).GetNestedType("<>c__DisplayClass19", BindingFlags.NonPublic | BindingFlags.Instance)
+                    .FindMethod("<DeadCoroutine>b__10"),
                 ScreenUtils.PatchHalfWidthFloat
             );
         }

@@ -9,7 +9,7 @@ namespace EightPlayerMod
 {
     public static class VersusStartPatch 
     {
-        private static IDetour hook_IntroSequence;
+        private static ILHook hook_IntroSequence;
         public static void Load() 
         {
             IL.TowerFall.VersusStart.ctor += VersusStartctor_patch;

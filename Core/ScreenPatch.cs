@@ -16,12 +16,12 @@ namespace EightPlayerMod
 {
     public static partial class ScreenPatch 
     {
-        private static IDetour hook_QuestControlStartSequence;
-        private static IDetour hook_QuestControlStartSequenceb__2;
-        private static IDetour hook_QuestCompleteSequence;
-        private static IDetour hook_QuestCompleteSequenceb__1;
-        private static IDetour hook_QuestCompleteSequenceb__5;
-        private static IDetour hook_LevelCtor;
+        private static ILHook hook_QuestControlStartSequence;
+        private static ILHook hook_QuestControlStartSequenceb__2;
+        private static ILHook hook_QuestCompleteSequence;
+        private static ILHook hook_QuestCompleteSequenceb__1;
+        private static ILHook hook_QuestCompleteSequenceb__5;
+        private static ILHook hook_LevelCtor;
 
         public static void Load() 
         {
@@ -72,20 +72,29 @@ namespace EightPlayerMod
             );
             hook_QuestControlStartSequenceb__2 = new ILHook(
                 typeof(QuestControl).GetNestedType(
-                    "<>c__DisplayClass17_0", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetMethod("<StartSequence>b__2", BindingFlags.Instance | BindingFlags.NonPublic),
+                    "<>c__DisplayClass17_0", BindingFlags.NonPublic)
+                    ?.GetMethod("<StartSequence>b__2", BindingFlags.NonPublic) ??
+                typeof(QuestControl).GetNestedType(
+                    "<>c__DisplayClass14", BindingFlags.NonPublic)
+                    .FindMethod("<StartSequence>b__11"),
                 MiddlePos_patch
             );
             hook_QuestCompleteSequenceb__1 = new ILHook(
                 typeof(QuestComplete).GetNestedType(
-                    "<>c__DisplayClass8_0", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetMethod("<Sequence>b__1", BindingFlags.Instance | BindingFlags.NonPublic),
+                    "<>c__DisplayClass8_0", BindingFlags.NonPublic)
+                    ?.GetMethod("<Sequence>b__1", BindingFlags.Instance | BindingFlags.NonPublic) ??
+                typeof(QuestComplete).GetNestedType(
+                    "<>c__DisplayClassa", BindingFlags.NonPublic)
+                    .FindMethod("<Sequence>b__1"),
                 MiddlePos_patch
             );
             hook_QuestCompleteSequenceb__5 = new ILHook(
                 typeof(QuestComplete).GetNestedType(
-                    "<>c__DisplayClass8_2", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetMethod("<Sequence>b__5", BindingFlags.Instance | BindingFlags.NonPublic),
+                    "<>c__DisplayClass8_2", BindingFlags.NonPublic)
+                    ?.GetMethod("<Sequence>b__5", BindingFlags.Instance | BindingFlags.NonPublic) ??
+                typeof(QuestComplete).GetNestedType(
+                    "<>c__DisplayClasse", BindingFlags.NonPublic)
+                    .FindMethod("<Sequence>b__5"),
                 MiddlePos_patch
             );
             hook_QuestCompleteSequence = new ILHook(
@@ -256,7 +265,7 @@ namespace EightPlayerMod
             var cursor = new ILCursor(ctx);
             if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(318f))) 
             {
-                cursor.EmitDelegate<Func<int, int>>(width => {
+                cursor.EmitDelegate<Func<float, float>>(width => {
                     if (EightPlayerModule.IsEightPlayer)
                         return 418;
                     return width;

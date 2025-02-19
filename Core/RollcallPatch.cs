@@ -13,17 +13,17 @@ namespace EightPlayerMod
 {
     public static class RollcallPatch 
     {
-        private static IDetour hook_RollcallElementMaxPlayers;
-        private static FastReflectionDelegate ChangeSelectionLeft;
-        private static FastReflectionDelegate ChangeSelectionRight;
-        private static FastReflectionDelegate ForceStart;
+        private static ILHook hook_RollcallElementMaxPlayers;
+        private static FastReflectionHelper.FastInvoker ChangeSelectionLeft;
+        private static FastReflectionHelper.FastInvoker ChangeSelectionRight;
+        private static FastReflectionHelper.FastInvoker ForceStart;
         public static void Load() 
         {
-            ChangeSelectionLeft = FastReflectionHelper.CreateFastDelegate(typeof(RollcallElement)
+            ChangeSelectionLeft = FastReflectionHelper.GetFastInvoker(typeof(RollcallElement)
                 .GetMethod("ChangeSelectionLeft", BindingFlags.NonPublic | BindingFlags.Instance));
-            ChangeSelectionRight = FastReflectionHelper.CreateFastDelegate(typeof(RollcallElement)
+            ChangeSelectionRight = FastReflectionHelper.GetFastInvoker(typeof(RollcallElement)
                 .GetMethod("ChangeSelectionRight", BindingFlags.NonPublic | BindingFlags.Instance));
-            ForceStart = FastReflectionHelper.CreateFastDelegate(typeof(RollcallElement)
+            ForceStart = FastReflectionHelper.GetFastInvoker(typeof(RollcallElement)
                 .GetMethod("ForceStart", BindingFlags.NonPublic | BindingFlags.Instance));
             On.TowerFall.MainMenu.CreateRollcall += CreateRollcall_patch;
             On.TowerFall.MainMenu.DestroyRollcall += DestroyRollcall_patch;
