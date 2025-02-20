@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using FortRise;
 using Monocle;
 using MonoMod.Utils;
 using TowerFall;
@@ -71,7 +72,7 @@ public static class VersusLevelSystemPatch
             return;
         }
         var levelSystem = DynamicData.For(self);
-        var lastLevel = levelSystem.Get<string>("lastlevel");
+        var lastLevel = levelSystem.Get<string>("lastLevel");
         FakeVersusTowerData fake;
         if (matchSettings.CurrentModeName != null &&
             FakeVersusTowerData.CustomChapters.TryGetValue(matchSettings.CurrentModeName, out var level)) 
@@ -86,6 +87,7 @@ public static class VersusLevelSystemPatch
             CurrentResource = null;
         }
         var levels = fake.GetLevels(matchSettings);
+
         if (self.VersusTowerData.FixedFirst && lastLevel == null)
         {
             string text = levels[0];
