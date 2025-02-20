@@ -25,8 +25,7 @@ namespace EightPlayerMod
                 .GetMethod("ChangeSelectionRight", BindingFlags.NonPublic | BindingFlags.Instance));
             ForceStart = FastReflectionHelper.GetFastInvoker(typeof(RollcallElement)
                 .GetMethod("ForceStart", BindingFlags.NonPublic | BindingFlags.Instance));
-            On.TowerFall.MainMenu.CreateRollcall += CreateRollcall_patch;
-            On.TowerFall.MainMenu.DestroyRollcall += DestroyRollcall_patch;
+
             hook_RollcallElementMaxPlayers = new ILHook(
                 typeof(RollcallElement).GetProperty("MaxPlayers", BindingFlags.NonPublic | BindingFlags.Instance).GetGetMethod(true),
                 RollcallElementMaxPlayers_patch
@@ -41,8 +40,6 @@ namespace EightPlayerMod
 
         public static void Unload() 
         {
-            On.TowerFall.MainMenu.CreateRollcall -= CreateRollcall_patch;
-            On.TowerFall.MainMenu.DestroyRollcall -= DestroyRollcall_patch;
             hook_RollcallElementMaxPlayers.Dispose();
 
             IL.TowerFall.RollcallElement.ctor -= RollcallElementctor_patch;
@@ -250,16 +247,6 @@ namespace EightPlayerMod
                     return maxPlayer;
                 });
             }
-        }
-
-        private static void DestroyRollcall_patch(On.TowerFall.MainMenu.orig_DestroyRollcall orig, MainMenu self)
-        {
-            orig(self);
-        }
-
-        private static void CreateRollcall_patch(On.TowerFall.MainMenu.orig_CreateRollcall orig, MainMenu self)
-        {
-            orig(self);
         }
     }
 }

@@ -36,22 +36,23 @@ namespace EightPlayerMod
                     Logger.Log("Loading in: " + methodType.Type.Name);
 #endif
 
-                methodType.Load(Screen_patch);
+                methodType.Load(ScreenUtils.PatchWidth);
             }
             /* It has some special cases */
-            IL.TowerFall.LevelEntity.Render += MiddlePos_patch;
-            IL.TowerFall.PauseMenu.Render += MiddlePos_patch;
-            IL.TowerFall.Level.HandlePausing += MiddlePos_patch;
-            IL.TowerFall.TreasureSpawner.GetChestSpawnsForLevel += MiddlePos_patch;
-            IL.TowerFall.WrapMath.Opposite += MiddlePos_patch;
-            IL.TowerFall.MapScene.InitButtons += InitButtons_patch;
-            IL.TowerFall.QuestPlayerHUD.ctor += QuestPlayerHUD_patch;
-            IL.TowerFall.QuestSpawnPortal.FinishSpawn += MiddlePos_patch;
+            IL.TowerFall.LevelEntity.Render += ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.PauseMenu.Render += ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.Level.HandlePausing += ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.TreasureSpawner.GetChestSpawnsForLevel += ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.WrapMath.Opposite += ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.QuestWavesHUD.GetWaveX += ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.QuestGauntletCounter.ctor += ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.QuestSpawnPortal.FinishSpawn += ScreenUtils.PatchHalfWidth;
             IL.TowerFall.Level.CoreRender += LevelCoreRender_patch;
             IL.TowerFall.Session.EndlessContinue += SwapLevelLoader_patch;
             IL.TowerFall.Session.GotoNextRound += SwapLevelLoader_patch;
-            IL.TowerFall.QuestWavesHUD.GetWaveX += MiddlePos_patch;
-            IL.TowerFall.QuestGauntletCounter.ctor += MiddlePos_patch;
+            IL.TowerFall.MapScene.InitButtons += InitButtons_patch;
+            IL.TowerFall.QuestPlayerHUD.ctor += QuestPlayerHUD_patch;
+
             IL.TowerFall.MenuButtonGuide.ctor_int_ButtonModes_string += MenuButtonGuide_patch;
             IL.TowerFall.Saver.ctor += Saver_patch;
 
@@ -68,7 +69,7 @@ namespace EightPlayerMod
 
             hook_QuestControlStartSequence = new ILHook(
                 typeof(QuestControl).GetMethod("StartSequence", BindingFlags.Instance | BindingFlags.NonPublic).GetStateMachineTarget(),
-                MiddlePos_patch
+                ScreenUtils.PatchHalfWidth
             );
             hook_QuestControlStartSequenceb__2 = new ILHook(
                 typeof(QuestControl).GetNestedType(
@@ -77,7 +78,7 @@ namespace EightPlayerMod
                 typeof(QuestControl).GetNestedType(
                     "<>c__DisplayClass14", BindingFlags.NonPublic)
                     .FindMethod("<StartSequence>b__11"),
-                MiddlePos_patch
+                ScreenUtils.PatchHalfWidth
             );
             hook_QuestCompleteSequenceb__1 = new ILHook(
                 typeof(QuestComplete).GetNestedType(
@@ -86,7 +87,7 @@ namespace EightPlayerMod
                 typeof(QuestComplete).GetNestedType(
                     "<>c__DisplayClassa", BindingFlags.NonPublic)
                     .FindMethod("<Sequence>b__1"),
-                MiddlePos_patch
+                ScreenUtils.PatchHalfWidth
             );
             hook_QuestCompleteSequenceb__5 = new ILHook(
                 typeof(QuestComplete).GetNestedType(
@@ -95,11 +96,11 @@ namespace EightPlayerMod
                 typeof(QuestComplete).GetNestedType(
                     "<>c__DisplayClasse", BindingFlags.NonPublic)
                     .FindMethod("<Sequence>b__5"),
-                MiddlePos_patch
+                ScreenUtils.PatchHalfWidth
             );
             hook_QuestCompleteSequence = new ILHook(
                 typeof(QuestComplete).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic).GetStateMachineTarget(),
-                MiddlePos_patch
+                ScreenUtils.PatchHalfWidth
             );
         }
 
@@ -109,19 +110,19 @@ namespace EightPlayerMod
             {
                 methodType.Unload();
             }
-            IL.TowerFall.LevelEntity.Render -= MiddlePos_patch;
-            IL.TowerFall.PauseMenu.Render -= MiddlePos_patch;
+            IL.TowerFall.LevelEntity.Render -= ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.PauseMenu.Render -= ScreenUtils.PatchHalfWidth;
             IL.TowerFall.MapScene.InitButtons -= InitButtons_patch;
-            IL.TowerFall.Level.HandlePausing -= MiddlePos_patch;
-            IL.TowerFall.TreasureSpawner.GetChestSpawnsForLevel -= MiddlePos_patch;
-            IL.TowerFall.WrapMath.Opposite -= MiddlePos_patch;
+            IL.TowerFall.Level.HandlePausing -= ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.TreasureSpawner.GetChestSpawnsForLevel -= ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.WrapMath.Opposite -= ScreenUtils.PatchHalfWidth;
             IL.TowerFall.QuestPlayerHUD.ctor -= QuestPlayerHUD_patch;
-            IL.TowerFall.QuestSpawnPortal.FinishSpawn -= MiddlePos_patch;
+            IL.TowerFall.QuestSpawnPortal.FinishSpawn -= ScreenUtils.PatchHalfWidth;
             IL.TowerFall.Level.CoreRender -= LevelCoreRender_patch;
             IL.TowerFall.Session.EndlessContinue -= SwapLevelLoader_patch;
             IL.TowerFall.Session.GotoNextRound -= SwapLevelLoader_patch;
-            IL.TowerFall.QuestWavesHUD.GetWaveX -= MiddlePos_patch;
-            IL.TowerFall.QuestGauntletCounter.ctor -= MiddlePos_patch;
+            IL.TowerFall.QuestWavesHUD.GetWaveX -= ScreenUtils.PatchHalfWidth;
+            IL.TowerFall.QuestGauntletCounter.ctor -= ScreenUtils.PatchHalfWidth;
             IL.TowerFall.MenuButtonGuide.ctor_int_ButtonModes_string -= MenuButtonGuide_patch;
             IL.TowerFall.Saver.ctor -= Saver_patch;
 
@@ -328,72 +329,6 @@ namespace EightPlayerMod
                     return xml;
                 });
             }
-        }
-
-
-        private static void MiddlePos_patch(ILContext ctx)
-        {
-            var cursor = new ILCursor(ctx);
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(160f))) 
-            {
-                if (cursor.Next.MatchLdcR4(1))
-                    continue;
-                cursor.EmitDelegate<Func<float, float>>(width => {
-                    if (EightPlayerModule.IsEightPlayer)
-                        return 420 / 2;
-                    return width;
-                });
-            }
-
-            var intcursor = new ILCursor(ctx);
-            while (intcursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(160))) 
-            {
-                intcursor.EmitDelegate<Func<int, int>>(width => {
-                    if (EightPlayerModule.IsEightPlayer)
-                        return 420 / 2;
-                    return width;
-                });
-            }
-
-            var offCursor = new ILCursor(ctx);
-            while (offCursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(480))) 
-            {
-                offCursor.EmitDelegate<Func<float, float>>(width => {
-                    if (EightPlayerModule.IsEightPlayer)
-                        return 540f;
-                    return width;
-                });
-            }
-        }
-
-        private static void Screen_patch(ILContext ctx) 
-        {
-            var intCursor = new ILCursor(ctx);
-            while (intCursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(320))) 
-            {
-                intCursor.EmitDelegate<Func<int, int>>(OnApplyPatchInt);
-            }
-            var floatCursor = new ILCursor(ctx);
-            while (floatCursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(320f))) 
-            {
-                floatCursor.EmitDelegate<Func<float, float>>(OnApplyPatchFloat);
-            }
-        }
-
-        private static float OnApplyPatchFloat(float width) 
-        {
-            if (EightPlayerModule.IsEightPlayer)
-                return 420f;
-
-            return width;
-        }
-
-        private static int OnApplyPatchInt(int width) 
-        {
-            if (EightPlayerModule.IsEightPlayer)
-                return 420;
-
-            return width;
         }
 
         public static MethodInfo GetStateMachineTarget(MethodInfo method, int index) 

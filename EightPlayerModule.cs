@@ -138,9 +138,7 @@ namespace EightPlayerMod
             typeof(ModExports).ModInterop();
         }
 
-        public override void Initialize()
-        {
-        }
+        public override void Initialize() {}
 
         public override void Unload()
         {
