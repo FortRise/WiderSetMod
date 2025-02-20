@@ -14,6 +14,7 @@ namespace EightPlayerMod
     {
         private static ILHook hook_MainMenuCreateCredits;
         private static ILHook hook_MapButtonUnlockSequence;
+        private static ILHook hook_orig_RefreshLevelStats;
 
         public static void Load() 
         {
@@ -21,7 +22,6 @@ namespace EightPlayerMod
             IL.TowerFall.MapButton.UnlockSequence += InlineTowers_patch;
             IL.TowerFall.UnlockData.GetQuestTowerUnlocked += InlineTowers_patch;
             IL.TowerFall.UnlockData.GetArcherToIntro += InlineTowers_patch;
-            IL.TowerFall.QuestLevelSelectOverlay.RefreshLevelStats += InlineTowers_patch;
             IL.TowerFall.QuestLevelSelectOverlay.ctor += QuestLevelSelectOverlayctor_patch;
             IL.TowerFall.QuestMapButton.GetLocked += InlineTowers_patch;
             IL.FortRise.RiseCore.Events.InvokeQuestRoundLogic_PlayerDeath += InlineTowers_patch;
@@ -29,6 +29,11 @@ namespace EightPlayerMod
             IL.FortRise.RiseCore.Events.InvokeQuestComplete_Result += InlineTowers_patch;
             // IL.TowerFall.CoOpDataDisplay.ctor += CoOpDataDisplayctor_patch;
             On.TowerFall.MapScene.QuestIntroSequence += QuestIntroSequence_patch;
+
+            hook_orig_RefreshLevelStats = new ILHook(
+                typeof(QuestLevelSelectOverlay).GetMethod("orig_RefreshLevelStats", BindingFlags.NonPublic | BindingFlags.Instance),
+                InlineTowers_patch
+            );
 
             hook_MainMenuCreateCredits = new ILHook(
                 typeof(MainMenu).GetMethod("<CreateCredits>b__111_7", BindingFlags.Instance | BindingFlags.NonPublic) ??
@@ -47,7 +52,6 @@ namespace EightPlayerMod
             IL.TowerFall.MapButton.UnlockSequence -= InlineTowers_patch;
             IL.TowerFall.UnlockData.GetQuestTowerUnlocked -= InlineTowers_patch;
             IL.TowerFall.UnlockData.GetArcherToIntro -= InlineTowers_patch;
-            IL.TowerFall.QuestLevelSelectOverlay.RefreshLevelStats -= InlineTowers_patch;
             IL.TowerFall.QuestLevelSelectOverlay.ctor -= QuestLevelSelectOverlayctor_patch;
             IL.TowerFall.QuestMapButton.GetLocked -= InlineTowers_patch;
             IL.FortRise.RiseCore.Events.InvokeQuestRoundLogic_PlayerDeath -= InlineTowers_patch;
@@ -56,6 +60,7 @@ namespace EightPlayerMod
             // IL.TowerFall.CoOpDataDisplay.ctor -= CoOpDataDisplayctor_patch;
             On.TowerFall.MapScene.QuestIntroSequence -= QuestIntroSequence_patch;
 
+            hook_orig_RefreshLevelStats.Dispose();
             hook_MainMenuCreateCredits.Dispose();
             hook_MapButtonUnlockSequence.Dispose();
         }
@@ -126,7 +131,7 @@ namespace EightPlayerMod
                 instr => instr.MatchCallOrCallvirt<QuestStats>("get_TotalSoloTime")))
             {
                 cursor.EmitDelegate<Func<long, long>>(x => {
-                    if (EightPlayerModule.IsEightPlayer) 
+                    if (EightPlayerModule.LaunchedEightPlayer) 
                     {
                         return EightPlayerModule.SaveData.QuestStats.TotalSoloTime;
                     }
@@ -140,7 +145,7 @@ namespace EightPlayerMod
                 instr => instr.MatchCallOrCallvirt<QuestStats>("get_TotalCoopTime")))
             {
                 cursor.EmitDelegate<Func<long, long>>(x => {
-                    if (EightPlayerModule.IsEightPlayer) 
+                    if (EightPlayerModule.LaunchedEightPlayer) 
                     {
                         return EightPlayerModule.SaveData.QuestStats.TotalCoopTime;
                     }
@@ -394,6 +399,16 @@ namespace EightPlayerMod
 
     public class WideQuestTowerStats : QuestTowerStats
     {
+        public new ulong TotalDeaths
+        {
+            get => base.TotalDeaths;
+            set => base.TotalDeaths = value;
+        }
+        public new ulong TotalAttempts
+        {
+            get => base.TotalAttempts;
+            set => base.TotalAttempts = value;
+        }
         public new bool Revealed 
         {
             get => base.Revealed;
