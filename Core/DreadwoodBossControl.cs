@@ -196,7 +196,9 @@ namespace EightPlayerMod
         {
             var cursor = new ILCursor(ctx);
 
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(3))) 
+            if (cursor.TryGotoNext(MoveType.After, 
+                instr => instr.MatchCallOrCallvirt<List<Monocle.Entity>>("get_Count"),
+                instr => instr.MatchLdcI4(3))) 
             {
                 cursor.EmitDelegate<Func<int, int>>(x => {
                     if (EightPlayerModule.IsEightPlayer) 
