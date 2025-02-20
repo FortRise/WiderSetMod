@@ -212,13 +212,14 @@ namespace EightPlayerMod
             var get_ArcherData = typeof(ArcherPortrait).GetProperty("ArcherData").GetGetMethod();
             var Portraits = typeof(ArcherData).GetField("Portraits");
             var Joined = typeof(ArcherData.PortraitInfo).GetField("Joined");
+            int id = RiseCore.IsWindows ? 0 : 1;
 
             var token0 = ctx.Body.Variables[0];
             while (cursor.TryGotoNext(MoveType.After, 
                 instr => instr.MatchLdfld<ArcherData.PortraitInfo>("Joined"),
-                instr => instr.MatchLdloca(0),
+                instr => instr.MatchLdloca(id),
                 instr => instr.MatchInitobj<Rectangle?>(),
-                instr => instr.MatchLdloc(0))) 
+                instr => instr.MatchLdloc(id))) 
             {
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Callvirt, get_ArcherData);
