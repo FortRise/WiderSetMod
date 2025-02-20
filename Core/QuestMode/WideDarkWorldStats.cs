@@ -447,98 +447,98 @@ public class WideDarkWorldTowerStats : DarkWorldTowerStats
 {
     public new bool Revealed
     {
-        get => Revealed;
-        set => Revealed = value;
+        get => base.Revealed;
+        set => base.Revealed = value;
     }
 
     public new bool CompletedNormal
     {
-        get => CompletedNormal;
-        set => CompletedNormal = value;
+        get => base.CompletedNormal;
+        set => base.CompletedNormal = value;
     }
 
     public new bool CompletedHardcore
     {
-        get => CompletedHardcore;
-        set => CompletedHardcore = value;
+        get => base.CompletedHardcore;
+        set => base.CompletedHardcore = value;
     }
 
     public new bool CompletedLegendary
     {
-        get => CompletedLegendary;
-        set => CompletedLegendary = value;
+        get => base.CompletedLegendary;
+        set => base.CompletedLegendary = value;
     }
 
     public new bool EarnedEye
     {
-        get => EarnedEye;
-        set => EarnedEye = value;
+        get => base.EarnedEye;
+        set => base.EarnedEye = value;
     }
 
     public new bool EarnedGoldEye
     {
-        get => EarnedGoldEye;
-        set => EarnedGoldEye = value;
+        get => base.EarnedGoldEye;
+        set => base.EarnedGoldEye = value;
     }
 
     public new long Best1PTime
     {
-        get => Best1PTime;
-        set => Best1PTime = value;
+        get => base.Best1PTime;
+        set => base.Best1PTime = value;
     }
 
     public new long Best2PTime
     {
-        get => Best2PTime;
-        set => Best2PTime = value;
+        get => base.Best2PTime;
+        set => base.Best2PTime = value;
     }
 
     public new long Best3PTime
     {
-        get => Best3PTime;
-        set => Best3PTime = value;
+        get => base.Best3PTime;
+        set => base.Best3PTime = value;
     }
 
     public new long Best4PTime
     {
-        get => Best4PTime;
-        set => Best4PTime = value;
+        get => base.Best4PTime;
+        set => base.Best4PTime = value;
     }
 
     public new int Most1PCurses
     {
-        get => Most1PCurses;
-        set => Most1PCurses = value;
+        get => base.Most1PCurses;
+        set => base.Most1PCurses = value;
     }
 
     public new int Most2PCurses
     {
-        get => Most2PCurses;
-        set => Most2PCurses = value;
+        get => base.Most2PCurses;
+        set => base.Most2PCurses = value;
     }
 
     public new int Most3PCurses
     {
-        get => Most3PCurses;
-        set => Most3PCurses = value;
+        get => base.Most3PCurses;
+        set => base.Most3PCurses = value;
     }
 
     public new int Most4PCurses
     {
-        get => Most4PCurses;
-        set => Most4PCurses = value;
+        get => base.Most4PCurses;
+        set => base.Most4PCurses = value;
     }
 
     public new ulong Deaths
     {
-        get => Deaths;
-        set => Deaths = value;
+        get => base.Deaths;
+        set => base.Deaths = value;
     }
 
     public new ulong Attempts
     {
-        get => Attempts;
-        set => Attempts = value;
+        get => base.Attempts;
+        set => base.Attempts = value;
     }
 
     [JsonInclude]
