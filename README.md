@@ -30,3 +30,4 @@ This mod brings a way to play both Standard and Wider set. So you don't have to 
 
 ## Credits:
 + **[RedDude](https://github.com/RedDude)** - for providing the Versus Levels and Standard and Wider set assets. As well as a guide for changing the screen size and extending the players count.
++ **Ninjardo** - for improved or customized Wide Versus layouts.
