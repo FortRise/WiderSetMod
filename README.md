@@ -1,3 +1,6 @@
+> [!WARNING]
+> This project is deprecated and no longer maintained, the new project [Wider Set](https://github.com/FortRise/ExampleFortRiseMod/tree/main/WiderSet) is being worked on instead.
+
 # Wider Set
 
 Wider Set is an Eight Player Mod ported as a FortRise mods. This includes a wider levels for Versus, 4-Players Quest mode, and 8-Players Dark World mode (WIP). 
